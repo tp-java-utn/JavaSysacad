@@ -9,9 +9,17 @@ public class Usuario {
 	
 	private DataAlumno da = new DataAlumno();
 	
+	DataAlumno DA;
+	
+	public Usuario() 
+	{
+		DA = new DataAlumno();
+	}
+	
 	public Alumno Validate(String user,String pass)
 	{
-		//DataAlumno DA = new DataAlumno();
+		
+		//ArrayList<Alumno> alumnos = da.getAll();
 		Alumno A = new Alumno();
 		if(user.equals("43904") && pass.equals("asd")) 
 		{

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Data.*;
 import Entidades.*;
 import Entidades.Materia.estados;
+import Logic.Validator;
 
 
 public class UIconsola {
@@ -14,7 +15,7 @@ public class UIconsola {
 		
 		
 		
-		
+		//test git
 		//System.out.println(DA.getOne("43904").toString()); 
 		//DA.addAlumno("Agustin","Gonzales","44539","4569987","agozanles@gmail.com","asd4568","Mexico",1456);
 		//DA.addAlumno("test","tes","1","455557","test@gmail.com","test123","test",123);
@@ -52,6 +53,9 @@ public class UIconsola {
 		m.setEstado(estados.Libre);
 		System.out.println(m.getEstado());
 		
+		
+		Validator v = new Validator();
+		System.out.println(v.emailOk("fede@hotmail.com.ar",1,25));
 		/*Scanner s= new Scanner(System.in);
 		Alumno A2 = new Alumno();
 		System.out.println("Ingrese nombre:");
