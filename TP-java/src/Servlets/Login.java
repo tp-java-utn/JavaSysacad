@@ -56,17 +56,52 @@ public class Login extends HttpServlet {
 		
 		String user = req.getParameter("user");
 		String pass = req.getParameter("password");
-		System.out.print(user +"/"+ pass);
-		Usuario u = new Usuario();
-		Alumno A = u.Validate(user, pass);
+		String errorUser = "";
+		String errorPass = "";
+		ErrorManager em1 = new ErrorManager("El legajo",5,10);
+		ErrorManager em2 = new ErrorManager("La contraseña",3,10);
 		
-		if (A == null) {
-			//response(resp, "invalid login");
-		} else {
-			req.getSession().setAttribute("usuario", A);
-        	System.out.println(A.toString());
-        	//resp.sendRedirect("MainPage");
-        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+		Validator v = new Validator();
+		if(v.stringOk(user, 5, 10) && v.stringOk(pass, 3, 10)) {
+			System.out.print(user +"/"+ pass);
+			Usuario u = new Usuario();
+			Alumno A = u.Validate(user, pass);
+			
+			if (A == null) {
+				ErrorManager em = new ErrorManager("El legajo y/o contraseña son incorrectos.");
+				errorPass = em.specificError();
+				req.setAttribute("errorPass",errorPass);
+				req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+			} else {
+				req.getSession().setAttribute("usuario", A);
+	        	System.out.println(A.toString());
+	        	//resp.sendRedirect("MainPage");
+	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+			}
+		}
+		else if(!v.stringOk(user, 5, 10) && !v.stringOk(pass, 3, 10))
+		{
+			errorUser = em1.error();
+			errorPass = em2.error();
+			req.setAttribute("errorUser",errorUser);
+			req.setAttribute("errorPass",errorPass);
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+		}
+		else if(!v.stringOk(user, 5, 10))
+		{
+			errorUser = em1.error();
+			req.setAttribute("errorUser",errorUser);
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+		}
+		else if(!v.stringOk(pass, 3, 10))
+		{
+			errorPass = em2.error();
+			req.setAttribute("errorPass",errorPass);
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+		}
+		else
+		{
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 		}
 	}
 

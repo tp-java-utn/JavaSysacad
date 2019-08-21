@@ -30,7 +30,7 @@
 			<div class="text-center mb-4">
 				<img class="mb-4" src="pngs/login.png" height="150" width="150">
 				<h1 class="h3 mb-3 font-weight-normal">Login UTN</h1>
-				<p> Sistema de autogestión alumnos de la Universidad Tecnológica Nacional Facultad Regional Rosario</p>
+				<p> Sistema de autogesti�n alumnos de la Universidad Tecnol�gica Nacional Facultad Regional Rosario</p>
 			</div>
 			
 			<div class="form-label-group">
@@ -38,16 +38,29 @@
 				<label for="user">Legajo</label>
 			</div>
 			<p class="text-danger">
-				<% String error = (String)request.getAttribute("error");
-				out.println(error);%>
+				<% 
+				String error1 = (String)request.getAttribute("errorUser");
+				if(error1 != null)
+				{
+					out.println(error1);
+				}
+				%>
 			</p>
 			
 			
 			<div class="form-label-group">
-				<input name="password" type="password" class="form-control" placeholder = "Contraseña" required/>
-				<label for="password">Contraseña</label>
+				<input name="password" type="password" class="form-control" placeholder = "Contrase�a" required/>
+				<label for="password">Contrase�a</label>
 			</div>
-			<p class="text-danger">La contraseña debe poseer entre 5-10 caracteres</p>
+			<p class="text-danger">
+				<% 
+				String error2 = (String)request.getAttribute("errorPass");
+				if(error2 != null)
+				{
+					out.println(error2);
+				}
+				%>
+			</p>
 			
 			<div class="checkbox mb-3">
 			    <label>
@@ -56,7 +69,7 @@
 		    </div>
 		    
 			<input type = "submit" value = "Login" class="btn btn-lg btn-primary btn-block">
-			<p>¿Olvidaste tu contraseña? <a href="https://caniuse.com/#feat=css-placeholder-shown">presiona aqui</a></p>
+			<p>�Olvidaste tu contrase�a? <a href="https://caniuse.com/#feat=css-placeholder-shown">presiona aqui</a></p>
 
 		</form>
 	</body>
