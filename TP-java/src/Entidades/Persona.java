@@ -7,7 +7,20 @@ public class Persona {
 	private String contraseña;
 	private String telefono;
 	private Direccion direccion;
+	private EstadosPersona estado;
 	
+	public enum EstadosPersona{
+		Activo,
+		Pendiente,
+		Eliminado
+	}
+	
+	public String getEstadoPersona() {
+		return estado.toString();
+	}
+	public void setEstadoPersona(EstadosPersona estado) {
+		this.estado = estado;
+	}
 	public String getNombre() {
 		return nombre;
 	}

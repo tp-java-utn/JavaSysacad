@@ -20,7 +20,7 @@
 		
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 		    <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><Strong><%=A.getNombre()+" "+A.getApellido()%></Strong></a>
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/MainPage.jsp" role="button" aria-haspopup="true" aria-expanded="false"><Strong><%=A.getNombre()+" "+A.getApellido()%></Strong></a>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="#">Action</a>
 			      <a class="dropdown-item" href="#">Another action</a>

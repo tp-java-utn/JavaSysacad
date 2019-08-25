@@ -12,7 +12,7 @@ public class FactoryConexion {
 	private String pass   = "hx2su9bb";
 	private String db	  = "database=UTN";
 	private int conectados=0;
-	private Connection conn=null;
+	private Connection conn= null;
 	
 	private FactoryConexion() {
 		try {
@@ -45,7 +45,7 @@ public class FactoryConexion {
 	public void releaseConn() {
 		conectados--;
 		try {
-			if (conectados<=0) {
+			if (conectados<=0 && conn!=null) {
 				conn.close();
 			}
 		} catch (SQLException e) {

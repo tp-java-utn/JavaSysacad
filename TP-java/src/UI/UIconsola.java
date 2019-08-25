@@ -1,11 +1,15 @@
 package UI;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Data.*;
 import Entidades.*;
 import Entidades.Materia.estados;
+import Logic.Usuario;
 import Logic.Validator;
 
 
@@ -31,14 +35,7 @@ public class UIconsola {
 		}
 		
 		
-		System.out.println("DIRECCIONES");
-		DataDireccion DD = new DataDireccion();
-		ArrayList<Direccion> direcciones =DD.getAll(); 
-		for (Direccion D:direcciones) 
-		{
-			System.out.println(D.toString());
-		}
-		System.out.println("");
+		
 		
 		
 		System.out.println("MATERIAS");
@@ -56,6 +53,29 @@ public class UIconsola {
 		
 		Validator v = new Validator();
 		System.out.println(v.emailOk("fede@hotmail.com.ar",1,25));
+		
+		
+		Usuario u = new Usuario();
+		Alumno Avalidado = u.Validate("404", "asd1234");
+		if(Avalidado.getLegajo() != null)
+			{System.out.println(Avalidado.toString());}
+		else
+			{System.out.println("Usuario/Contraseña incorrectas");}
+		
+		
+		//Alumno A4 = DA.getOne(DA.addAlumno("Oscar","Centeno","15892","3471228","oscaraa@hotmail.com.ar","12osca98","Nicaragua",1256));
+		//System.out.println(A4.toString());
+		DA.delete("15892");
+		
+		System.out.println("DIRECCIONES");
+		DataDireccion DD = new DataDireccion();
+		ArrayList<Direccion> direcciones =DD.getAll(); 
+		for (Direccion D:direcciones) 
+		{
+			System.out.println(D.toString());
+		}
+		System.out.println("");
+		
 		/*Scanner s= new Scanner(System.in);
 		Alumno A2 = new Alumno();
 		System.out.println("Ingrese nombre:");

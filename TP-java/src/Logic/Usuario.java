@@ -19,7 +19,9 @@ public class Usuario {
 	public Alumno Validate(String user,String pass)
 	{
 		
-		//ArrayList<Alumno> alumnos = da.getAll();
+		
+		
+		/*/temporal
 		Alumno A = new Alumno();
 		if(user.equals("43904") && pass.equals("asd")) 
 		{
@@ -40,9 +42,11 @@ public class Usuario {
 		{
 			return null;
 		}
+		*/
 		
+		Alumno AlumnoValidate = new Alumno();
+		ArrayList<Alumno> alumnos = DA.getAll();
 		
-		/*ArrayList<Alumno> alumnos = da.getAll();
 		for (Alumno A:alumnos) 
 		{
 			if(user.equals(A.getLegajo()) && pass.equals(A.getContraseña()))
@@ -51,11 +55,7 @@ public class Usuario {
 			}
 		}
 		
-		if(AlumnoValidate != null) 
-			{
-			return da.getOne(AlumnoValidate.getLegajo());
-			}
-		*/
+		return AlumnoValidate;
 		
 	}
 }

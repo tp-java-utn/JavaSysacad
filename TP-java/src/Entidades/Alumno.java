@@ -12,14 +12,13 @@ public class Alumno extends Persona {
 			   "\n E-mail: "+ getEmail() +
 			   "\n Telefono: "+ getTelefono() +
 			   "\n Contraseña: "+ getContraseña() +
-			   "\n Direccion: "+ getDireccion().toString();
+			   "\n Direccion: "+ getDireccion().toString() +
+			   "\n Estado: "+ getEstadoPersona();
 			   
 	}
 
 	public Alumno()
 	{
-		
-		
 	}
 	
 	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, String calle,int numero)

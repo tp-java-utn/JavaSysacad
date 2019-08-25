@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
 			Usuario u = new Usuario();
 			Alumno A = u.Validate(user, pass);
 			
-			if (A == null) {
+			if (A.getLegajo() == null) {
 				ErrorManager em = new ErrorManager("El legajo y/o contraseña son incorrectos.");
 				errorPass = em.specificError();
 				req.setAttribute("errorPass",errorPass);
