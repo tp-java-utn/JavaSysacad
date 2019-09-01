@@ -40,7 +40,7 @@ public class Usuario {
 		}
 		else
 		{
-			return null;
+			return A;
 		}
 		*/
 		

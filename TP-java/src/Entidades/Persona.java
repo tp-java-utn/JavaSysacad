@@ -16,8 +16,12 @@ public class Persona {
 	}
 	
 	public String getEstadoPersona() {
-		return estado.toString();
+		if(estado == null)
+			{return "null";}
+		else
+			{return estado.toString();}
 	}
+	
 	public void setEstadoPersona(EstadosPersona estado) {
 		this.estado = estado;
 	}

@@ -42,7 +42,8 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script> 
 	$(function(){
-	  $("#header").load("Header.jsp"); 
+	  $("#header").load("Header.jsp");
+	  $("#footer").load("Footer.jsp"); 
 	});
 	</script>
 	
@@ -51,10 +52,9 @@
     	Alumno A= (Alumno)session.getAttribute("usuario");
     %>
 
-    
-  	</head>
-	
 </head>
+	
+
 
 <body>
 	<div id="header"></div>
@@ -123,5 +123,6 @@
 			</form>
 		</div>
 		<hr class="mb-4">
+		<div id="footer"></div>
 </body>
 </html>

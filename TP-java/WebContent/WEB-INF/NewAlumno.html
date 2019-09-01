@@ -38,8 +38,12 @@
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp"); 
+	  $("#footer").load("Footer.jsp"); 
 	});
 	</script> 
+	
+ 
+	
 
 </head>
 	<body class="bg-light">
@@ -178,20 +182,23 @@
 				        </div>
 	          		</div>
 	          		
-	          		<hr class="mb-4">
-	          		<button class="btn btn-primary btn-lg btn-block" type="submit">Registrar Alumno</button>
 	          		
-	          		 <footer class="my-5 pt-5 text-muted text-center text-small">
-					    <p class="mb-1">&copy; 2017-2019 Company Name</p>
-					    <ul class="list-inline">
-					      <li class="list-inline-item"><a href="#">Privacy</a></li>
-					      <li class="list-inline-item"><a href="#">Terms</a></li>
-					      <li class="list-inline-item"><a href="#">Support</a></li>
-					    </ul>
-					  </footer>
+	          		
+	          		 
 					  
 	  			</form>
 	  		</div>
+	  		
+	  		<hr class="mb-4">
+	  		
+	  		<div class="row justify-content-center">
+	    		<div class="col-7">
+		        <button class="btn btn-primary btn-lg btn-block" type="submit">Registrar Alumno</button>
+		        </div>
+	        </div>
+	        
+	  		<div id="footer"></div>
+			
 		</div>
 		
 		<!-- Script para validar -->

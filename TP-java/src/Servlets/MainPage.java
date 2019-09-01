@@ -37,7 +37,7 @@ public class MainPage extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-        req.getRequestDispatcher("WEB-INF/NewAlumno.html").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/ListaMaterias.jsp").forward(req, resp);
 		
 	}
 

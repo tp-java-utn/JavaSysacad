@@ -22,6 +22,10 @@ public class Materia {
 	String nombre;
 	String descripcion;
 	String cursado;
+	String año;
+	String correlativasRegulares;
+	String correlativasAprobadas;
+	String correlativasRendir;
 	estados estado = estados.Libre;
 	
 	public estados getEstado(){
@@ -32,6 +36,38 @@ public class Materia {
 		this.estado = estado;
 	}
 	
+	public String getCorrelativasRegulares() {
+		return correlativasRegulares;
+	}
+
+	public void setCorrelativasRegulares(String correlativasRegulares) {
+		this.correlativasRegulares = correlativasRegulares;
+	}
+
+	public String getCorrelativasAprobadas() {
+		return correlativasAprobadas;
+	}
+
+	public void setCorrelativasAprobadas(String correlativasAprobadas) {
+		this.correlativasAprobadas = correlativasAprobadas;
+	}
+
+	public String getCorrelativasRendir() {
+		return correlativasRendir;
+	}
+
+	public void setCorrelativasRendir(String correlativasRendir) {
+		this.correlativasRendir = correlativasRendir;
+	}
+
+	public String getAño() {
+		return año;
+	}
+
+	public void setAño(String año) {
+		this.año = año;
+	}
+
 	public int getIdMateria() {
 		return idMateria;
 	}

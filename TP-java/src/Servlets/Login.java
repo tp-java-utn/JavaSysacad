@@ -30,16 +30,6 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-    private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-		PrintWriter out = resp.getWriter();
-		out.println("<html>");
-		out.println("<body>");
-		out.println("<t1>" + msg + "</t1>");
-		out.println("</body>");
-		out.println("</html>");
-	}
     
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -53,7 +43,10 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		int minpass=3;
+		int maxpass=10;
+		int minuser=5;
+		int maxuser=10;
 		String user = req.getParameter("user");
 		String pass = req.getParameter("password");
 		String errorUser = "";
@@ -62,8 +55,7 @@ public class Login extends HttpServlet {
 		ErrorManager em2 = new ErrorManager("La contraseña",3,10);
 		
 		Validator v = new Validator();
-		if(v.stringOk(user, 5, 10) && v.stringOk(pass, 3, 10)) {
-			System.out.print(user +"/"+ pass);
+		if(v.stringOk(user, minuser, maxuser) && v.stringOk(pass, minpass, maxpass)) {
 			Usuario u = new Usuario();
 			Alumno A = u.Validate(user, pass);
 			
@@ -74,12 +66,12 @@ public class Login extends HttpServlet {
 				req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 			} else {
 				req.getSession().setAttribute("usuario", A);
-	        	System.out.println(A.toString());
-	        	//resp.sendRedirect("MainPage");
+				System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
+				System.out.println(A.toString());
 	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
 			}
 		}
-		else if(!v.stringOk(user, 5, 10) && !v.stringOk(pass, 3, 10))
+		else if(!v.stringOk(user, minuser, maxuser) && !v.stringOk(pass, minpass, maxpass))
 		{
 			errorUser = em1.error();
 			errorPass = em2.error();
@@ -87,13 +79,13 @@ public class Login extends HttpServlet {
 			req.setAttribute("errorPass",errorPass);
 			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 		}
-		else if(!v.stringOk(user, 5, 10))
+		else if(!v.stringOk(user, minuser, maxuser))
 		{
 			errorUser = em1.error();
 			req.setAttribute("errorUser",errorUser);
 			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 		}
-		else if(!v.stringOk(pass, 3, 10))
+		else if(!v.stringOk(pass, minpass, maxpass))
 		{
 			errorPass = em2.error();
 			req.setAttribute("errorPass",errorPass);
@@ -103,6 +95,7 @@ public class Login extends HttpServlet {
 		{
 			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 		}
+
 	}
 
 }

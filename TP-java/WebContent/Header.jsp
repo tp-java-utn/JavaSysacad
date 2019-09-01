@@ -10,7 +10,7 @@
     
     <link href="Styles/navbar-top-fixed.css" rel="stylesheet">
     	
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:  #072146 ;">
 		
 		<a class="navbar-brand" href="/">UTN sysacad</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

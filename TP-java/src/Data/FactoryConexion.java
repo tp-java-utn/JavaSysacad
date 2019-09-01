@@ -45,7 +45,7 @@ public class FactoryConexion {
 	public void releaseConn() {
 		conectados--;
 		try {
-			if (conectados<=0 && conn!=null) {
+			if (conectados<=0) {
 				conn.close();
 			}
 		} catch (SQLException e) {
