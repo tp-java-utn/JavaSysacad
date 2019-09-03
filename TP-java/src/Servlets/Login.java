@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import com.sun.corba.se.pept.transport.Connection;
 
 import Data.DataAlumno;
@@ -68,7 +70,7 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("usuario", A);
 				System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
 				System.out.println(A.toString());
-	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);  
 			}
 		}
 		else if(!v.stringOk(user, minuser, maxuser) && !v.stringOk(pass, minpass, maxpass))

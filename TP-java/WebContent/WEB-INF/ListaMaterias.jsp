@@ -62,12 +62,14 @@
 <body>
 	<div id="header"></div>
 	
-	<div class="text-center mb-4">
-		<h1 class="h3 mb-3 font-weight-normal">Inscripcion de Materias</h1>
+	<div class="container">
+	  	<div class="py-5 text-center">
+	       	<h1 class="text-primary">Inscripcion Materias</h1>
+	  	</div>
 	</div>
 	
 	<div class="table-responsive">
-		<table class="table table-striped">
+		<table class="table table-striped table-hover">
 		  <colgroup span="3"></colgroup>
 		  <thead>
 		    <tr>
