@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Inicio - UTN</title>
+    <title>Lista de Materias - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
     <!-- Bootstrap core CSS -->
@@ -35,6 +35,28 @@
           font-size: 3.5rem;
         }
       }
+      
+      #row:hover{
+      	line-height: 220%;
+    	background-color: #e0e0e0;
+      }
+	
+	div.table-responsive{
+      width: 1920px;
+      height: 1080px;
+      overflow: auto;
+    }
+	  table { border-collapse: collapse; width: 100%; }
+    th { background: white; padding: 8px 16px;  }
+    
+    .tableFixHead {
+      overflow: auto;
+    }
+    .tableFixHead thead th {
+      position: sticky;
+      top: 0;
+    }
+
     </style>
       
 	<link href="Styles/NewAlumno.css" rel="stylesheet">
@@ -64,42 +86,32 @@
 	
 	<div class="container">
 	  	<div class="py-5 text-center">
-	       	<h1 class="text-primary">Inscripcion Materias</h1>
+	       	<h1 class="text-primary"><strong>Inscripcion Materias</strong></h1>
 	  	</div>
 	</div>
 	
 	<div class="table-responsive">
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover tableFixHead">
 		  <colgroup span="3"></colgroup>
 		  <thead>
-		    <tr>
+		    <tr id="encabezado">
 		      	<th scope="col"><p>ID</p></th>
 		      	<th scope="col"><p>AÑO</p></th>
-		      	<th colspan="3" scope="col">
-		      		<p align="center">CORRELATIVAS</p>
-		      	</th>
+
+		      	<th scope="col"><p align="center">REGULARES</p></th>
+		    	<th scope="col"><p align="center">APROBADAS</p></th>
+		    	<th scope="col"><p align="center">PARA RENDIR</p></th>
 		      	<th scope="col"><p>MATERIA</p></th>
 		      	<th scope="col"><p>CURSADO</p></th>
 		      	<th scope="col"><p>ACCIONES</p></th>
 		    </tr>
 		  </thead>
 		  
-		  <thead>
-		    <tr>
-		    	<th scope="col"></th>
-		    	<th scope="col"></th>
-		    	<th scope="col"><p align="center">REGULARES</p></th>
-		    	<th scope="col"><p align="center">APROBADAS</p></th>
-		    	<th scope="col"><p align="center">RENDIR</p></th>
-		    	<th scope="col"></th>
-		    	<th scope="col"></th>
-		    	<th scope="col"></th>
-		    </tr>
-		  </thead>
+
 		  
 		  <tbody>
 		  <% for (Materia MS:Materias) {%>
-		    <tr>
+		    <tr id="row">
 		      <th scope="row"><%=MS.getIdMateria()%></th>
 		      <td><%=MS.getAño()%></td>
 		      
@@ -124,7 +136,8 @@
 		      <td><%=MS.getNombre()%></td>
 		      <td><%=MS.getcursado()%></td>
 		      <td>
-			      <button type="button" class="btn btn-primary">Inscribirse<i class="far fa-eye"></i></button>
+			      <button type="button" id="myinput" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Inscribirse<i class="far fa-eye"></i></button>
+
 		      </td>
 		    </tr>
 		  <%} %>
