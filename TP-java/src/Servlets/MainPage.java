@@ -28,7 +28,38 @@ public class MainPage extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 				
-			doPost(req, resp);
+		String op = null;
+		
+		if(req.getParameter("BtnExamen")!=null)
+		{
+			op = "Examen";
+		}
+		else if(req.getParameter("BtnMateria")!=null)
+		{
+			op = "Materia";
+		}
+		else if(req.getParameter("BtnEstadoAcademico")!=null)
+		{
+			op = "EstadoAcademico";
+		}
+		
+		switch(op) 
+		{
+			case "Examen":
+				req.getRequestDispatcher("WEB-INF/NewAlumno.html").forward(req, resp);
+			break;
+			
+			case "Materia":
+				req.getRequestDispatcher("WEB-INF/ListaMaterias.jsp").forward(req, resp);
+			break;
+			
+			case "EstadoAcademico":
+				req.getRequestDispatcher("WEB-INF/EstadoAcademico.jsp").forward(req, resp);
+			break;
+			
+			default:
+		
+		}
 				
 
 		}
@@ -37,7 +68,7 @@ public class MainPage extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-        req.getRequestDispatcher("WEB-INF/ListaMaterias.jsp").forward(req, resp);
+		
 		
 	}
 

@@ -10,13 +10,7 @@ public class Materia {
 		{return idMateria + "  - " + cursado + ", " + nombre + "." ;}
 	}
 	
-	public enum estados
-	{
-		Libre,
-		Cursando,
-		Regular,
-		Aprobada
-	}
+	
 	
 	int idMateria;
 	String nombre;
@@ -26,15 +20,8 @@ public class Materia {
 	String correlativasRegulares;
 	String correlativasAprobadas;
 	String correlativasRendir;
-	estados estado = estados.Libre;
 	
-	public estados getEstado(){
-		return estado;
-	}
 	
-	public void setEstado(estados estado) {
-		this.estado = estado;
-	}
 	
 	public String getCorrelativasRegulares() {
 		return correlativasRegulares;

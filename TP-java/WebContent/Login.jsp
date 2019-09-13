@@ -23,15 +23,23 @@
 	        }
 	      }
 	    </style>
+	    
+	    <script type="text/javascript">
+    	function submitForm(met) {
+    		document.myForm.action=met;
+    		//document.getElementById("myFrom").submit();
+        }
+    	</script>
+    	
 		<link href="Styles/floating-labels.css" rel="stylesheet">
 	</head>
 	
 	<body >
-		<form class = "form-signin" action="Login" method="post">
+		<form class = "form-signin" id="myForm" name="myForm" action="Login" method="post">
 			<div class="text-center mb-4">
 				<img class="mb-4" src="pngs/login.png" height="150" width="150">
 				<h1 class="h3 mb-3 font-weight-normal">Login UTN</h1>
-				<p> Sistema de autogestión alumnos de la Universidad Tecnológica Nacional Facultad Regional Rosario</p>
+				<p> Sistema de autogestión alumnos de la Universidad Tecnológica Nacional - Facultad Regional Rosario</p>
 			</div>
 			
 			<div class="form-label-group">

@@ -17,13 +17,14 @@ import org.apache.jasper.tagplugins.jstl.core.Out;
 import com.sun.corba.se.pept.transport.Connection;
 
 import Data.DataAlumno;
+import Data.DataEstadoAcademico;
 import Data.FactoryConexion;
 
 import javax.servlet.annotation.WebServlet;
 /**
  * Servlet implementation class MiServlet
  */
-@WebServlet("/Login")
+@WebServlet("/Login/*")
 public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -99,5 +100,6 @@ public class Login extends HttpServlet {
 		}
 
 	}
+	
 
 }
