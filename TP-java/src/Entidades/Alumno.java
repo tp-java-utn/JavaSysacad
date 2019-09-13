@@ -1,9 +1,24 @@
 package Entidades;
 
+import java.util.ArrayList;
+
+import Data.DataEstadoAcademico;
+import Data.DataMateria;
+import Entidades.EstadoAcademico.estadosMateria;
+
 public class Alumno extends Persona {	
 	
 	private String legajo;
 	private double promedio;
+	private Carreras carrera;
+	
+	public enum Carreras{
+		Sistema,
+		Mecanica,
+		Quimica,
+		Civil,
+		Electrica
+	}
 	
 	@Override
 	public String toString() {
@@ -33,6 +48,14 @@ public class Alumno extends Persona {
 		this.setDireccion(dir);
 	}
 	
+	public Carreras getCarrera() {
+		return carrera;
+	}
+
+	public void setCarrera(Carreras carrera) {
+		this.carrera = carrera;
+	}
+
 	public String getLegajo() {
 		return legajo;
 	}
@@ -46,4 +69,29 @@ public class Alumno extends Persona {
 		this.promedio = promedio;
 	}
 	
+	public ArrayList<EstadoAcademico> getEstadosAcedemicos(ArrayList<EstadoAcademico> Estados)
+	{
+		ArrayList<EstadoAcademico> EstadosAcademicos = new ArrayList<EstadoAcademico>();
+		
+		for(EstadoAcademico EAS:Estados) 
+		{
+			if(EAS.getLegajo().equals(this.getLegajo()))
+			{
+				EstadosAcademicos.add(EAS);
+			}
+		}
+		return EstadosAcademicos;
+	}
+	
+	public void startEstadoAcademico() 
+	{
+		DataEstadoAcademico EA = new DataEstadoAcademico();
+		DataMateria DM = new DataMateria();
+    	ArrayList<Materia> Materias = DM.getAll();
+    	for(Materia M:Materias)
+    	{
+    		EA.addEstadoAcademico(this.legajo, M.getIdMateria(), estadosMateria.Libre, 0, 0);
+    	}
+    	
+	}
 }

@@ -37,24 +37,9 @@
       }
       
       #row:hover{
-      	line-height: 220%;
     	background-color: #e0e0e0;
       }
 	
-	div.table-responsive{
-      width: 1920px;
-      height: 1080px;
-      overflow: auto;
-    }
-	  table { border-collapse: collapse; width: 100%; }
-    th { background: white; padding: 8px 16px;  }
-    
-    .tableFixHead {
-      overflow: auto;
-    }
-    .tableFixHead thead th {
-      position: sticky;
-      top: 0;
     }
 
     </style>
@@ -63,12 +48,14 @@
 	
 	<!-- Script para el Header -->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
 	  $("#footer").load("Footer.jsp"); 
 	});
 	</script>
+	
 	
 
     <% 
@@ -83,69 +70,81 @@
 
 <body>
 	<div id="header"></div>
-	
-	<div class="container">
-	  	<div class="py-5 text-center">
-	       	<h1 class="text-primary"><strong>Inscripcion Materias</strong></h1>
-	  	</div>
-	</div>
-	
-	<div class="table-responsive">
-		<table class="table table-striped table-hover tableFixHead">
-		  <colgroup span="3"></colgroup>
-		  <thead>
-		    <tr id="encabezado">
-		      	<th scope="col"><p>ID</p></th>
-		      	<th scope="col"><p>AÑO</p></th>
 
-		      	<th scope="col"><p align="center">REGULARES</p></th>
-		    	<th scope="col"><p align="center">APROBADAS</p></th>
-		    	<th scope="col"><p align="center">PARA RENDIR</p></th>
-		      	<th scope="col"><p>MATERIA</p></th>
-		      	<th scope="col"><p>CURSADO</p></th>
-		      	<th scope="col"><p>ACCIONES</p></th>
-		    </tr>
-		  </thead>
-		  
-
-		  
-		  <tbody>
-		  <% for (Materia MS:Materias) {%>
-		    <tr id="row">
-		      <th scope="row"><%=MS.getIdMateria()%></th>
-		      <td><%=MS.getAño()%></td>
-		      
-		      <% if(MS.getCorrelativasRegulares()!=null) {%>
-		      <td> <p align="center"><%=MS.getCorrelativasRegulares()%></p></td>
-		      <%}else{ %>
-		      <td> <p align="center">-</p></td>
-		      <%}%>
-		      
-		      <% if(MS.getCorrelativasAprobadas()!=null) {%>
-		      <td> <p align="center"><%=MS.getCorrelativasAprobadas()%></p></td>
-		      <%}else{ %>
-		      <td> <p align="center">-</p></td>
-		      <%}%>
-		      
-		      <% if(MS.getCorrelativasRendir()!=null) {%>
-		      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
-		      <%}else{ %>
-		      <td> <p align="center">-</p></td>
-		      <%}%>
-		      
-		      <td><%=MS.getNombre()%></td>
-		      <td><%=MS.getcursado()%></td>
-		      <td>
-			      <button type="button" id="myinput" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Inscribirse<i class="far fa-eye"></i></button>
-
-		      </td>
-		    </tr>
-		  <%} %>
-		  </tbody>
-		</table>
-	</div>
+	<form class="needs-validation" action="InscribirseMateria" method="get">
+		
+		<div class="container">
+		  	<div class="py-5 text-center">
+		       	<h1 class="text-primary"><strong>Inscripcion Materias</strong></h1>
+		  	</div>
+		</div>
+		
+		<div class="table-responsive">
+			<table class="table table-striped table-hover tableFixHead">
+			  <colgroup span="3"></colgroup>
+			  <thead>
+			    <tr id="encabezado">
+			      	<th scope="col"><p>ID</p></th>
+			      	<th scope="col"><p>AÑO</p></th>
 	
-	<hr class="mb-4">
+			      	<th scope="col"><p align="center">REGULARES</p></th>
+			    	<th scope="col"><p align="center">APROBADAS</p></th>
+			    	<th scope="col"><p align="center">PARA RENDIR</p></th>
+			      	<th scope="col"><p>MATERIA</p></th>
+			      	<th scope="col"><p>CURSADO</p></th>
+			      	<th scope="col"><p>ACCIONES</p></th>
+			    </tr>
+			  </thead>
+			  
+	
+			  
+			  <tbody>
+			  <% for (Materia MS:Materias) {%>
+			    <tr id="row">
+			      <th scope="row"><%=MS.getIdMateria()%></th>
+			      <td><%=MS.getAño()%></td>
+			      
+			      <% if(MS.getCorrelativasRegulares()!=null) {%>
+			      <td> <p align="center"><%=MS.getCorrelativasRegulares()%></p></td>
+			      <%}else{ %>
+			      <td> <p align="center">-</p></td>
+			      <%}%>
+			      
+			      <% if(MS.getCorrelativasAprobadas()!=null) {%>
+			      <td> <p align="center"><%=MS.getCorrelativasAprobadas()%></p></td>
+			      <%}else{ %>
+			      <td> <p align="center">-</p></td>
+			      <%}%>
+			      
+			      <% if(MS.getCorrelativasRendir()!=null) {%>
+			      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
+			      <%}else{ %>
+			      <td> <p align="center">-</p></td>
+			      <%}%>
+			      
+			      <td><%=MS.getNombre()%></td>
+			      <td><%=MS.getcursado()%></td>
+			      <td>
+				      <button type="button" class="btn btn-primary" name="BtnInscribirse" value=<%=MS.getIdMateria()%>>Inscribirse<i class="far fa-eye"></i></button>
+			      </td>
+			    </tr>
+			  <%} %>
+			  </tbody>
+			</table>      
+		</div>
+		
+		<hr class="mb-4">
+	  		
+		<div class="row justify-content-center">
+			<div class="col-3">
+		    	<button class="btn btn-primary btn-lg btn-block" name="BtnVolver" value = "Volver">Volver al Menu</button>
+		    </div>
+	    </div>
+    
+    </form>
+	
 	<div id="footer"></div>
+	
+	
 </body>
 </html>
