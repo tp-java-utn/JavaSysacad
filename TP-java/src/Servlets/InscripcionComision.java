@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class IncribirseMateria
  */
-@WebServlet("/InscribirseMateria")
-public class InscribirseMateria extends HttpServlet {
+@WebServlet("/InscripcionComision/*")
+public class InscripcionComision extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InscribirseMateria() {
+    public InscripcionComision() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,31 +28,27 @@ public class InscribirseMateria extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//resp.getWriter().append("Served at: ").append(req.getContextPath());
-		String op = null;
 		
-		if(req.getParameter("BtnVolver")!=null)
-		{
-			op = "Volver";
-		}
+		
+		
 
-		
-		switch(op) 
-		{
-			case "Volver":
-				req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
-			break;
-		
-			default:
-		
-		}
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+//		switch (req.getPathInfo()) {
+//		case "/new":
+//			req.setAttribute("action", "new");
+//			req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
+//		break;
+//		
+//		default:
+//		}
+			req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
+
 	}
 
 }

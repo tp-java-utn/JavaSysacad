@@ -38,8 +38,7 @@
       
       #row:hover{
     	background-color: #e0e0e0;
-      }
-	
+      }		
     }
 
     </style>
@@ -56,12 +55,37 @@
 	});
 	</script>
 	
+	<script>
+		function openRow(id)
+		{
+			document.getElementById(id).innerHTML = "press "+id;
+			if(document.getElementById("hide"+id).style.display == "none")
+			{
+				document.getElementById("hide"+id).style.display= "block";
+			}
+			else
+			{
+				document.getElementById("hide"+id).style.display= "none";
+			}
+			
+		}
+	</script>
 	
+	<script type="text/javascript">
+    	function submitForm(met) {
+    		document.myForm.action=met;
+    		//document.getElementById("myFrom").submit();
+        }
+    </script>
 
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
+    	
     	DataMateria DM = new DataMateria();
     	ArrayList<Materia> Materias = DM.getAll();
+    	
+    	DataComision DC = new DataComision();
+    	ArrayList<Comision> Comisiones = DC.getAll();
     %>
 
 </head>
@@ -71,7 +95,7 @@
 <body>
 	<div id="header"></div>
 
-	<form class="needs-validation" action="InscribirseMateria" method="get">
+	<form class="needs-validation" action="InscribirseMateria" method="post">
 		
 		<div class="container">
 		  	<div class="py-5 text-center">
@@ -80,7 +104,7 @@
 		</div>
 		
 		<div class="table-responsive">
-			<table class="table table-striped table-hover tableFixHead">
+			<table class="table table-hover table-striped tableFixHead">
 			  <colgroup span="3"></colgroup>
 			  <thead>
 			    <tr id="encabezado">
@@ -125,12 +149,14 @@
 			      <td><%=MS.getNombre()%></td>
 			      <td><%=MS.getcursado()%></td>
 			      <td>
-				      <button type="button" class="btn btn-primary" name="BtnInscribirse" value=<%=MS.getIdMateria()%>>Inscribirse<i class="far fa-eye"></i></button>
+				      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionComision/new?Materia=<%=MS.getIdMateria()%>">Inscribirse<i class="far fa-eye"></i></a>
 			      </td>
 			    </tr>
-			  <%} %>
+			    
+			  <%}%>
 			  </tbody>
-			</table>      
+			</table>    
+
 		</div>
 		
 		<hr class="mb-4">

@@ -1,8 +1,11 @@
 package Entidades;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
+import Data.DataComision;
 import Data.DataEstadoAcademico;
+import Data.DataInscripcion;
 import Data.DataMateria;
 import Entidades.EstadoAcademico.estadosMateria;
 
@@ -93,5 +96,35 @@ public class Alumno extends Persona {
     		EA.addEstadoAcademico(this.legajo, M.getIdMateria(), estadosMateria.Libre, 0, 0);
     	}
     	
+	}
+	
+	public void inscripcionComision(int idComision,int idMateria)
+	{
+		DataComision DC = new DataComision();
+		boolean espacio = DC.cantAlumnosOk(idComision, idMateria);
+		System.out.println("hay espacio: "+espacio);
+		
+		if(espacio)
+		{
+			DataInscripcion DI = new DataInscripcion();
+			boolean existe = DI.AlumnoExist(this.legajo, idComision, idMateria);
+			System.out.println("Existe: "+existe);
+			
+			if(!existe)
+			{
+				//Agergar alumno a la comision
+				DC.inscripcion(idComision, idMateria);
+				
+				//Registrar inscripcion
+				long now = System.currentTimeMillis();
+		    	Date today = new Date(now);
+		    	DI.addInscripciones(this.legajo, idMateria, idComision, today);
+		    	
+		    	//Actualizar estado Academico
+		    	DataEstadoAcademico DEA = new DataEstadoAcademico();
+		    	DEA.setEstado(this.legajo, idMateria,estadosMateria.Cursando);
+			}
+		}
+		
 	}
 }

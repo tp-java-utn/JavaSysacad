@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Entidades.*;
 import Entidades.EstadoAcademico.estadosMateria;
+import Entidades.Persona.EstadosPersona;
 
 public class DataEstadoAcademico {
 	PreparedStatement stmt=null;
@@ -134,6 +135,29 @@ public class DataEstadoAcademico {
 			}
 		}
 		
+	}
+	
+	public void setEstado(String legajo,int idMateria,estadosMateria estado) {
+		
+		try {
+			
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("UPDATE EstadosAcademicos SET estado = ? where legajo =  ? and idMateria =?");
+		stmt.setString(1, estado.toString());
+		stmt.setString(2, legajo);
+		stmt.setInt(3, idMateria);
+		stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

@@ -91,7 +91,7 @@ public class DataMateria {
 		return Materias;
 	}
 	
-	public int addMateria(String nombre,String descripcion, String cursado, String año) 
+	public Materia addMateria(String nombre,String descripcion, String cursado, String año) 
 	{
 		//Crear nueva Direccion
 		int id = 0;
@@ -131,7 +131,7 @@ public class DataMateria {
 			}
 		}
 		
-		return id;
+		return M;
 		
 	}
 	
