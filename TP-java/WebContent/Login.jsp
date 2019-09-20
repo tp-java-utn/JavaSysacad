@@ -78,7 +78,7 @@
 		    </div>
 		    
 			<input type = "submit" value = "Login" class="btn btn-lg btn-primary btn-block">
-			<p>¿Olvidaste tu contraseña? <a href="https://caniuse.com/#feat=css-placeholder-shown">presiona aqui</a></p>
+			<p>¿Olvidaste tu contraseña? <a href="MainPageAdm.jsp">presiona aqui</a></p>
 
 		</form>
 	</body>

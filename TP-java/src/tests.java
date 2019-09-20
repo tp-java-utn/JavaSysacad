@@ -68,6 +68,7 @@ public class tests {
 //    	}
     	int a = 10;
     	A.inscripcionComision(101, 1);
+    	
     	System.out.println(100*((float)a/25));
 
 

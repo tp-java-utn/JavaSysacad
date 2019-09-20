@@ -50,7 +50,7 @@ public class MainPage extends HttpServlet {
 			break;
 			
 			case "Materia":
-				req.getRequestDispatcher("WEB-INF/ListaMaterias.jsp").forward(req, resp);
+				req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
 			break;
 			
 			case "EstadoAcademico":

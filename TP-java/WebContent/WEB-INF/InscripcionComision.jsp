@@ -55,6 +55,13 @@
         }
     </script>
     
+    <script type="text/javascript">
+    	function Inscribirse(idComision,idMateria){
+    		//A.inscripcionComision(idComision, idMateria);
+    		location.reload(true); 
+    	}
+    </script>
+    
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
     	String action=(String)request.getAttribute("action");
@@ -77,9 +84,10 @@
 			    	
 	<form class="form-signin" id="myForm" name="myForm" action="" method="post">			
 	<div role="main" class="container">	
+  	
 		<div class="my-3 p-3 bg-white rounded shadow-sm">
 		<% for (Materia MS:Materias) {%>
-			<h6 class="border-bottom border-gray pb-2 mb-0"><%=MS.getNombre()%></h6>
+			<h4 class="border-bottom border-gray pb-2 mb-0" style="margin-top: 50px;"><%=MS.getNombre()%></h4>
 			<%for (Comision CS:Comisiones) {%>
 				<%if(CS.getIdMateria()==MS.getIdMateria()) {%>
 				    				
@@ -90,7 +98,7 @@
 						<%if(CS.getCantAlumnos()<CS.getCantAlumnosMax()) {%>
 						<div class="d-flex justify-content-between align-items-center w-100">
 						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%></strong>
-						    	<button type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;">Inscribirse<i class="far fa-eye"></i></button>
+						    	<button type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" onclick="Inscribirse(<%=CS.getIdComision()%>,<%=MS.getIdMateria()%>)">Inscribirse<i class="far fa-eye"></i></button>
 						</div>
 						
 						<span class="d-block">Cupos disponibles: <%=CS.getCantAlumnosMax()-CS.getCantAlumnos()%></span>
@@ -103,7 +111,7 @@
 					    <%}else{%>
 					    <div class="d-flex justify-content-between align-items-center w-100">
 						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%></strong>
-						    	<button type="button" class="btn btn-secondary  disabled" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;">Inscribirse<i class="far fa-eye"></i></button>
+						    	<button type="button" class="btn btn-secondary  disabled" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" onclick="Inscribirse(<%=CS.getIdComision()%>,<%=MS.getIdMateria()%>)">Inscribirse<i class="far fa-eye"></i></button>
 						</div>
 						
 					    <span class="d-block">Alumnos <%=CS.getCantAlumnos()%>/<%=CS.getCantAlumnosMax()%></span>
