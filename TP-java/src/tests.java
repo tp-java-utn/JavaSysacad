@@ -14,44 +14,38 @@ import Data.DataMateria;
 import Entidades.Alumno;
 import Entidades.Comision;
 import Entidades.Comision.turnos;
+import Helpers.Formatter;
 import Entidades.EstadoAcademico;
 import Entidades.Materia;
 
 
 public class tests {
 
-	private static int getRandomNumberInRange(int min, int max) {
 
-		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
-		}
-
-		Random r = new Random();
-		return r.nextInt((max - min) + 1) + min;
-	}
 	
-	@SuppressWarnings("deprecation")
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Alumno A = new Alumno();
-		A.setLegajo("43904");
-		DataEstadoAcademico DEA = new DataEstadoAcademico();
-    	ArrayList<EstadoAcademico> EstadosAcademicos = A.getEstadosAcedemicos(DEA.getAll());
-    	DataMateria DM = new DataMateria();
-    	ArrayList<Materia> Materias = DM.getAll();
-    	DataComision DC = new DataComision();
-    	ArrayList<Comision> Comisiones = DC.getAll();
-    	
-    	for(Materia M:Materias)
-    	{
-	    	for(Comision CS:Comisiones)
-	    	{
-	    		if(CS.getIdMateria()==M.getIdMateria())
-	    		{
-	    			
-	    		}
-	    	}
-    	}
+		
+		
+//		Alumno A = new Alumno();
+//		A.setLegajo("43904");
+//		DataEstadoAcademico DEA = new DataEstadoAcademico();
+//    	ArrayList<EstadoAcademico> EstadosAcademicos = A.getEstadosAcedemicos(DEA.getAll());
+//    	DataMateria DM = new DataMateria();
+//    	ArrayList<Materia> Materias = DM.getAll();
+//    	DataComision DC = new DataComision();
+//    	ArrayList<Comision> Comisiones = DC.getAll();
+//    	
+//    	for(Materia M:Materias)
+//    	{
+//	    	for(Comision CS:Comisiones)
+//	    	{
+//	    		if(CS.getIdMateria()==M.getIdMateria())
+//	    		{
+//	    			
+//	    		}
+//	    	}
+//    	}
     	
     	
 //    	for(int i=1;i<3;i++)
@@ -66,13 +60,14 @@ public class tests {
 //    	{
 //        	DC.delete(101,i);
 //    	}
-    	int a = 10;
-    	A.inscripcionComision(101, 1);
-    	
-    	System.out.println(100*((float)a/25));
+//    	if(A.getLegajo()==null) {System.out.println("asd");}
 
-
-
+		Formatter F = new Formatter();
+		System.out.println(F.upFirstWord("federico ruiz"));
+		System.out.println(F.upAllWords("federico ruiz"));
+		System.out.println(F.downAllWords("federico ruiz"));
+		System.out.println(F.downAllWords("FEDERICO RUIZ"));
+		System.out.println(F.downAllWords("fedASDASico rRUIS"));
 	}
 
 

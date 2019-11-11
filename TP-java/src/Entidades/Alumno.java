@@ -16,11 +16,11 @@ public class Alumno extends Persona {
 	private Carreras carrera;
 	
 	public enum Carreras{
-		Sistema,
 		Mecanica,
-		Quimica,
+		Electrica,
+		Sistemas,
 		Civil,
-		Electrica
+		Quimica
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class Alumno extends Persona {
 	{
 	}
 	
-	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, String calle,int numero)
+	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, Carreras carrera,String calle,int numero)
 	{
 		this.setApellido(apellido);
 		this.setNombre(nombre);
@@ -47,7 +47,21 @@ public class Alumno extends Persona {
 		this.setContraseña(contraseña);
 		this.setTelefono(telefono);
 		this.setLegajo(legajo);
+		this.setCarrera(carrera);
 		Direccion dir = new Direccion(calle,numero);
+		this.setDireccion(dir);	
+	}
+	
+	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, Carreras carrera,String calle,int numero, int piso, String dept)
+	{
+		this.setApellido(apellido);
+		this.setNombre(nombre);
+		this.setEmail(email);
+		this.setContraseña(contraseña);
+		this.setTelefono(telefono);
+		this.setLegajo(legajo);
+		this.setCarrera(carrera);
+		Direccion dir = new Direccion(calle,numero,piso,dept);
 		this.setDireccion(dir);
 	}
 	

@@ -8,6 +8,7 @@
     %>
     
     
+    
     <link href="Styles/navbar-top-fixed.css" rel="stylesheet">
     <form class = "form-signin" action="Header" method="post">	
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:  #072146 ;">
@@ -17,7 +18,7 @@
 			UTN sysacad
 		</a>
 		
-		
+		<% if(A.getLegajo()!=null){%>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 		</button>
@@ -36,7 +37,21 @@
 				</ul>
 			</div>
 		</div>
-  
+  		<%}else{%>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+		</button>
+		
+		<div class="collapse navbar-collapse flex-sm-column" id="navbarCollapse" style="line-height: 10%;">
+			<div class="input-group">
+				<ul class="navbar-nav ml-auto small">
+					<li class="nav-item active">
+				      <a href="Login.jsp" class="nav-link" type = "submit">Iniciar sesion</a>
+				    </li>
+				</ul>
+			</div>
+		</div>
+  		<%} %>
 	
 	</nav>
 	</form>

@@ -2,9 +2,15 @@ package Servlets;
 
 
 import Entidades.*;
+import Entidades.Alumno.Carreras;
+import Entidades.Persona.EstadosPersona;
+import Helpers.Formatter;
+import Logic.Validator;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,43 +47,104 @@ public class NewAlumno extends HttpServlet {
 	}
     
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-		throws ServletException, IOException {			
-			String nombre = req.getParameter("nombre");
-			String apellido = req.getParameter("apellido");
-			String contraseña = req.getParameter("contraseña");
-			String email = req.getParameter("email");
-			String telefono = req.getParameter("telefono");
-			String legajo = req.getParameter("legajo");
-			String direccion = req.getParameter("direccion");
-			String numero = req.getParameter("numero");
-			String piso = req.getParameter("piso");
-			String departamento = req.getParameter("departamento");
-			int nro = Integer.parseInt(numero);		
-			
-			//System.out.println(piso+"/"+departamento);
-			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,legajo,direccion,nro);
-			
-			if(piso != "" && departamento != "")
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException {			
+		String nombre = req.getParameter("nombre");
+		String apellido = req.getParameter("apellido");
+		String contraseña = req.getParameter("contraseña");
+		String contraseña02 = req.getParameter("contraseña02");
+		String email = req.getParameter("email");
+		String telefono = req.getParameter("telefono");
+		String legajo = req.getParameter("legajo");
+		String direccion = req.getParameter("direccion");
+		System.out.println(req.getParameter("carrera"));
+		Carreras carrera = Carreras.Civil;
+		String departamento = req.getParameter("departamento");
+		int piso = 0;
+		int numero = 0;
+		
+		//validar que no esten vacio, para poder hacer la conversion
+		if(req.getParameter("numero") != "")
+		{
+			numero = Integer.parseInt(req.getParameter("numero"));
+		}
+		
+		if(req.getParameter("piso") != "")
+		{
+			piso = Integer.parseInt(req.getParameter("piso"));	
+		}
+		
+	
+		
+		//Aplico formato estandar
+		Formatter F = new Formatter();
+		nombre = F.upFirstWord(nombre);
+		apellido = F.upFirstWord(apellido);
+		email = F.downAllWords(email);
+		direccion = F.upAllWords(direccion);
+		departamento = F.upFirstWord(departamento);
+		
+		//Nuevo alumno
+		if(piso != 0 && departamento != "")
+		{
+			//direccion simple
+			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,legajo,carrera,direccion,numero);
+		}
+		else
+		{
+			//direccion edificio
+			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,legajo,carrera,direccion,numero,piso,departamento);
+		}
+		
+		
+		
+		//validar datos
+		Validator V = new Validator();
+		if(contraseña.equals(contraseña02)) //Contraseñas iguales?
+		{
+			if (
+					//Validar minimo, maximo y formato
+					V.stringOk(nombre, 4, 20) && 
+					V.stringOk(apellido, 4, 20) && 
+					V.emailOk(email, 10, 30) && 
+					V.numberOk(Integer.parseInt(telefono), 7, 20) &&
+					V.stringOk(legajo, 4, 20) && 
+					V.stringOk(direccion, 4, 20) &&
+					V.numberOk(numero, 1, 5) &&
+					V.stringOk(contraseña, 4, 20) &&
+					V.stringOk(contraseña02, 4, 20)
+			   ) 
 			{
-				int p = Integer.parseInt(piso);
-				Direccion D = new Direccion(direccion,nro,p,departamento);
-				A.setDireccion(D);
+				//validar que no este registrado
+				DataAlumno DA = new DataAlumno();
+				System.out.println("Legajo: "+DA.getOne(legajo).getLegajo());
+				if(DA.getOne(legajo).getLegajo()==null)
+				{
+					DA.addAlumno(nombre, apellido, legajo, telefono, email, contraseña02, direccion, numero);
+					req.getSession().setAttribute("nombreRegistrado", nombre);
+					req.getRequestDispatcher("/PostNewAlumnos.jsp").forward(req, resp);
+				}
+				else
+				{
+					response(resp, "ya registrado");
+				}
+			} 
+			else 
+			{
+				response(resp, "Error en la validacion de atributos");
 			}
-				
-			if ("yo".equals(contraseña)) {
-				response(resp, "login ok");
-				System.out.print(A.toString());
-			} else {
-				response(resp, "invalid login");
-			}
+		}
+		else 
+		{
+			response(resp, "Contraseñas distintas");
+		}
 
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 }

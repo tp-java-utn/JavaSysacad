@@ -39,7 +39,7 @@
 			<div class="text-center mb-4">
 				<img class="mb-4" src="pngs/login.png" height="150" width="150">
 				<h1 class="h3 mb-3 font-weight-normal">Login UTN</h1>
-				<p> Sistema de autogestión alumnos de la Universidad Tecnológica Nacional - Facultad Regional Rosario</p>
+				<p> Sistema de autogestión de la Universidad Tecnológica Nacional - Facultad Regional Rosario</p>
 			</div>
 			
 			<div class="form-label-group">
@@ -78,8 +78,9 @@
 		    </div>
 		    
 			<input type = "submit" value = "Login" class="btn btn-lg btn-primary btn-block">
-			<p>¿Olvidaste tu contraseña? <a href="MainPageAdm.jsp">presiona aqui</a></p>
-
+			<div class="text-center mb-4">
+			<p>¿No tienes cuenta? <a href="NewAlumnos.jsp">Registrate aqui</a>
+			</div>
 		</form>
 	</body>
 </html>

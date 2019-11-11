@@ -21,6 +21,7 @@
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
 
 
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -49,6 +50,46 @@
 	});
 	</script>
 	
+	<script>
+    function choose(BtnName){
+    	
+    	var btn = document.getElementById(BtnName);
+    	var title = document.getElementById("title");
+    	btn.className = "nav-link active";
+    	
+    	switch (BtnName){
+    		case "BtnMaterias":
+    			document.getElementById("BtnAlumnos").classList.remove("active");
+    			document.getElementById("BtnDocentes").classList.remove("active");
+    			document.getElementById("BtnComisiones").classList.remove("active");
+    			title.innerHTML = "Materias";
+    		break;
+    		
+    		case "BtnAlumnos":
+    			document.getElementById("BtnMaterias").classList.remove("active");
+    			document.getElementById("BtnDocentes").classList.remove("active");
+    			document.getElementById("BtnComisiones").classList.remove("active");
+    			title.innerHTML = "Alumnos";
+    		break;
+    		
+    		case "BtnDocentes":
+    			document.getElementById("BtnAlumnos").classList.remove("active");
+    			document.getElementById("BtnMaterias").classList.remove("active");
+    			document.getElementById("BtnComisiones").classList.remove("active");
+    			title.innerHTML = "Docentes";
+        	break;
+        		
+    		case "BtnComisiones":
+    			document.getElementById("BtnAlumnos").classList.remove("active");
+    			document.getElementById("BtnDocentes").classList.remove("active");
+    			document.getElementById("BtnMaterias").classList.remove("active");
+    			title.innerHTML = "Comisiones";
+        	break;
+    	}
+    	
+    	
+    }
+    </script>
 
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
@@ -69,23 +110,22 @@
 			<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
 	          <ul class="nav nav-pills flex-column">
 	            <li class="nav-item">
-	              <a class="nav-link active" href="#">Alumnos <span class="sr-only">(current)</span></a>
+	              <a id="BtnAlumnos" class="nav-link active" href="#" onClick="choose(this.id)">Alumnos <span class="sr-only">(current)</span></a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link" href="#">Materias</a>
+	              <a id="BtnMaterias" class="nav-link" href="#" onClick="choose(this.id)">Materias</a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link" href="#">Docentes</a>
+	              <a id="BtnDocentes" class="nav-link" href="#" onClick="choose(this.id)">Docentes</a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link" href="#">Comisiones</a>
+	              <a id="BtnComisiones" class="nav-link" href="#" onClick="choose(this.id)">Comisiones</a>
 	            </li>
 	          </ul>
 	        </nav>
 	        
 	        <div class="col-md-9 col-md-10 pt-3">
-	           offset-md-2 
-	        <h2>Alumnos</h2>
+	        <h2 id="title">Alumnos</h2>
 	        
 		        <div class="table-responsive">
 				<table class="table table-hover table-striped tableFixHead">
@@ -98,6 +138,9 @@
 				      	<th scope="col"><p>TELEFONO</p></th>
 				      	<th scope="col"><p>EMAIL</p></th>
 				      	<th scope="col"><p>ESTADO</p></th>
+				      	<th scope="col"><p></p></th>
+				      	<th scope="col"><p>ACCIONES</p></th>
+				      	<th scope="col"><p></p></th>
 				    </tr>
 				  </thead>
 				  
@@ -117,6 +160,11 @@
 					      <option>...</option>
 				      </select>
 				      </td>
+				      <td>
+				      	
+				      	
+				      </td>
+
 				
 				    </tr>
 				    
@@ -128,8 +176,18 @@
 			</div>
 		</div>
 	</div>
-
-   
+	
+	 <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+        <p>
+          <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
 	
 	<hr class="mb-4">
 	<div id="footer"></div>
