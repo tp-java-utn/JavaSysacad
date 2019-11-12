@@ -7,7 +7,9 @@ public class Persona {
 	private String contraseña;
 	private String telefono;
 	private Direccion direccion;
-	private EstadosPersona estado;
+	private Documento documento; 
+	private EstadosPersona estado = EstadosPersona.Pendiente;
+	
 	
 	public enum EstadosPersona{
 		Activo,
@@ -60,6 +62,14 @@ public class Persona {
 	}
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
+	}
+
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
 	}
 	
 }

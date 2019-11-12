@@ -46,27 +46,28 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int minpass=3;
-		int maxpass=10;
-		int minuser=5;
+		ErrorManager E = new ErrorManager();
+		int minpass=4;
+		int maxpass=20;
+		int minuser=4;
 		int maxuser=10;
 		String user = req.getParameter("user");
 		String pass = req.getParameter("password");
-		String errorUser = "";
-		String errorPass = "";
-		ErrorManager em1 = new ErrorManager("El legajo",5,10);
-		ErrorManager em2 = new ErrorManager("La contraseña",3,10);
-		
+
+
+		//validar formatos
 		Validator v = new Validator();
 		if(v.stringOk(user, minuser, maxuser) && v.stringOk(pass, minpass, maxpass)) {
 			Usuario u = new Usuario();
 			Alumno A = u.Validate(user, pass);
 			
+			//existe el alumno
 			if (A.getLegajo() == null) {
-				ErrorManager em = new ErrorManager("El legajo y/o contraseña son incorrectos.");
-				errorPass = em.specificError();
-				req.setAttribute("errorPass",errorPass);
-				req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+				E.setTitlle("Usuario incorrecto");
+				E.setDescp("El usuario ingresado no existe.");
+				E.setPage("Login.jsp");
+				req.getSession().setAttribute("Error", E);
+				req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
 			} else {
 				req.getSession().setAttribute("usuario", A);
 				System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
@@ -74,25 +75,13 @@ public class Login extends HttpServlet {
 	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);  
 			}
 		}
-		else if(!v.stringOk(user, minuser, maxuser) && !v.stringOk(pass, minpass, maxpass))
+		else if(!v.stringOk(user, minuser, maxuser) || !v.stringOk(pass, minpass, maxpass))
 		{
-			errorUser = em1.error();
-			errorPass = em2.error();
-			req.setAttribute("errorUser",errorUser);
-			req.setAttribute("errorPass",errorPass);
-			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
-		}
-		else if(!v.stringOk(user, minuser, maxuser))
-		{
-			errorUser = em1.error();
-			req.setAttribute("errorUser",errorUser);
-			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
-		}
-		else if(!v.stringOk(pass, minpass, maxpass))
-		{
-			errorPass = em2.error();
-			req.setAttribute("errorPass",errorPass);
-			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+			E.setTitlle("Formato incorrecto");
+			E.setDescp("El legajo/contraseña no cumple con el formato de datos.");
+			E.setPage("Login.jsp");
+			req.getSession().setAttribute("Error", E);
+			req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
 		}
 		else
 		{

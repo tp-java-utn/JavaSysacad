@@ -7,6 +7,7 @@ import Data.DataComision;
 import Data.DataEstadoAcademico;
 import Data.DataInscripcion;
 import Data.DataMateria;
+import Entidades.Documento.TipoDocumento;
 import Entidades.EstadoAcademico.estadosMateria;
 
 public class Alumno extends Persona {	
@@ -31,7 +32,9 @@ public class Alumno extends Persona {
 			   "\n Telefono: "+ getTelefono() +
 			   "\n Contraseña: "+ getContraseña() +
 			   "\n Direccion: "+ getDireccion().toString() +
-			   "\n Estado: "+ getEstadoPersona();
+			   "\n Estado: "+ getEstadoPersona() +
+			   "\n Documento: "+ getDocumento().getTipo() +": "+ getDocumento().getNumero() +
+			   "\n Carrera: "+ getCarrera().toString();
 			   
 	}
 
@@ -39,30 +42,32 @@ public class Alumno extends Persona {
 	{
 	}
 	
-	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, Carreras carrera,String calle,int numero)
+	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, Carreras carrera, TipoDocumento tipoDoc,String numeroDoc ,String calle,int numero)
 	{
 		this.setApellido(apellido);
 		this.setNombre(nombre);
 		this.setEmail(email);
 		this.setContraseña(contraseña);
 		this.setTelefono(telefono);
-		this.setLegajo(legajo);
 		this.setCarrera(carrera);
 		Direccion dir = new Direccion(calle,numero);
 		this.setDireccion(dir);	
+		Documento Doc = new Documento(tipoDoc,numeroDoc); 
+		this.setDocumento(Doc);
 	}
 	
-	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, String legajo, Carreras carrera,String calle,int numero, int piso, String dept)
+	public Alumno(String nombre, String apellido, String email,String contraseña,String telefono, Carreras carrera, TipoDocumento tipoDoc,String numeroDoc,String calle,int numero, int piso, String dept)
 	{
 		this.setApellido(apellido);
 		this.setNombre(nombre);
 		this.setEmail(email);
 		this.setContraseña(contraseña);
 		this.setTelefono(telefono);
-		this.setLegajo(legajo);
 		this.setCarrera(carrera);
 		Direccion dir = new Direccion(calle,numero,piso,dept);
 		this.setDireccion(dir);
+		Documento Doc = new Documento(tipoDoc,numeroDoc); 
+		this.setDocumento(Doc);
 	}
 	
 	public Carreras getCarrera() {
@@ -104,11 +109,20 @@ public class Alumno extends Persona {
 	{
 		DataEstadoAcademico EA = new DataEstadoAcademico();
 		DataMateria DM = new DataMateria();
-    	ArrayList<Materia> Materias = DM.getAll();
-    	for(Materia M:Materias)
-    	{
-    		EA.addEstadoAcademico(this.legajo, M.getIdMateria(), estadosMateria.Libre, 0, 0);
-    	}
+		
+		//si no hay estado academico, creo uno
+		if(EA.getOne(this.legajo, 1).getLegajo()==null)
+		{
+			ArrayList<Materia> Materias = DM.getAll();
+	    	for(Materia M:Materias)
+	    	{
+	    		EA.addEstadoAcademico(this.getLegajo(), M.getIdMateria(), estadosMateria.Libre, 0, 0);
+	    	}
+		}
+		else
+		{
+			System.out.println("Ya existe");
+		}
     	
 	}
 	

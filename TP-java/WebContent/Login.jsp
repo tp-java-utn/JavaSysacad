@@ -43,33 +43,19 @@
 			</div>
 			
 			<div class="form-label-group">
-				<input name="user"  type = "text" class="form-control" placeholder = "Legajo" required autofocus/>
+				<input name="user"  type = "text" class="form-control" placeholder = "Legajo" required pattern="[0-9 ]{4,10}" required
+				        	title = "El Tamaño minimo es de 4 y el maximo de 10 digitos" autofocus/>
 				<label for="user">Legajo</label>
 			</div>
-			<p class="text-danger">
-				<% 
-				String error1 = (String)request.getAttribute("errorUser");
-				if(error1 != null)
-				{
-					out.println(error1);
-				}
-				%>
-			</p>
+
 			
 			
 			<div class="form-label-group">
-				<input name="password" type="password" class="form-control" placeholder = "Contraseña" required/>
+				<input name="password" type="password" class="form-control" placeholder = "Contraseña" maxlength="20" required
+				        	title = "El Tamaño minimo es de 4 y el maximo de 20"/>
 				<label for="password">Contraseña</label>
 			</div>
-			<p class="text-danger">
-				<% 
-				String error2 = (String)request.getAttribute("errorPass");
-				if(error2 != null)
-				{
-					out.println(error2);
-				}
-				%>
-			</p>
+
 			
 			<div class="checkbox mb-3">
 			    <label>

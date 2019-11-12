@@ -3,8 +3,11 @@ package Servlets;
 
 import Entidades.*;
 import Entidades.Alumno.Carreras;
+import Entidades.Documento.TipoDocumento;
 import Entidades.Persona.EstadosPersona;
-import Helpers.Formatter;
+import Logic.EnumHelper;
+import Logic.ErrorManager;
+import Logic.Formatter;
 import Logic.Validator;
 
 import java.io.IOException;
@@ -48,20 +51,25 @@ public class NewAlumno extends HttpServlet {
     
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
-	throws ServletException, IOException {			
+	throws ServletException, IOException {
+		ErrorManager E = new ErrorManager();
 		String nombre = req.getParameter("nombre");
 		String apellido = req.getParameter("apellido");
 		String contraseña = req.getParameter("contraseña");
 		String contraseña02 = req.getParameter("contraseña02");
 		String email = req.getParameter("email");
 		String telefono = req.getParameter("telefono");
-		String legajo = req.getParameter("legajo");
+		String documento = req.getParameter("documento");
 		String direccion = req.getParameter("direccion");
 		System.out.println(req.getParameter("carrera"));
-		Carreras carrera = Carreras.Civil;
 		String departamento = req.getParameter("departamento");
 		int piso = 0;
 		int numero = 0;
+		
+		//enums
+		EnumHelper EH = new EnumHelper();
+		Carreras carrera = EH.convertToCarreras(req.getParameter("Carrera"));
+		TipoDocumento tipoDocumento = EH.convertToTipoDocumento(req.getParameter("tipoDocumento"));
 		
 		//validar que no esten vacio, para poder hacer la conversion
 		if(req.getParameter("numero") != "")
@@ -74,7 +82,6 @@ public class NewAlumno extends HttpServlet {
 			piso = Integer.parseInt(req.getParameter("piso"));	
 		}
 		
-	
 		
 		//Aplico formato estandar
 		Formatter F = new Formatter();
@@ -88,12 +95,12 @@ public class NewAlumno extends HttpServlet {
 		if(piso != 0 && departamento != "")
 		{
 			//direccion simple
-			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,legajo,carrera,direccion,numero);
+			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,carrera,tipoDocumento,documento,direccion,numero);	
 		}
 		else
 		{
 			//direccion edificio
-			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,legajo,carrera,direccion,numero,piso,departamento);
+			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,carrera,tipoDocumento,documento,direccion,numero,piso,departamento);
 		}
 		
 		
@@ -108,7 +115,7 @@ public class NewAlumno extends HttpServlet {
 					V.stringOk(apellido, 4, 20) && 
 					V.emailOk(email, 10, 30) && 
 					V.numberOk(Integer.parseInt(telefono), 7, 20) &&
-					V.stringOk(legajo, 4, 20) && 
+					V.stringOk(documento, 4, 20) && 
 					V.stringOk(direccion, 4, 20) &&
 					V.numberOk(numero, 1, 5) &&
 					V.stringOk(contraseña, 4, 20) &&
@@ -117,26 +124,40 @@ public class NewAlumno extends HttpServlet {
 			{
 				//validar que no este registrado
 				DataAlumno DA = new DataAlumno();
-				System.out.println("Legajo: "+DA.getOne(legajo).getLegajo());
-				if(DA.getOne(legajo).getLegajo()==null)
+				if(DA.getOne(tipoDocumento,documento).getDocumento()==null)
 				{
-					DA.addAlumno(nombre, apellido, legajo, telefono, email, contraseña02, direccion, numero);
+					DA.addAlumno(nombre, apellido, telefono, email, contraseña,carrera,tipoDocumento,documento, direccion, numero);
+					Alumno A = DA.getOne(tipoDocumento,documento);
+					System.out.println(A.toString());
+					A.startEstadoAcademico();;
 					req.getSession().setAttribute("nombreRegistrado", nombre);
 					req.getRequestDispatcher("/PostNewAlumnos.jsp").forward(req, resp);
 				}
 				else
 				{
-					response(resp, "ya registrado");
+					E.setTitlle("Usuario ya registrado");
+					E.setDescp("Este documento ya ha sido utilizado.");
+					E.setPage("NewAlumnos.jsp");
+					req.getSession().setAttribute("Error", E);
+					req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
 				}
 			} 
 			else 
 			{
-				response(resp, "Error en la validacion de atributos");
+				E.setTitlle("Formato de datos");
+				E.setDescp("Los campos han sido llenados con datos incompatibles.");
+				E.setPage("NewAlumnos.jsp");
+				req.getSession().setAttribute("Error", E);
+				req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
 			}
 		}
 		else 
 		{
-			response(resp, "Contraseñas distintas");
+			E.setTitlle("Contraseñas Distintas");
+			E.setDescp("Las contraseñas no coinciden.");
+			E.setPage("NewAlumnos.jsp");
+			req.getSession().setAttribute("Error", E);
+			req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
 		}
 
 	}

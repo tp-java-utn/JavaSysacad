@@ -82,7 +82,7 @@
   				
 		          	<div class="col-md-6 mb-3">
 		          	<label for="nombre">Nombre</label>
-			        <input name= "nombre" type="text" class="form-control" id="nombre" value="" required pattern="[A-Za-z]{4,20}" required
+			        <input name= "nombre" type="text" class="form-control" id="nombre" value="" required pattern="[A-Za-z ]{4,20}" required
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				        	Tu nombre es necesario.
@@ -91,7 +91,7 @@
 				    
 				    <div class="col-md-6 mb-3">
 		      		<label for="apellido">Apellido</label>
-		      	  	<input name="apellido" type="text" class="form-control" id="apellido" value="" required pattern="[A-Za-z]{4,20}" required
+		      	  	<input name="apellido" type="text" class="form-control" id="apellido" value="" required pattern="[A-Za-z ]{4,20}" required
 		      	  		title = "El Tamaño minimo es de 4 y el maximo de 20">	      	 
 			          	<div class="invalid-feedback">
 			            	Tu apellido es necesario.
@@ -100,14 +100,34 @@
 	          			
           		</div>
           		
-          		<div class="mb-3">
-	      		<label for="legajo">Legajo</label>
-		        <input  name="legajo" type="text" class="form-control" id="legajo" required pattern="[A-Za-z0-9]{4,20}" required
-		        	title = "El Tamaño minimo es de 4 y el maximo de 20">
-			        <div class="invalid-feedback">
-			        	Por favor ingrese un legajo valido.
+          		<div class="row">
+			        <div class="col-md-4 mb-3">
+		          		<div class="mb-4">
+				        <label for="carrera">Tipo de Documento</label>
+				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100" required required>
+				        <option value="">Elige...</option>
+				        <option>Documento Nacional de Identidad</option>
+				        <option>Pasaporte</option>
+				        <option>Libreta de Enrolamiento</option>
+				        <option>Libreta Civica</option>
+				       	</select>
+					        <div class="invalid-feedback">
+					              Por favor seleccione un tipo de Documento.
+					        </div>
+				        </div>
+			        </div>
+			        
+		        	<div class="col-md-6 mb-3">
+			      		<label for="legajo">Nuemro de Documento</label>
+				        <input  name="documento" type="text" class="form-control" id="documento" required pattern="[0-9 ]{4,20}" required
+				        	title = "El Tamaño minimo es de 4 y el maximo de 20 digitos">
+					        <div class="invalid-feedback">
+					        	Por favor ingrese un Numero de Documento valido.
+					        </div>
 			        </div>
 		        </div>
+		        
+          		
 		        
 
 		        
@@ -122,8 +142,8 @@
 
        			<div class="mb-3">
 	      		<label for="telefono">Telefono</label>
-		        <input name="telefono" type="tel" class="form-control" id="telefono" required pattern="[0-9]{7,20}" required
-		        	title = "El Tamaño minimo es de 7 y el maximo de 20">
+		        <input name="telefono" type="tel" class="form-control" id="telefono" required pattern="[0-9 ]{7,20}" required
+		        	title = "El Tamaño minimo es de 7 y el maximo de 20 digitos">
 			        <div class="invalid-feedback">
 			            Por favor ingrese un telefono valido.
 			        </div>
@@ -131,7 +151,7 @@
 		        
 		        <div class="mb-4">
 		        <label for="carrera">Carrera</label>
-		        <select class="custom-select d-block w-100" id="carrera" required required>
+		        <select name="Carrera" id="Carrera" class="custom-select d-block w-100" id="carrera" required required>
 		        <option value="">Elige...</option>
 		        <option>Ingenieria Mecanica</option>
 		        <option>Ingenieria Electrica</option>
@@ -149,7 +169,7 @@
 		        <div class="row">
 			        <div class="col-md-6 mb-3">
 		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" required pattern="[A-Za-z]{4,20}" required
+			        <input name="direccion" type="text" class="form-control" id="direccion" required pattern="[A-Za-z ]{4,20}" required
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				            Por favor ingrese una direccion valido.
@@ -159,7 +179,7 @@
 			        <div class="col-md-3 mb-3">
 		      		<label for="numero">Numero</label>
 			        <input name="numero" type="number" class="form-control" id="numero" maxlength="5" required
-			        	title = "El Tamaño minimo es de 1 y el maximo de 5">
+			        	title = "El Tamaño minimo es de 1 y el maximo de 5 digitos">
 				        <div class="invalid-feedback">
 				            Por favor ingrese un numero valido.
 				        </div>
@@ -170,7 +190,7 @@
 		        	<div class="col-md-3 mb-3"> 
 		      		<label for="piso">Piso <span class="text-muted">(Opcional)</span></label>
 			        <input name="piso" type="number" class="form-control" id="piso" maxlength="5"
-			        	title = "El Tamaño minimo es de 1 y el maximo de 5">
+			        	title = "El Tamaño minimo es de 1 y el maximo de 5 digitos">
 				        <div class="invalid-feedback">
 				            Por favor ingrese un piso valido.
 				        </div>

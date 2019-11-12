@@ -1,4 +1,4 @@
-package Helpers;
+package Logic;
 
 import java.util.Arrays;
 
@@ -12,6 +12,7 @@ public class Formatter {
 		boolean up = false;
 		char c;
 		String retrunString = "";
+		text = takeOutSpaces(text);
 		
 		for(int i=0;i<text.length();i++)
 		{
@@ -49,6 +50,7 @@ public class Formatter {
 
 		char c;
 		String retrunString = "";
+		text = takeOutSpaces(text);
 		
 		for(int i=0;i<text.length();i++)
 		{
@@ -74,6 +76,7 @@ public class Formatter {
 	{
 		char c;
 		String retrunString = "";
+		text = takeOutSpaces(text);
 		
 		for(int i=0;i<text.length();i++)
 		{
@@ -86,5 +89,9 @@ public class Formatter {
 		return retrunString;
 	}
 	
-	
+	public static String takeOutSpaces(String text)
+	{	
+		String retrunString = text.trim();
+		return retrunString;
+	}
 }

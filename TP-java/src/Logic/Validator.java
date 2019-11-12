@@ -18,7 +18,6 @@ public class Validator {
 	
 	
 	public boolean stringOk(String str,Integer min,Integer max) {
-		
 		if(str.length() <= max && str.length() >= min)
 			{
 			return true;
