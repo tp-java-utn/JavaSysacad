@@ -4,6 +4,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidades.*"%>
 <%@page import="Data.*"%>
+<%@page import="Entidades.Alumno.Carreras"%>
+<%@page import="Entidades.Persona.EstadosPersona"%>
 
 <html>
 <head>
@@ -14,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Inicio - UTN</title>
+    <title>ADM - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
     <!-- Bootstrap core CSS -->
@@ -37,9 +39,94 @@
           font-size: 3.5rem;
         }
       }
+	   .sidebar-container {
+		  position: fixed;
+		  width: 220px;
+		  height: 100%;
+		  left: 0;
+		  overflow-x: hidden;
+		  overflow-y: auto;
+		  background: #1a1a1a;
+		  color: #fff;
+		}
+		
+		.content-container {
+		  padding-top: 20px;
+		}
+		
+		.sidebar-logo {
+		  padding: 10px 15px 10px 30px;
+		  font-size: 20px;
+		  background-color: #2574A9;
+		}
+		
+		.sidebar-navigation {
+		  padding: 0;
+		  margin: 0;
+		  list-style-type: none;
+		  position: relative;
+		}
+		
+		.sidebar-navigation li {
+		  background-color: transparent;
+		  position: relative;
+		  display: inline-block;
+		  width: 100%;
+		  line-height: 20px;
+		}
+		
+		.sidebar-navigation li a {
+		  padding: 10px 15px 10px 30px;
+		  display: block;
+		  color: #fff;
+		}
+		
+		.sidebar-navigation li .fa {
+		  margin-right: 10px;
+		}
+		
+		.sidebar-navigation li a:active,
+		.sidebar-navigation li a:hover,
+		.sidebar-navigation li a:focus {
+		  text-decoration: none;
+		  outline: none;
+		}
+		
+		.sidebar-navigation li::before {
+		  background-color: #2574A9;
+		  position: absolute;
+		  content: '';
+		  height: 100%;
+		  left: 0;
+		  top: 0;
+		  -webkit-transition: width 0.2s ease-in;
+		  transition: width 0.2s ease-in;
+		  width: 3px;
+		  z-index: -1;
+		}
+		
+		.sidebar-navigation li:hover::before {
+		  width: 100%;
+		}
+		
+		.sidebar-navigation .header {
+		  font-size: 12px;
+		  text-transform: uppercase;
+		  background-color: #151515;
+		  padding: 10px 15px 10px 30px;
+		}
+		
+		.sidebar-navigation .header::before {
+		  background-color: transparent;
+		}
+		
+		.content-container {
+		  padding-left: 220px;
+		}
     </style>
       
 	<link href="Styles/NewAlumno.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<!-- Script para el Header -->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -105,89 +192,140 @@
 <body>
 	<div id="header"></div>
 	
-	<div class="container-fliud">
-		<div class="row">
-			<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-	          <ul class="nav nav-pills flex-column">
-	            <li class="nav-item">
-	              <a id="BtnAlumnos" class="nav-link active" href="#" onClick="choose(this.id)">Alumnos <span class="sr-only">(current)</span></a>
-	            </li>
-	            <li class="nav-item">
-	              <a id="BtnMaterias" class="nav-link" href="#" onClick="choose(this.id)">Materias</a>
-	            </li>
-	            <li class="nav-item">
-	              <a id="BtnDocentes" class="nav-link" href="#" onClick="choose(this.id)">Docentes</a>
-	            </li>
-	            <li class="nav-item">
-	              <a id="BtnComisiones" class="nav-link" href="#" onClick="choose(this.id)">Comisiones</a>
-	            </li>
-	          </ul>
-	        </nav>
-	        
-	        <div class="col-md-9 col-md-10 pt-3">
-	        <h2 id="title">Alumnos</h2>
-	        
-		        <div class="table-responsive">
-				<table class="table table-hover table-striped tableFixHead">
-				  <colgroup span="3"></colgroup>
-				  <thead>
-				    <tr id="encabezado">
-				      	<th scope="col"><p>LEGAJO</p></th>
-				      	<th scope="col"><p>NOMBRE</p></th>
-				      	<th scope="col"><p>APELLIDO</p></th>
-				      	<th scope="col"><p>TELEFONO</p></th>
-				      	<th scope="col"><p>EMAIL</p></th>
-				      	<th scope="col"><p>ESTADO</p></th>
-				      	<th scope="col"><p></p></th>
-				      	<th scope="col"><p>ACCIONES</p></th>
-				      	<th scope="col"><p></p></th>
-				    </tr>
-				  </thead>
-				  
-		
-				  
-				  <tbody>
-				  <% for (Alumno AS:Alumnos) {%>
-				    <tr id="row">
-				      <th scope="row"><%=AS.getLegajo()%></th>
-				      <td><%=AS.getNombre()%></td>
-				      <td><%=AS.getApellido()%></td>
-				      <td><%=AS.getTelefono()%></td>
-				      <td><%=AS.getEmail()%></td>
-				      <td>
-				      <select id="inputState" class="form-control" style="width:50%">
-					      <option selected><%=AS.getEstadoPersona()%></option>
-					      <option>...</option>
-				      </select>
-				      </td>
-				      <td>
-				      	
-				      	
-				      </td>
 
-				
-				    </tr>
-				    
-				  <%}%>
-				  </tbody>
-				</table>   
-		        	
-		        </div>
-			</div>
+	
+	
+	<div class="sidebar-container">
+		<div class="sidebar-logo">
+		    UTN Administrador
 		</div>
+		  	<ul class="sidebar-navigation">
+		    <li class="header">Personas</li>
+		    <li>
+		      <a href="#">
+		        <i class="fa fa-home" aria-hidden="true"></i> Alumnos
+		      </a>
+		    </li>
+		    <li>
+		      <a href="#">
+		        <i class="fa fa-tachometer" aria-hidden="true"></i> Docentes
+		      </a>
+		    </li>
+		    <li class="header">Entidades</li>
+		    <li>
+		      <a href="#">
+		        <i class="fa fa-users" aria-hidden="true"></i> Materias
+		      </a>
+		    </li>
+		    <li>
+		      <a href="#">
+		        <i class="fa fa-cog" aria-hidden="true"></i> Comisiones
+		      </a>
+		    </li>
+		    <li>
+		      <a href="#">
+		        <i class="fa fa-info-circle" aria-hidden="true"></i> Mesas
+		      </a>
+		    </li>
+	  	</ul>
 	</div>
 	
-	 <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Contact</h6>
-        <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-        <p>
-          <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-        <p>
-          <i class="fas fa-envelope mr-3"></i> info@example.com</p>
-        <p>
-          <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-        <p>
-          <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+	<div class="content-container">
+	  	<div class="container-fluid">
+	
+		    <!-- Main component for a primary marketing message or call to action -->
+		    <div class="jumbotron" style="padding: 0">
+		    	<table border="0" cellpadding="20">
+		    		<tr>
+		    			<td>
+		    				<h1><Strong>Alumnos</Strong></h1>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td>
+		    				<p>Los <strong>Alumnos</strong>  pueden cursar las siguientes carreras:</p>
+						      <ul>
+								  <li class="text-info">Sistemas</li>
+								  <li class="text-success">Quimica</li>
+								  <li class="text-secondary">Mecanica</li>
+								  <li class="text-danger">Civil</li>
+								  <li class="text-primary">Electrica</li>
+							  </ul> 
+		    			</td>
+		    			<td>
+		    				<p>Los posibles estados que puede tener un <strong>Alumnos</strong> son:</p>
+					      	  <ul>
+								  <li class="text-primary">Activo </li>
+								  <li class="text-muted">Pendiente</li>
+								  <li class="text-danger">Eliminado</li>
+								  <li style="visibility: hidden"></li>
+								  <li style="visibility: hidden"></li>
+							  </ul>
+		    			</td>
+		    		</tr>
+		    	</table>
+		      
+		      <p style="padding-left: 15px; padding-bottom: 20px">
+		        <a class="btn btn-lg btn-primary" href="NewAlumnos.jsp" role="button" >Agregar Alumno &raquo;</a>
+		      </p>
+		    </div>
+		    
+			<div class="table-responsive">
+				<table class="table table-hover table-sm">
+			  		<thead class="thead-dark">
+				    	<tr>
+						    <th scope="col">Apellido y Nombre</th>
+						    <th scope="col">Legajo</th>
+						    <th scope="col">Documento</th>
+						    <th scope="col">Email</th>
+						    <th scope="col">Telefono</th>
+						    <th scope="col">Direccion</th>
+						    <th scope="col">Carrera</th>
+						    <th scope="col">Estado</th>
+						    <th scope="col">Acciones</th>
+				    	</tr>
+			  		</thead>
+		  		
+			  		<tbody>
+			  		<% for (Alumno Al:Alumnos) {%>
+			  			<tr>
+						    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
+						    <td><%=Al.getLegajo()%></td>
+						    <td><%=Al.getDocumento().getNumero()%></td>
+						    <td><%=Al.getEmail()%></td>
+						    <td><%=Al.getTelefono()%></td>
+						    
+						    <% if(Al.getDireccion().getPiso()==0) {%>
+						    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%></td>
+						    <% }else{%>
+						    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
+						    <% }%>
+						    
+						    <td ><%=Al.getCarrera()%></td>
+						    
+						    <% if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
+						    <td class="text-primary"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+						    <% }else if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Pendiente)){%>
+						    <td class="text-muted"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+						    <% }else{%>
+						    <td class="text-danger"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+						    <% }%>		
+						    					
+						    <td>
+						    	<button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button>
+						    	<%if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
+						    	<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
+						    	<% }%>
+						    </td>
+					    </tr>
+			  		<% }%>
+			  	
+			  		</tbody>
+				</table>
+			</div>
+	  	</div>
+	</div>
+	
 	
 	<hr class="mb-4">
 	<div id="footer"></div>
