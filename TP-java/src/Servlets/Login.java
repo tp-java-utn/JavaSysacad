@@ -2,6 +2,7 @@ package Servlets;
 
 
 import Entidades.*;
+import Entidades.Persona.EstadosPersona;
 import Logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,11 +69,25 @@ public class Login extends HttpServlet {
 				E.setPage("Login.jsp");
 				req.getSession().setAttribute("Error", E);
 				req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
-			} else {
-				req.getSession().setAttribute("usuario", A);
-				System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
-				System.out.println(A.toString());
-	        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);  
+			}
+			else 
+			{
+				if(EstadosPersona.valueOf(A.getEstadoPersona()).equals(EstadosPersona.Activo))
+				{
+					req.getSession().setAttribute("usuario", A);
+					System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
+					System.out.println(A.toString());
+		        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+				}
+				else
+				{
+					E.setTitlle("Usuario invalido");
+					E.setDescp("El usuario no esta dado de alta.");
+					E.setPage("Login.jsp");
+					req.getSession().setAttribute("Error", E);
+					req.getRequestDispatcher("/ErrorPage.jsp").forward(req, resp);
+				}
+				  
 			}
 		}
 		else if(!v.stringOk(user, minuser, maxuser) || !v.stringOk(pass, minpass, maxpass))

@@ -21,7 +21,7 @@
 
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
-
+	
 
 
     <style>
@@ -129,7 +129,10 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<!-- Script para el Header -->
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="JavaScripts/bootstrap.js"></script>
+	<script src="JavaScripts/bootstrap.min.js"></script>
+	
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
@@ -190,10 +193,6 @@
 
 
 <body>
-	<div id="header"></div>
-	
-
-	
 	
 	<div class="sidebar-container">
 		<div class="sidebar-logo">
@@ -230,102 +229,117 @@
 	  	</ul>
 	</div>
 	
-	<div class="content-container">
-	  	<div class="container-fluid">
+	<form id="myForm" name="myForm" action="MainPageAdm" method="get">	
+		<div class="content-container">
+		  	<div class="container-fluid">
+		
+			    <!-- Main component for a primary marketing message or call to action -->
+			    <div class="jumbotron" style="padding: 0">
+			    	<table border="0" cellpadding="20">
+			    		<tr>
+			    			<td>
+			    				<h1><Strong>Alumnos</Strong></h1>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td>
+			    				<p>Los <strong>Alumnos</strong>  pueden cursar las siguientes carreras:</p>
+							      <ul>
+									  <li class="text-info">Sistemas</li>
+									  <li class="text-success">Quimica</li>
+									  <li class="text-secondary">Mecanica</li>
+									  <li class="text-danger">Civil</li>
+									  <li class="text-primary">Electrica</li>
+								  </ul> 
+			    			</td>
+			    			<td>
+			    				<p>Los posibles estados que puede tener un <strong>Alumnos</strong> son:</p>
+						      	  <ul>
+									  <li class="text-primary">Activo </li>
+									  <li class="text-muted">Pendiente</li>
+									  <li class="text-danger">Eliminado</li>
+									  <li style="visibility: hidden"></li>
+									  <li style="visibility: hidden"></li>
+								  </ul>
+			    			</td>
+			    		</tr>
+			    	</table>
+			      
+			      <p style="padding-left: 15px; padding-bottom: 20px">
+			        <a class="btn btn-lg btn-primary" href="NewAlumnos.jsp" role="button" >Agregar Alumno &raquo;</a>
+			      </p>
+			    </div>
+			    
+				<div class="table-responsive">
+					<table class="table table-hover table-sm">
+				  		<thead class="thead-dark">
+					    	<tr style="text-align:center;">
+							    <th scope="col">Apellido y Nombre</th>
+							    <th scope="col">Legajo</th>
+							    <th scope="col">Documento</th>
+							    <th scope="col">Email</th>
+							    <th scope="col">Telefono</th>
+							    <th scope="col">Direccion</th>
+							    <th scope="col">Carrera</th>
+							    <th scope="col">Estado</th>
+							    <th scope="col" >Acciones</th>
+					    	</tr>
+				  		</thead>
+			  		
+				  		<tbody>
+				  		<% for (Alumno Al:Alumnos) {%>
+				  			<tr>
+							    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
+							    <td><%=Al.getLegajo()%></td>
+							    <td><%=Al.getDocumento().getNumero()%></td>
+							    <td><%=Al.getEmail()%></td>
+							    <td><%=Al.getTelefono()%></td>
+							    
+							    <% if(Al.getDireccion().getPiso()==0) {%>
+							    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%></td>
+							    <% }else{%>
+							    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
+							    <% }%>
+							    
+							    <td ><%=Al.getCarrera()%></td>
+							    
+							    <% if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
+							    <td class="text-primary"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <% }else if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Pendiente)){%>
+							    <td class="text-muted"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <% }else{%>
+							    <td class="text-danger"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <% }%>		
+							    					
+							    <td>					
+							    	<% if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
+							    	
+							    		<% if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
+								    	<a href="MainPageAdm?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary" ><i class="fas fa-user-edit"></i> Activar</a>
+								    	<% }else {%>	
+								    	<a href="MainPageAdm?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary disabled" ><i class="fas fa-user-edit"></i> Activar</a>
+								    	<% }%>
+								    	
+								    	<a href="MainPageAdm?action=Editar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-secondary"><i class="fas fa-user-edit"></i> Editar</a>
+								    	
+							    	<% }%>
+						    							    	
+							    	<%if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
+							    	<a href="MainPageAdm?action=Eliminar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</a>
+							    	<% }else{%>		
+							    	<a href="MainPageAdm?action=Recuperar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary btn-block"><i class="far fa-trash-alt"></i> Recuperar</a>			
+									<% }%>
+							    </td>
+						    </tr>
+				  		<% }%>
+				  	
+				  		</tbody>
+					</table>
+				</div>
+		  	</div>
+		</div>
 	
-		    <!-- Main component for a primary marketing message or call to action -->
-		    <div class="jumbotron" style="padding: 0">
-		    	<table border="0" cellpadding="20">
-		    		<tr>
-		    			<td>
-		    				<h1><Strong>Alumnos</Strong></h1>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>
-		    				<p>Los <strong>Alumnos</strong>  pueden cursar las siguientes carreras:</p>
-						      <ul>
-								  <li class="text-info">Sistemas</li>
-								  <li class="text-success">Quimica</li>
-								  <li class="text-secondary">Mecanica</li>
-								  <li class="text-danger">Civil</li>
-								  <li class="text-primary">Electrica</li>
-							  </ul> 
-		    			</td>
-		    			<td>
-		    				<p>Los posibles estados que puede tener un <strong>Alumnos</strong> son:</p>
-					      	  <ul>
-								  <li class="text-primary">Activo </li>
-								  <li class="text-muted">Pendiente</li>
-								  <li class="text-danger">Eliminado</li>
-								  <li style="visibility: hidden"></li>
-								  <li style="visibility: hidden"></li>
-							  </ul>
-		    			</td>
-		    		</tr>
-		    	</table>
-		      
-		      <p style="padding-left: 15px; padding-bottom: 20px">
-		        <a class="btn btn-lg btn-primary" href="NewAlumnos.jsp" role="button" >Agregar Alumno &raquo;</a>
-		      </p>
-		    </div>
-		    
-			<div class="table-responsive">
-				<table class="table table-hover table-sm">
-			  		<thead class="thead-dark">
-				    	<tr>
-						    <th scope="col">Apellido y Nombre</th>
-						    <th scope="col">Legajo</th>
-						    <th scope="col">Documento</th>
-						    <th scope="col">Email</th>
-						    <th scope="col">Telefono</th>
-						    <th scope="col">Direccion</th>
-						    <th scope="col">Carrera</th>
-						    <th scope="col">Estado</th>
-						    <th scope="col">Acciones</th>
-				    	</tr>
-			  		</thead>
-		  		
-			  		<tbody>
-			  		<% for (Alumno Al:Alumnos) {%>
-			  			<tr>
-						    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
-						    <td><%=Al.getLegajo()%></td>
-						    <td><%=Al.getDocumento().getNumero()%></td>
-						    <td><%=Al.getEmail()%></td>
-						    <td><%=Al.getTelefono()%></td>
-						    
-						    <% if(Al.getDireccion().getPiso()==0) {%>
-						    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%></td>
-						    <% }else{%>
-						    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
-						    <% }%>
-						    
-						    <td ><%=Al.getCarrera()%></td>
-						    
-						    <% if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
-						    <td class="text-primary"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
-						    <% }else if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Pendiente)){%>
-						    <td class="text-muted"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
-						    <% }else{%>
-						    <td class="text-danger"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
-						    <% }%>		
-						    					
-						    <td>
-						    	<button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button>
-						    	<%if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
-						    	<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</button>
-						    	<% }%>
-						    </td>
-					    </tr>
-			  		<% }%>
-			  	
-			  		</tbody>
-				</table>
-			</div>
-	  	</div>
-	</div>
-	
+	</form>
 	
 	<hr class="mb-4">
 	<div id="footer"></div>

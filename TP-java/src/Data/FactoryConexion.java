@@ -6,11 +6,12 @@ public class FactoryConexion {
 	
 	private static FactoryConexion instancia;
 	
-	private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private String url    = "jdbc:sqlserver://localhost;";
-	private String user   = "UTN_user";
-	private String pass   = "hx2su9bb";
-	private String db	  = "database=UTN";
+	private String driver   = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private String url      = "jdbc:sqlserver://localhost;";
+	private String user     = "UTN_user";
+	private String pass     = "hx2su9bb";
+	private String db	    = "database=UTN";
+	private String security = ";IntegratedSecurity=true";
 	private int conectados=0;
 	private Connection conn= null;
 	
@@ -32,7 +33,8 @@ public class FactoryConexion {
 	public Connection getConn() {
 		try {
 			if(conn==null || conn.isClosed()) {
-				conn=DriverManager.getConnection(url+db,user,pass);
+				//conn=DriverManager.getConnection(url+db,user,pass);
+				conn=DriverManager.getConnection(url+db+security);
 				conectados=0;
 			}
 		} catch (SQLException e) {

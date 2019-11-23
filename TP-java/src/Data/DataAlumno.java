@@ -304,6 +304,28 @@ public class DataAlumno {
 				e.printStackTrace();
 			}
 		}
+	}
+		
+	public void setEstate(String legajo,EstadosPersona estate)
+	{
+		try {
+			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("UPDATE Alumnos SET estado = ? where legajo =  ?");
+			stmt.setString(1, estate.toString());
+			stmt.setString(2, legajo);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }
