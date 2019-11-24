@@ -33,8 +33,8 @@ public class FactoryConexion {
 	public Connection getConn() {
 		try {
 			if(conn==null || conn.isClosed()) {
-				//conn=DriverManager.getConnection(url+db,user,pass);
-				conn=DriverManager.getConnection(url+db+security);
+				conn=DriverManager.getConnection(url+db,user,pass);
+				//conn=DriverManager.getConnection(url+db+security);
 				conectados=0;
 			}
 		} catch (SQLException e) {

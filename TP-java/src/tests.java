@@ -139,7 +139,7 @@ public class tests {
 //			C.setTurno(turnos.Mañana);
 //		}
 //
-		DataComision DC = new DataComision();
+//		DataComision DC = new DataComision();
 //		DataMateria DM = new DataMateria();
 //		ArrayList<Materia> materias = DM.getAll();
 //		for(int i=1;i<3;i++)
@@ -170,9 +170,12 @@ public class tests {
 //			int docente = new Random().nextInt(15)+35;
 //			DC.addComision(500, i, docente, 0, 30, turnos.Mañana);
 //		}
+//		
+//		Formatter F = new Formatter();
+//		System.out.println(F.upAllWords(" asdASDAadasd DASDdAD   "));
 		
-		Formatter F = new Formatter();
-		System.out.println(F.upAllWords(" asdASDAadasd DASDdAD   "));
+		DataAlumno DA = new DataAlumno();
+		System.out.println(DA.getOne("1654603").toString());
 	}
 
 

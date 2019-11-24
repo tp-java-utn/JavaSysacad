@@ -129,9 +129,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<!-- Script para el Header -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="JavaScripts/bootstrap.js"></script>
 	<script src="JavaScripts/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
 	
 	<script> 
 	$(function(){
@@ -181,9 +183,7 @@
     }
     </script>
 
-    <% 
-    	Alumno A= (Alumno)session.getAttribute("usuario");
-	    
+    <% 	    
     	DataAlumno DA = new DataAlumno();
 		ArrayList<Alumno> Alumnos = DA.getAll();
     %>
@@ -193,43 +193,45 @@
 
 
 <body>
-	
-	<div class="sidebar-container">
-		<div class="sidebar-logo">
-		    UTN Administrador
+
+	<form name="myForm" action="MainPage" method="get">
+		<div class="sidebar-container">
+			<div class="sidebar-logo" >
+			    UTN Administrador
+			</div>
+			  	<ul class="sidebar-navigation">
+			    <li class="header">Personas</li>
+			    <li>
+			      <a href="MainPageAdm?action=Alumnos">
+			        <i class="fas fa-user-alt"></i> Alumnos
+			      </a>
+			    </li>
+			    <li>
+			      <a href="MainPageAdm?action=Docentes">
+			        <i class="fas fa-user-tie"></i> Docentes
+			      </a>
+			    </li>
+			    <li class="header">Entidades</li>
+			    <li>
+			      <a href="MainPageAdm?action=Materias">
+			         <i class="far fa-clipboard"></i> Materias
+			      </a>
+			    </li>
+			    <li>
+			      <a href="MainPageAdm?action=Comisiones">
+			        <i class="fa fa-users" aria-hidden="true"></i> Comisiones
+			      </a>
+			    </li>
+			    <li>
+			      <a href="MainPageAdm?action=Mesas">
+			        <i class="fas fa-graduation-cap"></i> Mesas
+			      </a>
+			    </li>
+		  	</ul>
 		</div>
-		  	<ul class="sidebar-navigation">
-		    <li class="header">Personas</li>
-		    <li>
-		      <a href="#">
-		        <i class="fa fa-home" aria-hidden="true"></i> Alumnos
-		      </a>
-		    </li>
-		    <li>
-		      <a href="#">
-		        <i class="fa fa-tachometer" aria-hidden="true"></i> Docentes
-		      </a>
-		    </li>
-		    <li class="header">Entidades</li>
-		    <li>
-		      <a href="#">
-		        <i class="fa fa-users" aria-hidden="true"></i> Materias
-		      </a>
-		    </li>
-		    <li>
-		      <a href="#">
-		        <i class="fa fa-cog" aria-hidden="true"></i> Comisiones
-		      </a>
-		    </li>
-		    <li>
-		      <a href="#">
-		        <i class="fa fa-info-circle" aria-hidden="true"></i> Mesas
-		      </a>
-		    </li>
-	  	</ul>
-	</div>
+	</form>
 	
-	<form id="myForm" name="myForm" action="MainPageAdm" method="get">	
+	<form id="myForm" name="myForm" action="MainPageAdmAlumno" method="get">	
 		<div class="content-container">
 		  	<div class="container-fluid">
 		
@@ -265,13 +267,11 @@
 			    		</tr>
 			    	</table>
 			      
-			      <p style="padding-left: 15px; padding-bottom: 20px">
-			        <a class="btn btn-lg btn-primary" href="NewAlumnos.jsp" role="button" >Agregar Alumno &raquo;</a>
-			      </p>
+
 			    </div>
 			    
 				<div class="table-responsive">
-					<table class="table table-hover table-sm">
+					<table class="table table-hover table-sm table-striped" >
 				  		<thead class="thead-dark">
 					    	<tr style="text-align:center;">
 							    <th scope="col">Apellido y Nombre</th>
@@ -290,44 +290,44 @@
 				  		<% for (Alumno Al:Alumnos) {%>
 				  			<tr>
 							    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
-							    <td><%=Al.getLegajo()%></td>
-							    <td><%=Al.getDocumento().getNumero()%></td>
+							    <td align="center"><%=Al.getLegajo()%></td>
+							    <td align="center"><%=Al.getDocumento().getNumero()%></td>
 							    <td><%=Al.getEmail()%></td>
-							    <td><%=Al.getTelefono()%></td>
+							    <td align="center"><%=Al.getTelefono()%></td>
 							    
 							    <% if(Al.getDireccion().getPiso()==0) {%>
-							    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%></td>
+							    <td align="center"><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%></td>
 							    <% }else{%>
-							    <td><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
+							    <td align="center"><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
 							    <% }%>
 							    
-							    <td ><%=Al.getCarrera()%></td>
+							    <td align="center"><%=Al.getCarrera()%></td>
 							    
 							    <% if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
-							    <td class="text-primary"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <td class="text-primary" align="center"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
 							    <% }else if(EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Pendiente)){%>
-							    <td class="text-muted"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <td class="text-muted" align="center"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
 							    <% }else{%>
-							    <td class="text-danger"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
+							    <td class="text-danger" align="center"><span class="label label-default"><%=Al.getEstadoPersona()%></span></td>
 							    <% }%>		
 							    					
-							    <td>					
+							    <td align="center">					
 							    	<% if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
 							    	
 							    		<% if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
-								    	<a href="MainPageAdm?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary" ><i class="fas fa-user-edit"></i> Activar</a>
+								    	<a href="MainPageAdmAlumno?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-success" ><i class="fas fa-user-check"></i> Activar</a>
 								    	<% }else {%>	
-								    	<a href="MainPageAdm?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary disabled" ><i class="fas fa-user-edit"></i> Activar</a>
+								    	<a href="MainPageAdmAlumno?action=Activar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-secondary disabled" ><i class="fas fa-user-check"></i> Activar</a>
 								    	<% }%>
 								    	
-								    	<a href="MainPageAdm?action=Editar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-secondary"><i class="fas fa-user-edit"></i> Editar</a>
+								    	<a href="MainPageAdmAlumno?action=Editar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
 								    	
 							    	<% }%>
 						    							    	
 							    	<%if(!EstadosPersona.valueOf(Al.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
-							    	<a href="MainPageAdm?action=Eliminar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</a>
+							    	<a href="MainPageAdmAlumno?action=Eliminar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</a>
 							    	<% }else{%>		
-							    	<a href="MainPageAdm?action=Recuperar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-primary btn-block"><i class="far fa-trash-alt"></i> Recuperar</a>			
+							    	<a href="MainPageAdmAlumno?action=Recuperar&id=<%=Al.getLegajo()%>" type="button" class="btn btn-dark"><i class="fas fa-user-plus"></i> Recuperar</a>			
 									<% }%>
 							    </td>
 						    </tr>
