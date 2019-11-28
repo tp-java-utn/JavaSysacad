@@ -194,4 +194,38 @@ public class DataInscripcion {
 		
 		return resp;
 	}
+	
+	public boolean AlumnoExist(String legajo,int idMateria) 
+	{
+		boolean resp = false;
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Inscripciones where legajo=? and idMateria=?");
+			stmt.setString(1, legajo);
+			stmt.setInt(2, idMateria);
+			rs   = stmt.executeQuery();
+	
+			if(!rs.isBeforeFirst()) {
+				resp = false;
+			}
+			else
+			{
+				resp = true;
+			}
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resp;
+	}
 }

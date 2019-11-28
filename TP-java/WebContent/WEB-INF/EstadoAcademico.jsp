@@ -6,6 +6,7 @@
 <%@page import="Entidades.Alumno"%>
 <%@page import="Entidades.EstadoAcademico"%>
 <%@page import="Entidades.Materia"%>
+<%@page import="Entidades.EstadoAcademico.*"%>
 <html>
 <head>
 
@@ -82,7 +83,7 @@
 		<table class="table table-striped table-hover tableFixHead">
 			  <colgroup span="3"></colgroup>
 			  <thead>
-			    <tr id="encabezado">
+			    <tr id="encabezado" align="center">
 			      	<th scope="col"><p>ID</p></th>
 			      	<th scope="col"><p>MATERIA</p></th>
 			      	<th scope="col"><p>ASISTENCIA</p></th>
@@ -96,13 +97,35 @@
 			  <tbody>
 			  <% for (Materia M:Materias) {%>
 			    <tr id="row">
-					<th scope="row"><%=M.getIdMateria()%></th>
+					<td align="center"><strong><%=M.getIdMateria()%></strong></td>
 			        <td><%=M.getNombre()%></td>
 			        <% for (EstadoAcademico EAS:EstadosAcademicos) {%>
 			        	<%if(EAS.getIdMateria()==M.getIdMateria()){%>
-			        	<td><%=EAS.getAsistencia()%>%</td>
-			        	<td><%=EAS.getNota()%>/10</td>
-			        	<td><%=EAS.getEstado()%></td>
+			        	<td align="center"><%=EAS.getAsistencia()%>%</td>
+			        	<td align="center"><%=EAS.getNota()%>/10</td>
+			        	
+			        	<td align="justify">
+			        		<%if(EAS.getEstado().equals(estadosMateria.Cursando.toString())){%>
+				        	<svg width="10" height="12">
+						    	<circle cx="5" cy="5" r="5"  fill="#428bca" />
+						    </svg>
+						    <%}else if(EAS.getEstado().equals(estadosMateria.Libre.toString())){%>
+						    <svg width="10" height="12">
+						    	<circle cx="5" cy="5" r="5"  fill="#d9534f" />
+						    </svg>
+						    <%}else if(EAS.getEstado().equals(estadosMateria.Aprobada.toString())){%>
+						    <svg width="10" height="12">
+						    	<circle cx="5" cy="5" r="5"  fill="#5cb85c" />
+						    </svg>
+						    <%}else{%>
+						    <svg width="10" height="12">
+						    	<circle cx="5" cy="5" r="5"  fill="#5bc0de" />
+						    </svg>
+						    <%}%>
+						    
+			        	<%=EAS.getEstado()%>
+			        	</td>
+			        	
 			        	<%}%>
 			        <%}%>
 
@@ -113,6 +136,11 @@
 	</div>
 	
 
+	<div class="row justify-content-center">
+		<div class="col-3">
+	    	<a class="btn btn-primary btn-lg btn-block" href="MainPage?action=volver">Volver al Menu</a>
+	    </div>
+    </div>
 		
 	<hr class="mb-4">
 	<div id="footer"></div>

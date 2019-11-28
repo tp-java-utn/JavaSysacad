@@ -26,9 +26,20 @@ public class Header extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String action = req.getParameter("action");
+		
+		if(action.equalsIgnoreCase("Main"))
+		{
+			req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+		}
+		else if(action.equalsIgnoreCase("Close"))
+		{
+			HttpSession session = req.getSession();
+			session.invalidate();
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+		}
 	}
 
 	/**
@@ -36,31 +47,11 @@ public class Header extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String op = null;
 		
-		if(req.getParameter("BtnHome")!=null)
-		{
-			op = "Home";
-		}
-		else if(req.getParameter("Value")!=null)
-		{
-			op = "Close";
-		}
+		
+		
 
-		
-		switch(op) 
-		{
-			case "Home":
-				req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
-			break;
-			
-			case "Close":
-				HttpSession session = req.getSession();
-				session.invalidate();
-				req.getRequestDispatcher("Login.jsp").forward(req, resp);
-			break;
-		
-		}
+
 	}
 
 }

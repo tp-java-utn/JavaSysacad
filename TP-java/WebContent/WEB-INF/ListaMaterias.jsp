@@ -86,6 +86,9 @@
     	
     	DataComision DC = new DataComision();
     	ArrayList<Comision> Comisiones = DC.getAll();
+    	
+    	DataInscripcion DI =  new DataInscripcion();
+    	
     %>
 
 </head>
@@ -95,7 +98,7 @@
 <body>
 	<div id="header"></div>
 
-	<form class="needs-validation" action="InscribirseMateria" method="post">
+	<form class="needs-validation" action="InscripcionMateria" method="get">
 		
 		<div class="container">
 		  	<div class="py-5 text-center">
@@ -107,7 +110,7 @@
 			<table class="table table-hover table-striped tableFixHead">
 			  <colgroup span="3"></colgroup>
 			  <thead>
-			    <tr id="encabezado">
+			    <tr id="encabezado" align="center">
 			      	<th scope="col"><p>ID</p></th>
 			      	<th scope="col"><p>AÑO</p></th>
 	
@@ -125,8 +128,8 @@
 			  <tbody>
 			  <% for (Materia MS:Materias) {%>
 			    <tr id="row">
-			      <th scope="row"><%=MS.getIdMateria()%></th>
-			      <td><%=MS.getAño()%></td>
+			      <td align="center"><strong><%=MS.getIdMateria()%></strong></td>
+			      <td align="center"><%=MS.getAño()%></td>
 			      
 			      <% if(MS.getCorrelativasRegulares()!=null) {%>
 			      <td> <p align="center"><%=MS.getCorrelativasRegulares()%></p></td>
@@ -146,10 +149,14 @@
 			      <td> <p align="center">-</p></td>
 			      <%}%>
 			      
-			      <td><%=MS.getNombre()%></td>
-			      <td><%=MS.getcursado()%></td>
-			      <td>
-				      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionComision/new?Materia=<%=MS.getIdMateria()%>">Inscribirse<i class="far fa-eye"></i></a>
+			      <td align="center"><%=MS.getNombre()%></td>
+			      <td align="center"><%=MS.getcursado()%></td>
+			      <td align="center">
+			      	  <% if(!DI.AlumnoExist(A.getLegajo(),MS.getIdMateria())) {%>
+				      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>">Inscribirse<i class="far fa-eye"></i></a>
+				      <%}else{%>
+				      <a type="submit" class="btn btn-primary disabled" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>" disabled>Inscribirse<i class="far fa-eye"></i></a>
+				      <%}%>
 			      </td>
 			    </tr>
 			    
@@ -158,17 +165,16 @@
 			</table>    
 
 		</div>
-		
-		<hr class="mb-4">
-	  		
+
 		<div class="row justify-content-center">
 			<div class="col-3">
-		    	<button class="btn btn-primary btn-lg btn-block" name="BtnVolver" value = "Volver">Volver al Menu</button>
+		    	<a class="btn btn-primary btn-lg btn-block" href="InscripcionMateria?action=volver">Volver al Menu</a>
 		    </div>
 	    </div>
     
     </form>
-	
+    
+	<hr class="mb-4">
 	<div id="footer"></div>
 	
 	

@@ -41,6 +41,7 @@
 	
 	<!-- Script para el Header -->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
@@ -65,9 +66,11 @@
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
     	String action=(String)request.getAttribute("action");
+    	Materia M= (Materia)session.getAttribute("Materia");
     	
 	    DataMateria DM = new DataMateria();
-		ArrayList<Materia> Materias = DM.getAll();
+		ArrayList<Materia> Materias = new ArrayList<Materia>();
+		Materias.add(M);
 		
 		DataComision DC = new DataComision();
 		ArrayList<Comision> Comisiones = DC.getAll();
@@ -92,13 +95,14 @@
 				<%if(CS.getIdMateria()==MS.getIdMateria()) {%>
 				    				
 				    <div class="media text-muted pt-3">
-				    	<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"></rect><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+				    	<%if(CS.getCantAlumnos()<CS.getCantAlumnosMax()) {%>
+				    	<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#428bca"></rect></svg>
 					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 						    
-						<%if(CS.getCantAlumnos()<CS.getCantAlumnosMax()) {%>
+						
 						<div class="d-flex justify-content-between align-items-center w-100">
-						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%></strong>
-						    	<button type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" onclick="Inscribirse(<%=CS.getIdComision()%>,<%=MS.getIdMateria()%>)">Inscribirse<i class="far fa-eye"></i></button>
+						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%> - Turno <%=CS.getTurno()%></strong>
+						    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionComision?action=seleccion&idMateria=<%=M.getIdMateria()%>&idComision=<%=CS.getIdComision()%>&legajo=<%=A.getLegajo()%>"> <i class="fas fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
 						</div>
 						
 						<span class="d-block">Cupos disponibles: <%=CS.getCantAlumnosMax()-CS.getCantAlumnos()%></span>
@@ -109,9 +113,12 @@
 					    
 					    
 					    <%}else{%>
+					    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#d9534f"></rect></svg>
+					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+					    
 					    <div class="d-flex justify-content-between align-items-center w-100">
-						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%></strong>
-						    	<button type="button" class="btn btn-secondary  disabled" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" onclick="Inscribirse(<%=CS.getIdComision()%>,<%=MS.getIdMateria()%>)">Inscribirse<i class="far fa-eye"></i></button>
+						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%> - Turno <%=CS.getTurno()%> </strong>
+						    	<button type="button" class="btn btn-secondary  disabled" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;"  disabled><i class="fas fa-check-circle" style="padding-right: 10px;"></i> Inscribirse</button>
 						</div>
 						
 					    <span class="d-block">Alumnos <%=CS.getCantAlumnos()%>/<%=CS.getCantAlumnosMax()%></span>
@@ -130,7 +137,15 @@
 		<%}%>
 		</div>
     </div>
+    
+    <div class="row justify-content-center">
+		<div class="col-2">
+	    	<a class="btn btn-primary btn-lg btn-block" href="InscripcionComision?action=volver">Volver</a>
+	    </div>
+    </div>
+    
     </form>
+    
 	<hr class="mb-4">
 	<div id="footer"></div>
 </body>

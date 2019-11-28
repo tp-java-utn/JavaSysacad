@@ -12,6 +12,7 @@ import Data.DataAlumno;
 import Data.DataComision;
 import Data.DataDocente;
 import Data.DataEstadoAcademico;
+import Data.DataExamen;
 import Data.DataInscripcion;
 import Data.DataMateria;
 import Entidades.Alumno;
@@ -24,8 +25,10 @@ import Entidades.Documento;
 import Entidades.Documento.TipoDocumento;
 import Logic.Formatter;
 import Entidades.EstadoAcademico;
+import Entidades.Examen;
 import Entidades.Materia;
 import Entidades.Persona.EstadosPersona;
+import Entidades.Examen.*;
 
 
 public class tests {
@@ -174,8 +177,13 @@ public class tests {
 //		Formatter F = new Formatter();
 //		System.out.println(F.upAllWords(" asdASDAadasd DASDdAD   "));
 		
-		DataAlumno DA = new DataAlumno();
-		System.out.println(DA.getOne("1654603").toString());
+		DataExamen DE = new DataExamen();
+    	ArrayList<Examen> Examenes = DE.getAll();
+    	for(Examen E:Examenes)
+    		{
+    		System.out.println(E.toString());
+    		}
+		 
 	}
 
 

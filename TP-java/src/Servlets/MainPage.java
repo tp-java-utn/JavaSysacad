@@ -43,24 +43,33 @@ public class MainPage extends HttpServlet {
 			op = "EstadoAcademico";
 		}
 		
-		switch(op) 
+		if(op!=null)
 		{
-			case "Examen":
-				req.getRequestDispatcher("WEB-INF/NewAlumno.html").forward(req, resp);
-			break;
-			
-			case "Materia":
-				req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
-			break;
-			
-			case "EstadoAcademico":
-				req.getRequestDispatcher("WEB-INF/EstadoAcademico.jsp").forward(req, resp);
-			break;
-			
-			default:
-		
-		}
+			switch(op) 
+			{
+				case "Examen":
+					req.getRequestDispatcher("WEB-INF/NewAlumno.html").forward(req, resp);
+				break;
 				
+				case "Materia":
+					req.getRequestDispatcher("WEB-INF/ListaMaterias.jsp").forward(req, resp);
+				break;
+				
+				case "EstadoAcademico":
+					req.getRequestDispatcher("WEB-INF/EstadoAcademico.jsp").forward(req, resp);
+				break;
+				
+				default:
+			
+			}
+		}
+		
+		String action = req.getParameter("action");
+		
+		if(action.equalsIgnoreCase("volver"))
+		{
+			req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+		}
 
 		}
 
