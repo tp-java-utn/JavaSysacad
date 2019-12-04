@@ -48,6 +48,45 @@ public class DataEstadoAcademico {
 		return EA;
 	}
 	
+	public ArrayList<EstadoAcademico> getAllEstadosAlumno(String legajo) 
+	{
+		ArrayList<EstadoAcademico> EstadosAcademicos = new ArrayList<EstadoAcademico>();
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from EstadosAcademicos EstadosAcademicos where legajo=?");
+			stmt.setString(1, legajo);
+			rs   = stmt.executeQuery();
+			if(rs != null)
+			{
+				while(rs.next())
+				{
+					EstadoAcademico EA = new EstadoAcademico();
+					EA.setIdMateria(rs.getInt("idMateria"));
+					EA.setLegajo(rs.getString("legajo"));
+					EA.setAsistencia(rs.getFloat("asistencia"));
+					EA.setNota(rs.getFloat("nota"));
+					EA.setEstado(estadosMateria.valueOf(rs.getString("estado")));
+					
+					//Agregar a la lista
+					EstadosAcademicos.add(EA);
+					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return EstadosAcademicos;
+	}
+	
 	public ArrayList<EstadoAcademico> getAll()
 	{
 		ArrayList<EstadoAcademico> EstadosAcademicos = new ArrayList<EstadoAcademico>();

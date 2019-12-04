@@ -10,16 +10,22 @@
 
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>Comision - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
-
-
+	
+	<!-- Icons -->
+	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
+	
+	<!-- JS -->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="JavaScripts/bootstrap.min.js"></script>
+	
+	<!-- Customs CSS -->
+	<link href="Styles/NewAlumno.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -35,13 +41,15 @@
           font-size: 3.5rem;
         }
       }
+      
+      #row:hover{
+    	background-color: #e0e0e0;
+      }		
+    }
+
     </style>
       
-	<link href="Styles/NewAlumno.css" rel="stylesheet">
-	
 	<!-- Script para el Header -->
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
@@ -49,20 +57,7 @@
 	});
 	</script>
 	
-	<script type="text/javascript">
-    	function submitForm(met) {
-    		document.myForm.action=met;
-    		//document.getElementById("myFrom").submit();
-        }
-    </script>
-    
-    <script type="text/javascript">
-    	function Inscribirse(idComision,idMateria){
-    		//A.inscripcionComision(idComision, idMateria);
-    		location.reload(true); 
-    	}
-    </script>
-    
+	<!-- Entidades -->
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
     	String action=(String)request.getAttribute("action");
@@ -102,7 +97,7 @@
 						
 						<div class="d-flex justify-content-between align-items-center w-100">
 						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%> - Turno <%=CS.getTurno()%></strong>
-						    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionComision?action=seleccion&idMateria=<%=M.getIdMateria()%>&idComision=<%=CS.getIdComision()%>&legajo=<%=A.getLegajo()%>"> <i class="fas fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
+						    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionComision?action=seleccion&idMateria=<%=M.getIdMateria()%>&idComision=<%=CS.getIdComision()%>&legajo=<%=A.getLegajo()%>"> <i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
 						</div>
 						
 						<span class="d-block">Cupos disponibles: <%=CS.getCantAlumnosMax()-CS.getCantAlumnos()%></span>

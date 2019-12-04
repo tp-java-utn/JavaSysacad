@@ -9,12 +9,18 @@ public class Inscripcion {
 		return "Inscripcion [idInscripcion=" + idInscripcion + ", legajo=" + legajo + ", idDocente=" + idDocente
 				+ ", idMateira=" + idMateria + ", idComision=" + idComision + ", fecha=" + fecha + "]";
 	}
-	int idInscripcion;
-	String legajo;
-	int idDocente;
-	int idMateria;
-	int idComision;
-	Date fecha;
+	private int idInscripcion;
+	private String legajo;
+	private int idDocente;
+	private int idMateria;
+	private int idComision;
+	private Date fecha;
+	private tipoInscripciones tipo;
+	
+	public enum tipoInscripciones{
+		Materia,
+		Mesa
+	}
 	
 	public int getIdInscripcion() {
 		return idInscripcion;
@@ -51,5 +57,11 @@ public class Inscripcion {
 	}
 	public void setFecha(Date date) {
 		this.fecha = date;
+	}
+	public tipoInscripciones getTipo() {
+		return tipo;
+	}
+	public void setTipo(tipoInscripciones tipo) {
+		this.tipo = tipo;
 	}
 }

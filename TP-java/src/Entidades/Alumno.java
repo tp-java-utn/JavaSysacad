@@ -1,6 +1,9 @@
 package Entidades;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Data.DataComision;
@@ -9,6 +12,7 @@ import Data.DataInscripcion;
 import Data.DataMateria;
 import Entidades.Documento.TipoDocumento;
 import Entidades.EstadoAcademico.estadosMateria;
+import Entidades.Inscripcion.*;
 
 public class Alumno extends Persona {	
 	
@@ -85,10 +89,34 @@ public class Alumno extends Persona {
 		this.legajo = legajo;
 	}
 	public double getPromedio() {
+		this.generatePromedio();
 		return promedio;
 	}
-	public void setPromedio(double promedio) {
-		this.promedio = promedio;
+
+	public void generatePromedio()
+	{
+		DataEstadoAcademico DEA = new DataEstadoAcademico();
+		ArrayList<EstadoAcademico> Estados = DEA.getAllEstadosAlumno(this.legajo);
+		int cant = this.catMateriasPorEstado(estadosMateria.Aprobada);
+		float acum = 0;
+		
+		for(EstadoAcademico EA:Estados)
+		{
+			acum += EA.getNota();
+		}
+
+		
+		if(acum!=0)
+		{
+			BigDecimal bigDecimal = new BigDecimal(acum/cant).setScale(2, RoundingMode.UP);
+			promedio = Float.valueOf(bigDecimal.toString());
+		}
+		else
+		{
+			promedio = 0;
+		}
+		
+
 	}
 	
 	public ArrayList<EstadoAcademico> getEstadosAcedemicos(ArrayList<EstadoAcademico> Estados)
@@ -138,7 +166,10 @@ public class Alumno extends Persona {
 			boolean existe = DI.AlumnoExist(this.legajo, idComision, idMateria);
 			System.out.println("Existe: "+existe);
 			
-			if(!existe)
+			//inscripcion
+			Inscripcion I = DI.getOne(this.legajo, idMateria, idComision);
+			
+			if(!existe || I.getTipo().equals(tipoInscripciones.Mesa))
 			{
 				//Agergar alumno a la comision
 				DC.inscripcion(idComision, idMateria);
@@ -146,7 +177,7 @@ public class Alumno extends Persona {
 				//Registrar inscripcion
 				long now = System.currentTimeMillis();
 		    	Date today = new Date(now);
-		    	DI.addInscripciones(this.legajo, idMateria, idComision, today);
+		    	DI.addInscripciones(this.legajo, idMateria, idComision, today,tipoInscripciones.Materia);
 		    	
 		    	//Actualizar estado Academico
 		    	DataEstadoAcademico DEA = new DataEstadoAcademico();
@@ -155,4 +186,38 @@ public class Alumno extends Persona {
 		}
 		
 	}
+	
+	public int catMateriasPorEstado(estadosMateria estado)
+	{
+		int count = 0;
+		DataEstadoAcademico DEA = new DataEstadoAcademico();
+		ArrayList<EstadoAcademico> Estados = DEA.getAllEstadosAlumno(this.legajo);
+		for(EstadoAcademico EA:Estados)
+		{
+			if(EA.getEstado().equals(estado.toString()))
+			{
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
+	public int restoMaterias(estadosMateria estado)
+	{
+		int count = 0;
+		DataEstadoAcademico DEA = new DataEstadoAcademico();
+		ArrayList<EstadoAcademico> Estados = DEA.getAllEstadosAlumno(this.legajo);
+		for(EstadoAcademico EA:Estados)
+		{
+			if(!EA.getEstado().equals(estado.toString()))
+			{
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
+	
 }

@@ -15,6 +15,7 @@ import Data.DataEstadoAcademico;
 import Data.DataExamen;
 import Data.DataInscripcion;
 import Data.DataMateria;
+import Data.DataMesa;
 import Entidades.Alumno;
 import Entidades.Alumno.Carreras;
 import Entidades.Comision;
@@ -177,12 +178,17 @@ public class tests {
 //		Formatter F = new Formatter();
 //		System.out.println(F.upAllWords(" asdASDAadasd DASDdAD   "));
 		
-		DataExamen DE = new DataExamen();
-    	ArrayList<Examen> Examenes = DE.getAll();
-    	for(Examen E:Examenes)
-    		{
-    		System.out.println(E.toString());
-    		}
+//		DataMateria DM = new DataMateria();
+//		int i = 3;
+//		System.out.println("Regular:"+DM.getOne(32).readCorrelativasRegulares()[i]);
+//		System.out.println("Aprobadas:"+DM.getOne(25).readCorrelativasAprobadas()[i]);
+//		System.out.println("Rendir:"+DM.getOne(32).readCorrelativasRendir()[i]);
+//		System.out.println(DM.getOne(25).AlumnoPuedeCursar("1654604"));
+		
+		DataMesa DM = new DataMesa();
+		long now = System.currentTimeMillis();
+    	Date today = new Date(now);
+		DM.addMesa(10, 18, 501, today);
 		 
 	}
 

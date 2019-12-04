@@ -68,8 +68,8 @@
     	DataComision DC = new DataComision();
     	ArrayList<Comision> Comisiones = DC.getAll();
     	
-    	DataInscripcion DI =  new DataInscripcion();
     	DataEstadoAcademico DEA = new DataEstadoAcademico();
+    	
     %>
 
 </head>
@@ -83,7 +83,7 @@
 		
 		<div class="container">
 		  	<div class="py-5 text-center">
-		       	<h1 class="text-dark"><strong>Inscripcion Materias</strong></h1>
+		       	<h1 class="text-dark"><strong>Inscripcion Mesas</strong></h1>
 		  	</div>
 		</div>
 		
@@ -94,9 +94,6 @@
 			    <tr id="encabezado" align="center">
 			      	<th scope="col"><p>ID</p></th>
 			      	<th scope="col"><p>AÑO</p></th>
-	
-			      	<th scope="col"><p align="center">REGULARES</p></th>
-			    	<th scope="col"><p align="center">APROBADAS</p></th>
 			    	<th scope="col"><p align="center">PARA RENDIR</p></th>
 			      	<th scope="col"><p>MATERIA</p></th>
 			      	<th scope="col"><p>CURSADO</p></th>
@@ -108,40 +105,29 @@
 			  
 			  <tbody>
 			  <% for (Materia MS:Materias) {%>
-			  	<% if(DEA.getOne(A.getLegajo(), MS.getIdMateria()).getEstado().equals(estadosMateria.Libre.toString())){%>
-				    <tr id="row">
-				      <td align="center"><strong><%=MS.getIdMateria()%></strong></td>
-				      <td align="center"><%=MS.getAño()%></td>
-				      
-				      <% if(MS.getCorrelativasRegulares()!=null) {%>
-				      <td> <p align="center"><%=MS.getCorrelativasRegulares()%></p></td>
-				      <%}else{ %>
-				      <td> <p align="center">-</p></td>
+			    <tr id="row">
+			      <td align="center"><strong><%=MS.getIdMateria()%></strong></td>
+			      <td align="center"><%=MS.getAño()%></td>
+			      			      
+			      <% if(MS.getCorrelativasRendir()!=null) {%>
+			      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
+			      <%}else{ %>
+			      <td> <p align="center">-</p></td>
+			      <%}%>
+			      
+			      <td align="center"><%=MS.getNombre()%></td>
+			      <td align="center"><%=MS.getcursado()%></td>
+			      <td align="center">
+			      	  <% if(DEA.getOne(A.getLegajo(),MS.getIdMateria()).getEstado().equals(estadosMateria.Regular.toString())) {%>
+				      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>"><i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
+				      <%}else{%>
+				      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No cumples con las Condiciones para anotarte">
+				      <button type="submit" class="btn btn-secondary disabled" style="pointer-events: none;" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>" disabled><i class="far fa-times-circle" style="padding-right: 10px;"></i>Inscribirse</button>
+				      </span>
 				      <%}%>
-				      
-				      <% if(MS.getCorrelativasAprobadas()!=null) {%>
-				      <td> <p align="center"><%=MS.getCorrelativasAprobadas()%></p></td>
-				      <%}else{ %>
-				      <td> <p align="center">-</p></td>
-				      <%}%>
-				      
-				      <% if(MS.getCorrelativasRendir()!=null) {%>
-				      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
-				      <%}else{ %>
-				      <td> <p align="center">-</p></td>
-				      <%}%>
-				      
-				      <td align="center"><%=MS.getNombre()%></td>
-				      <td align="center"><%=MS.getcursado()%></td>
-				      <td align="center">
-				      	  <% if(DEA.getOne(A.getLegajo(), MS.getIdMateria()).getEstado().equals(estadosMateria.Libre.toString())){%>
-					      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>"><i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
-					      <%}else{%>
-					      <a type="submit" class="btn btn-secondary disabled" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>" disabled>Inscripto</a>
-					      <%}%>
-				      </td>
-				    </tr>
-			    <%}%>
+			      </td>
+			    </tr>
+			    
 			  <%}%>
 			  </tbody>
 			</table>    

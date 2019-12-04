@@ -48,7 +48,7 @@ public class MainPage extends HttpServlet {
 			switch(op) 
 			{
 				case "Examen":
-					req.getRequestDispatcher("WEB-INF/NewAlumno.html").forward(req, resp);
+					req.getRequestDispatcher("WEB-INF/ListaMesas.jsp").forward(req, resp);
 				break;
 				
 				case "Materia":

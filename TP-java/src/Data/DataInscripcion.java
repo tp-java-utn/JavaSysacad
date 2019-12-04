@@ -1,6 +1,7 @@
 package Data;
 
 import Entidades.*;
+import Entidades.Inscripcion.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,7 +30,48 @@ public class DataInscripcion {
 				I.setIdMateria(rs.getInt("idMateria"));
 				I.setLegajo(rs.getString("legajo"));
 				I.setIdInscripcion(rs.getInt("idInscripcion"));
-				
+				I.setTipo(tipoInscripciones.valueOf(rs.getString("tipo")));				
+				}
+			}
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return I;
+	}
+	
+	public Inscripcion getOne(String legajo,int idMateria,int idComision) 
+	{
+		Inscripcion I = new Inscripcion();
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Inscripciones where legajo=? and idMateria=? and idComision=?");
+			stmt.setString(1, legajo);
+			stmt.setInt(2, idMateria);
+			stmt.setInt(3, idComision);
+			rs   = stmt.executeQuery();
+			
+			
+			if(rs != null) {
+				while(rs.next())
+				{
+				I.setFecha(rs.getDate("fecha"));
+				I.setIdComision(rs.getInt("idComision"));
+				I.setIdDocente(rs.getInt("idDocente"));
+				I.setIdMateria(rs.getInt("idMateria"));
+				I.setLegajo(rs.getString("legajo"));
+				I.setIdInscripcion(rs.getInt("idInscripcion"));
+				I.setTipo(tipoInscripciones.valueOf(rs.getString("tipo")));				
 				}
 			}
 		
@@ -67,6 +109,7 @@ public class DataInscripcion {
 					I.setIdMateria(rs.getInt("idMateria"));
 					I.setLegajo(rs.getString("legajo"));
 					I.setIdInscripcion(rs.getInt("idInscripcion"));
+					I.setTipo(tipoInscripciones.valueOf(rs.getString("tipo")));	
 					
 					//Agregar a la lista
 					Inscripciones.add(I);
@@ -88,7 +131,7 @@ public class DataInscripcion {
 		return Inscripciones;
 	}
 	
-	public Inscripcion addInscripciones(String Legajo,int idMateria, int idComision, Date fehca) 
+	public Inscripcion addInscripciones(String Legajo,int idMateria, int idComision, Date fehca,tipoInscripciones tipo) 
 	{
 		//Crear nueva Direccion
 		int id = 0;
@@ -97,6 +140,7 @@ public class DataInscripcion {
 		I.setIdComision(idComision);
 		I.setIdMateria(idMateria);
 		I.setLegajo(Legajo);
+		I.setTipo(tipo);	
 		
 		//taer docente
 		DataComision DC = new DataComision();
@@ -105,15 +149,16 @@ public class DataInscripcion {
 		
 		try {
 			
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Inscripciones(legajo,idMateria,idDocente,idComision,fecha) values(?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Inscripciones(legajo,idMateria,idDocente,idComision,fecha,tipo) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, I.getLegajo());
 			stmt.setInt(2, I.getIdMateria());
 			stmt.setInt(3,I.getIdDocente());
 			stmt.setInt(4, I.getIdComision());
 			stmt.setDate(5, I.getFecha());
+			stmt.setString(6, I.getTipo().toString());
 			stmt.executeUpdate();
 			
-			//id Direccion
+			//id 
 			ResultSet keyResultSet=stmt.getGeneratedKeys();
 			if(keyResultSet!=null && keyResultSet.next()) {
 				id=keyResultSet.getInt(1);

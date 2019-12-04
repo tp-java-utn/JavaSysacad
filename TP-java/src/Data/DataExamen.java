@@ -27,6 +27,7 @@ public class DataExamen {
 			if(rs != null) {
 				while(rs.next())
 				{
+				E.setIdExamen(rs.getInt("idExamen"));
 				E.setIdComision(rs.getInt("idComision"));
 				E.setLegajo(rs.getString("legajo"));
 				E.setNota(rs.getFloat("nota"));
@@ -68,6 +69,7 @@ public class DataExamen {
 			if(rs != null) {
 				while(rs.next())
 				{
+				E.setIdExamen(rs.getInt("idExamen"));
 				E.setIdComision(rs.getInt("idComision"));
 				E.setLegajo(rs.getString("legajo"));
 				E.setNota(rs.getFloat("nota"));
@@ -107,6 +109,7 @@ public class DataExamen {
 				while(rs.next())
 				{
 					Examen E = new Examen();
+					E.setIdExamen(rs.getInt("idExamen"));
 					E.setIdComision(rs.getInt("idComision"));
 					E.setLegajo(rs.getString("legajo"));
 					E.setNota(rs.getFloat("nota"));

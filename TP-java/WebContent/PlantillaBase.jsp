@@ -2,23 +2,29 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Entidades.Alumno"%>
+<%@page import="Entidades.*"%>
 <html>
 <head>
 
 
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>Inicio - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
-
-
+	
+	<!-- Icons -->
+	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
+	
+	<!-- JS -->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="JavaScripts/bootstrap.min.js"></script>
+	
+	<!-- Customs CSS -->
+	<link href="Styles/NewAlumno.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -35,19 +41,16 @@
         }
       }
     </style>
-      
-	<link href="Styles/NewAlumno.css" rel="stylesheet">
-	
+      	
 	<!-- Script para el Header -->
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
 	  $("#footer").load("Footer.jsp"); 
 	});
 	</script>
-	
 
+	<!-- Entidades -->
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
     %>

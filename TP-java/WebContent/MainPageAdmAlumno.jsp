@@ -13,18 +13,15 @@
 
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>Administrador - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/loginADM.png">
 
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">  
-	<link href="Styles/NewAlumno.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<!-- Custom CSS -->
+	<link href="Styles/NewAlumno.css" rel="stylesheet">
 	<link href="Styles/Admin.css" rel="stylesheet">
 	
 	<!-- Script para el Header -->

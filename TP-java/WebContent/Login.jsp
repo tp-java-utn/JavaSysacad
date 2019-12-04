@@ -6,7 +6,19 @@
 	    <link rel="shortcut icon" type="image/png" href="pngs/login.png">
 	    
 	    
-		<Link href="Styles/bootstrap.min.css" rel="stylesheet" />
+		<!-- Bootstrap core CSS -->
+		<link href="Styles/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- Icons -->
+		<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
+		
+		<!-- JS -->
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="JavaScripts/bootstrap.min.js"></script>
+		
+		<!-- Customs CSS -->
+		<link href="Styles/floating-labels.css" rel="stylesheet">
 		<style>
 	      .bd-placeholder-img {
 	        font-size: 1.125rem;
@@ -23,15 +35,8 @@
 	        }
 	      }
 	    </style>
-	    
-	    <script type="text/javascript">
-    	function submitForm(met) {
-    		document.myForm.action=met;
-    		//document.getElementById("myFrom").submit();
-        }
-    	</script>
-    	
-		<link href="Styles/floating-labels.css" rel="stylesheet">
+	   
+		
 	</head>
 	
 	<body >

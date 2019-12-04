@@ -13,16 +13,26 @@
 
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>Estado Academico - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
-
-
+	
+	<!-- Icons -->
+	<script src="https://kit.fontawesome.com/1baa4ceec0.js"></script>
+	
+	<!-- JS -->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="JavaScripts/bootstrap.min.js"></script>
+	
+	<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	
+	
+	<!-- Customs CSS -->
+	<link href="Styles/NewAlumno.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -41,13 +51,12 @@
       
       #row:hover{
     	background-color: #e0e0e0;
-      }
+      }		
+    }
+
     </style>
       
-	<link href="Styles/NewAlumno.css" rel="stylesheet">
-	
 	<!-- Script para el Header -->
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script> 
 	$(function(){
 	  $("#header").load("Header.jsp");
@@ -55,7 +64,8 @@
 	});
 	</script>
 	
-
+	
+	<!-- Entidades -->
     <% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
     
@@ -73,12 +83,62 @@
 <body>
 	<div id="header"></div>
 	
+	
 	<div class="container">
 	  	<div class="py-5 text-center">
-	       	<h1 class="text-primary"><strong>Estado Academico</strong></h1>
+	       	<h1 class="text-dark"><strong>Estado Academico</strong></h1>
 	  	</div>
 	</div>
 
+	<div class="card">
+		<div class="container-fluid" style="padding: 50px;">
+				<h3 class="text-center">Estado de la carrera de Ing <%=A.getCarrera()%></h3>
+				<div class="row">
+				
+					<div class="col-xl-6">
+					
+					
+						<p style="padding-top: 10px;">Libre</p>
+						<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="<%=A.catMateriasPorEstado(estadosMateria.Libre)%>" aria-valuemin="0" aria-valuemax="35" style="width: <%=100*((float)A.catMateriasPorEstado(estadosMateria.Libre)/(float)35)%>%;"><%=A.catMateriasPorEstado(estadosMateria.Libre)%>/35</div>
+						</div> 
+						
+						<p style="padding-top: 10px;">Cursando</p>
+						<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%=A.catMateriasPorEstado(estadosMateria.Cursando)%>" aria-valuemin="0" aria-valuemax="35" style="width: <%=100*((float)A.catMateriasPorEstado(estadosMateria.Cursando)/(float)35)%>%;"><%=A.catMateriasPorEstado(estadosMateria.Cursando)%>/35</div>
+						</div>
+		
+						<p style="padding-top: 10px;">Regulares</p>
+						<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="<%=A.catMateriasPorEstado(estadosMateria.Regular)%>" aria-valuemin="0" aria-valuemax="35" style="width: <%=100*((float)A.catMateriasPorEstado(estadosMateria.Regular)/(float)35)%>%;"><%=A.catMateriasPorEstado(estadosMateria.Regular)%>/35</div>
+						</div>
+		
+						<p style="padding-top: 10px;">Aprobadas</p>
+						<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="<%=A.catMateriasPorEstado(estadosMateria.Aprobada)%>" aria-valuemin="0" aria-valuemax="35" style="width: <%=100*((float)A.catMateriasPorEstado(estadosMateria.Aprobada)/(float)35)%>%;"><%=A.catMateriasPorEstado(estadosMateria.Aprobada)%>/35</div>
+						</div>
+						
+						<p style="padding-top: 10px;">Promedio: 
+						<%if(A.getPromedio()==0){%>
+							-
+						<%}else{%>
+							<%=A.getPromedio()%>
+						<%}%>
+						</p>
+	
+					</div>
+					
+					<div class="col-xl-6">
+					
+						<div  style="height: 10%;">
+						<canvas align="center" id="doughnutChart" ></canvas>
+						</div>				
+					</div>
+					
+				</div>
+		</div>
+	</div>	
+	
 	<div class="table-responsive">
 		<table class="table table-striped table-hover tableFixHead">
 			  <colgroup span="3"></colgroup>
@@ -144,5 +204,26 @@
 		
 	<hr class="mb-4">
 	<div id="footer"></div>
+	
+	<script>
+	//doughnut
+	var ctxD = document.getElementById("doughnutChart").getContext('2d');
+	var myLineChart = new Chart(ctxD, {
+	type: 'doughnut',
+	data: {
+	labels: ["Cursando", "Libres", "Aprobadas", "Regulares"],
+	datasets: [{
+	data: [<%=A.catMateriasPorEstado(estadosMateria.Cursando)%>, <%=A.catMateriasPorEstado(estadosMateria.Libre)%>, <%=A.catMateriasPorEstado(estadosMateria.Aprobada)%>, <%=A.catMateriasPorEstado(estadosMateria.Regular)%>],
+	backgroundColor: ["#428bca", "#d9534f", "#5cb85c", "#5bc0de"],
+	hoverBackgroundColor: ["#0d47a1", "#CC0000", "#007E33", "#0099CC"],
+	}]
+	},
+	options: {
+	responsive: true
+	}
+	});
+	</script>
 </body>
+
+
 </html>

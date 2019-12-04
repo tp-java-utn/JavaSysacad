@@ -49,6 +49,8 @@
 		Materia M = (Materia)session.getAttribute("Materia");
 		DataDocente DD = new DataDocente();
 		Docente D = DD.getOne(C.getIdDocente());
+		DataInscripcion DI =  new DataInscripcion();
+		Inscripcion I = DI.getOne(A.getLegajo(),M.getIdMateria(),C.getIdComision());
 		
     %>
 </head>
@@ -65,8 +67,10 @@
 						<div class="card-body">
 					<img class="mb-4" src="pngs/login.png" height="150" width="150">
 					<h1 class="h3 mb-3 font-weight-normal text-primary">FELICITACIONES</h1>
-					<p><%=A.getNombre()%> te has logrado inscribir en la comision <strong><%=C.getIdComision()%></strong> de la materia <strong><%=M.getNombre()%></strong>, 
+					
+					<p class="text-left"><%=A.getNombre()%> te has logrado inscribir en la comision <strong><%=C.getIdComision()%></strong> de la materia <strong><%=M.getNombre()%></strong>, 
 					turno <%=C.getTurno()%> con el profesor <strong><%=D.getNombre()%> <%=D.getApellido()%></strong>.</p>
+					<p class="text-left">Numero Inscripcion: <%=I.getIdInscripcion()%></p>
 					<a class="btn btn-primary btn-lg btn-block" href="InscripcionMateria?action=volver">Volver</a>
 				</div>
 			</div>
