@@ -147,4 +147,38 @@ public class DataMesa {
 		
 	}
 	
+	public boolean MateriaExist(int idMateria) 
+	{
+		boolean resp = false;
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Mesas where idMateria=?");
+			stmt.setInt(1, idMateria);
+
+			rs   = stmt.executeQuery();
+	
+			if(!rs.isBeforeFirst()) {
+				resp = false;
+			}
+			else
+			{
+				resp = true;
+			}
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resp;
+	}
+	
 }

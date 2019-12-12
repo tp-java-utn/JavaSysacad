@@ -90,7 +90,7 @@
 				<%if(CS.getIdMateria()==MS.getIdMateria()) {%>
 				    				
 				    <div class="media text-muted pt-3">
-				    	<%if(CS.getCantAlumnos()<CS.getCantAlumnosMax()) {%>
+				    	<%if(CS.getCantAlumnos()<CS.getCantAlumnosMax() && CS.getCantAlumnos()<CS.getCantAlumnosMax()/2) {%>
 				    	<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#428bca"></rect></svg>
 					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 						    
@@ -106,8 +106,22 @@
 					    	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%=100*((float)CS.getCantAlumnos()/(float)CS.getCantAlumnosMax())%>%;" aria-valuenow="<%=CS.getCantAlumnos()%>" aria-valuemin="0" aria-valuemax="<%=CS.getCantAlumnosMax()%>"><%=CS.getCantAlumnos()%>/<%=CS.getCantAlumnosMax()%></div>
 					    </div>
 					    
+					    <%}else if(CS.getCantAlumnos()>=CS.getCantAlumnosMax()/2 && CS.getCantAlumnos()<CS.getCantAlumnosMax()){%>
+					    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#f0ad4e"></rect></svg>
+					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 					    
-					    <%}else{%>
+					    <div class="d-flex justify-content-between align-items-center w-100">
+						    	<strong class="text-gray-dark">Comision <%=CS.getIdComision()%> - Turno <%=CS.getTurno()%></strong>
+						    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionComision?action=seleccion&idMateria=<%=M.getIdMateria()%>&idComision=<%=CS.getIdComision()%>&legajo=<%=A.getLegajo()%>"> <i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
+						</div>
+						
+						<span class="d-block">Cupos disponibles: <%=CS.getCantAlumnosMax()-CS.getCantAlumnos()%></span>
+						
+						<div class="progress">
+					    	<div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%=100*((float)CS.getCantAlumnos()/(float)CS.getCantAlumnosMax())%>%;" aria-valuenow="<%=CS.getCantAlumnos()%>" aria-valuemin="0" aria-valuemax="<%=CS.getCantAlumnosMax()%>"><%=CS.getCantAlumnos()%>/<%=CS.getCantAlumnosMax()%></div>
+					    </div>
+					    
+					    <%}else if(CS.getCantAlumnos()==CS.getCantAlumnosMax()){%>
 					    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#d9534f"></rect></svg>
 					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 					    

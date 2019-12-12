@@ -161,8 +161,18 @@
 			        <td><%=M.getNombre()%></td>
 			        <% for (EstadoAcademico EAS:EstadosAcademicos) {%>
 			        	<%if(EAS.getIdMateria()==M.getIdMateria()){%>
-			        	<td align="center"><%=EAS.getAsistencia()%>%</td>
-			        	<td align="center"><%=EAS.getNota()%>/10</td>
+			        	
+			        	<%if(EAS.getEstado().equals(estadosMateria.Aprobada.toString()) || EAS.getEstado().equals(estadosMateria.Regular.toString())){%>
+			        		<td align="center"><%=EAS.getAsistencia()%>%</td>	        		
+			        	<%}else{%>
+			        		<td align="center">-</td>
+			        	<%}%>
+			        	
+			        	<%if(EAS.getNota()>0){%>
+			        		<td align="center"><%=EAS.getNota()%>/10</td>
+			        	<%}else{%>
+			        		<td align="center">-</td>
+			        	<%}%>
 			        	
 			        	<td align="justify">
 			        		<%if(EAS.getEstado().equals(estadosMateria.Cursando.toString())){%>

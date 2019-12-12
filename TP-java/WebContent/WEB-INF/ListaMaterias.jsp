@@ -134,10 +134,10 @@
 				      <td align="center"><%=MS.getNombre()%></td>
 				      <td align="center"><%=MS.getcursado()%></td>
 				      <td align="center">
-				      	  <% if(DEA.getOne(A.getLegajo(), MS.getIdMateria()).getEstado().equals(estadosMateria.Libre.toString())){%>
+				      	  <% if(MS.AlumnoPuedeCursar(A.getLegajo())){%>
 					      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>"><i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
 					      <%}else{%>
-					      <a type="submit" class="btn btn-secondary disabled" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>" disabled>Inscripto</a>
+					      <button type="submit" class="btn btn-secondary disabled" id="<%=MS.getIdMateria()%>" disabled><i class="far fa-times-circle" style="padding-right: 10px;"></i>Inscribirse</button>
 					      <%}%>
 				      </td>
 				    </tr>
@@ -150,7 +150,7 @@
 
 		<div class="row justify-content-center">
 			<div class="col-3">
-		    	<a class="btn btn-primary btn-lg btn-block" href="InscripcionMateria?action=volver">Volver al Menu</a>
+		    	<a class="btn btn-primary btn-lg btn-block" href="MainPage?action=volver">Volver al Menu</a>
 		    </div>
 	    </div>
     

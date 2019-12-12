@@ -3,6 +3,7 @@ package Entidades;
 import java.util.ArrayList;
 
 import Data.DataEstadoAcademico;
+import Data.DataMateria;
 import Entidades.EstadoAcademico.*;
 
 public class Materia {
@@ -84,192 +85,83 @@ public class Materia {
 	public void setcursado(String curs) {
 		this.cursado = curs;
 	}
-	
-	public int[] readCorrelativasAprobadas() {
-		
-		if(this.correlativasAprobadas!=null)
-		{
-			int[] intArray = new int[this.correlativasAprobadas.length()];
-			int numberlenght = 1;
-			int pos = 0;
-			
-			for(int i=0;i<this.correlativasAprobadas.length();i++)
-			{
-				if(this.correlativasAprobadas.charAt(i) != '-')
-				{		
-					if(numberlenght<=1)
-					{
-						//primer digito
-						intArray[pos] = Character.getNumericValue(this.correlativasAprobadas.charAt(i));				
-						numberlenght++;
-					}
-					else
-					{
-						//segundo digito
-						intArray[pos] = Integer.valueOf(String.valueOf(intArray[pos])+String.valueOf(this.correlativasAprobadas.charAt(i)));				
-						numberlenght = 1;
-					}
-					
-				}
-				else
-				{
-					pos++;
-				}
-			}
-			return intArray;
-		}
-		else
-		{
-			int[] intArray = new int[1];
-			intArray[0]=0;
-			return intArray;
-		}
-	}
-	
-	public int[] readCorrelativasRendir() {
-		
-		if(this.correlativasRendir!=null)
-		{
-			int[] intArray = new int[correlativasRendir.length()];
-			int numberlenght = 1;
-			int pos = 0;
-			
-			if(!this.correlativasRendir.equals("Todas"))
-			{			
-				for(int i=0;i<this.correlativasRendir.length();i++)
-				{
-					if(this.correlativasRendir.charAt(i) != '-')
-					{		
-						if(numberlenght<=1)
-						{
-							//primer digito
-							intArray[pos] = Character.getNumericValue(this.correlativasRendir.charAt(i));				
-							numberlenght++;
-						}
-						else
-						{
-							//segundo digito
-							intArray[pos] = Integer.valueOf(String.valueOf(intArray[pos])+String.valueOf(this.correlativasRendir.charAt(i)));				
-							numberlenght = 1;
-						}
-						
-					}
-					else
-					{
-						pos++;
-					}
-				}
-			}
-			return intArray;
-		}
-		else
-		{
-			int[] intArray = new int[1];
-			intArray[0]=0;
-			return intArray;
-		}
-	}
 
+	public ArrayList<Integer> getCorrelativasRendirInt()
+	{
+		DataMateria DM = new DataMateria();
+		return DM.getCorrelativasRendir(this.getIdMateria());
+	}
 	
-	public int[] readCorrelativasRegulares() {
-		
-		if(this.correlativasRegulares!=null)
-		{
-			int[] intArray = new int[correlativasRegulares.length()];
-			int numberlenght = 1;
-			int pos = 0;
-			
-			for(int i=0;i<this.correlativasRegulares.length();i++)
-			{
-				if(this.correlativasRegulares.charAt(i) != '-')
-				{		
-					if(numberlenght<=1)
-					{
-						//primer digito
-						intArray[pos] = Character.getNumericValue(this.correlativasRegulares.charAt(i));				
-						numberlenght++;
-					}
-					else
-					{
-						//segundo digito
-						intArray[pos] = Integer.valueOf(String.valueOf(intArray[pos])+String.valueOf(this.correlativasRegulares.charAt(i)));				
-						numberlenght = 1;
-					}
-					
-				}
-				else
-				{
-					pos++;
-				}
-			}
-			return intArray;
-		}
-		else
-		{
-			int[] intArray = new int[1];
-			intArray[0]=0;
-			return intArray;
-		}
+	public ArrayList<Integer> getCorrelativasRegularesInt()
+	{
+		DataMateria DM = new DataMateria();
+		return DM.getCorrelativasRegular(this.getIdMateria());
+	}
+	
+	public ArrayList<Integer> getCorrelativasAprobadasInt()
+	{
+		DataMateria DM = new DataMateria();
+		return DM.getCorrelativasAprobadas(this.getIdMateria());
 	}
 	
 	public boolean AlumnoPuedeCursar(String legajo)
 	{
-		//DataEstadoAcademico
+		//correlativas
+		ArrayList<Integer> CorrelativasRegulares = this.getCorrelativasRegularesInt();
+		ArrayList<Integer> CorrelativasAprobadas = this.getCorrelativasAprobadasInt();
+		
+		//Traer estado academico del alumno
 		DataEstadoAcademico DEA = new DataEstadoAcademico();
+		ArrayList<EstadoAcademico> EA = DEA.getAllEstadosAlumno(legajo);
 		
-		//correlativas necesarias
-		int[] regulares = this.readCorrelativasRegulares();
-		int[] aprobadas = this.readCorrelativasAprobadas();
+		//checkeo
+		int acumRegulares = 0;
+		int acumAprobadas = 0;
+		int acumAlumnoRegulares = 0;
+		int acumAlumnoAprobadas = 0;
 		
-		
-		//regulares
-		int acumRegular = 0;
-		int valRegular = 0;
-		
-		for(int i=0; i<regulares.length;i++)
+		for(EstadoAcademico EAs:EA)
 		{
-			if(DEA.getOne(legajo, regulares[i]).getEstado().equals(estadosMateria.Regular.toString()))
+			//Regulares
+			for(Integer C:CorrelativasRegulares)
 			{
-				System.out.println("Regular "+regulares[i]+": OK");
-				valRegular++;
-				acumRegular++;
+				if(EAs.idMateria==C)
+				{
+					acumRegulares++;
+					if(EAs.getEstado().equalsIgnoreCase("Regular") || EAs.getEstado().equalsIgnoreCase("Aprobada"))
+					{
+						acumAlumnoRegulares++;
+						System.out.println(EAs.idMateria +" OK");
+					}
+					else
+					{
+						System.out.println(EAs.idMateria +" not OK");
+					}
+				}
 			}
-			else if(regulares[i]==0)
+			
+			//Aprobadas
+			for(Integer C:CorrelativasAprobadas)
 			{
-				//nada
+				if(EAs.idMateria==C)
+				{
+					acumAprobadas++;
+					if(EAs.getEstado().equalsIgnoreCase("Aprobada"))
+					{
+						acumAlumnoAprobadas++;
+						System.out.println(EAs.idMateria +" OK");
+					}
+					else
+					{
+						System.out.println(EAs.idMateria +" not OK");
+					}
+				}
 			}
-			else
-			{
-				System.out.println("Regular "+regulares[i]+": not OK");
-				acumRegular--;
-			}
+			
 		}
 		
-		//aprobadas
-		int acumAprobar = 0;
-		int valAprobar = 0;
 		
-		for(int i=0; i<aprobadas.length;i++)
-		{
-			if(DEA.getOne(legajo, aprobadas[i]).getEstado().equals(estadosMateria.Aprobada.toString()))
-			{
-				System.out.println("Aprobada "+aprobadas[i]+": OK");
-				valAprobar++;
-				acumAprobar++;
-			}
-			else if(aprobadas[i]==0)
-			{
-				//nada
-			}
-			else
-			{
-				System.out.println("Aprobada "+aprobadas[i]+": not OK");
-				acumAprobar--;
-			}
-		}
-				
-		
-		if(acumRegular==valRegular && acumAprobar==valAprobar)
+		if(acumRegulares == acumAlumnoRegulares && acumAprobadas == acumAlumnoAprobadas)
 		{
 			return true;
 		}
@@ -277,7 +169,52 @@ public class Materia {
 		{
 			return false;
 		}
-
+		
+		
 	}
 	
+	public boolean AlumnoPuedeRendir(String legajo)
+	{
+		//correlativas
+		ArrayList<Integer> CorrelativasRendir = this.getCorrelativasRendirInt();
+		
+		//Traer estado academico del alumno
+		DataEstadoAcademico DEA = new DataEstadoAcademico();
+		ArrayList<EstadoAcademico> EA = DEA.getAllEstadosAlumno(legajo);
+		
+		//checkeo
+		int acumRendir = 0;
+		int acumAlumnoRendir = 0;
+		
+		for(EstadoAcademico EAs:EA)
+		{
+			for(Integer C:CorrelativasRendir)
+			{
+				if(EAs.idMateria==C)
+				{
+					acumRendir++;
+					if(EAs.getEstado().equalsIgnoreCase("Aprobada"))
+					{
+						acumAlumnoRendir++;
+						System.out.println(EAs.idMateria +" OK");
+					}
+					else
+					{
+						System.out.println(EAs.idMateria +" not OK");
+					}
+				}
+			}
+		}
+		
+		if(acumAlumnoRendir == acumRendir)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+		
+	}
 }

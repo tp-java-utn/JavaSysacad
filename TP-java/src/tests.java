@@ -185,10 +185,38 @@ public class tests {
 //		System.out.println("Rendir:"+DM.getOne(32).readCorrelativasRendir()[i]);
 //		System.out.println(DM.getOne(25).AlumnoPuedeCursar("1654604"));
 		
-		DataMesa DM = new DataMesa();
-		long now = System.currentTimeMillis();
-    	Date today = new Date(now);
-		DM.addMesa(10, 18, 501, today);
+		Materia M = new Materia();
+		Alumno A = new Alumno();
+		A.setLegajo("1654604");
+		M.setIdMateria(11);
+		
+		System.out.println("regulares");
+		ArrayList<Integer> Correlativas1 = M.getCorrelativasRegularesInt();
+		for(Integer C:Correlativas1)
+		{
+			System.out.println(C);
+		}
+		
+		System.out.println("aprobadas");
+		ArrayList<Integer> Correlativas2 = M.getCorrelativasAprobadasInt();
+		for(Integer C:Correlativas2)
+		{
+			System.out.println(C);
+		}
+		
+		System.out.println("Rendir");
+		ArrayList<Integer> Correlativas3 = M.getCorrelativasRendirInt();
+		for(Integer C:Correlativas3)
+		{
+			System.out.println(C);
+		}
+		
+		System.out.println();
+		System.out.println("Cursar");
+		System.out.println(M.AlumnoPuedeCursar(A.getLegajo()));
+		System.out.println();
+		System.out.println("Rendir");
+		System.out.println(M.AlumnoPuedeRendir(A.getLegajo()));
 		 
 	}
 

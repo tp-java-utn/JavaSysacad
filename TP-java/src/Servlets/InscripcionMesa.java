@@ -15,14 +15,14 @@ import Entidades.Persona.EstadosPersona;
 /**
  * Servlet implementation class IncribirseMateria
  */
-@WebServlet("/InscripcionMateria")
-public class InscripcionMateria extends HttpServlet {
+@WebServlet("/InscripcionMesa")
+public class InscripcionMesa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InscripcionMateria() {
+    public InscripcionMesa() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,11 +34,12 @@ public class InscripcionMateria extends HttpServlet {
 		// TODO Auto-generated method stub
 		//resp.getWriter().append("Served at: ").append(req.getContextPath());
 
-		String action = req.getParameter("action");
+		
+	String action = req.getParameter("action");
 		
 		if(action.equalsIgnoreCase("volver"))
 		{
-			req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+			req.getRequestDispatcher("WEB-INF/ListaMesas.jsp").forward(req, resp);
 		}
 		else if(action.equalsIgnoreCase("seleccion"))
 		{
@@ -46,9 +47,8 @@ public class InscripcionMateria extends HttpServlet {
 			int idMateria = Integer.parseInt(req.getParameter("id"));
 			Materia M = DM.getOne(idMateria);
 			req.getSession().setAttribute("Materia",M);
-			req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
 		}
-
 
 
 	}
@@ -57,7 +57,8 @@ public class InscripcionMateria extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		
 
 	}
 

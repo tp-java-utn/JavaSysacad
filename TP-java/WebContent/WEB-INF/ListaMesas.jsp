@@ -79,7 +79,7 @@
 <body>
 	<div id="header"></div>
 
-	<form class="needs-validation" action="InscripcionMateria" method="get">
+	<form class="needs-validation" action="ListaMesas" method="get">
 		
 		<div class="container">
 		  	<div class="py-5 text-center">
@@ -105,29 +105,30 @@
 			  
 			  <tbody>
 			  <% for (Materia MS:Materias) {%>
-			    <tr id="row">
-			      <td align="center"><strong><%=MS.getIdMateria()%></strong></td>
-			      <td align="center"><%=MS.getAño()%></td>
-			      			      
-			      <% if(MS.getCorrelativasRendir()!=null) {%>
-			      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
-			      <%}else{ %>
-			      <td> <p align="center">-</p></td>
-			      <%}%>
-			      
-			      <td align="center"><%=MS.getNombre()%></td>
-			      <td align="center"><%=MS.getcursado()%></td>
-			      <td align="center">
-			      	  <% if(DEA.getOne(A.getLegajo(),MS.getIdMateria()).getEstado().equals(estadosMateria.Regular.toString())) {%>
-				      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>"><i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
-				      <%}else{%>
-				      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No cumples con las Condiciones para anotarte">
-				      <button type="submit" class="btn btn-secondary disabled" style="pointer-events: none;" id="<%=MS.getIdMateria()%>" href="InscripcionMateria?action=seleccion&id=<%=MS.getIdMateria()%>" disabled><i class="far fa-times-circle" style="padding-right: 10px;"></i>Inscribirse</button>
-				      </span>
+			  	<%if(!DEA.getOne(A.getLegajo(), MS.getIdMateria()).getEstado().equals(estadosMateria.Aprobada.toString())){%>
+				    <tr id="row">
+				      <td align="center"><strong><%=MS.getIdMateria()%></strong></td>
+				      <td align="center"><%=MS.getAño()%></td>
+				      			      
+				      <% if(MS.getCorrelativasRendir()!=null) {%>
+				      <td> <p align="center"><%=MS.getCorrelativasRendir()%></p></td>
+				      <%}else{ %>
+				      <td> <p align="center">-</p></td>
 				      <%}%>
-			      </td>
-			    </tr>
-			    
+				      
+				      <td align="center"><%=MS.getNombre()%></td>
+				      <td align="center"><%=MS.getcursado()%></td>
+				      <td align="center">
+				      	  <% if(MS.AlumnoPuedeRendir(A.getLegajo())) {%>
+					      <a type="submit" class="btn btn-primary" id="<%=MS.getIdMateria()%>" href="ListaMesas?action=seleccion&id=<%=MS.getIdMateria()%>"><i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
+					      <%}else{%>
+					      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No cumples con las Condiciones para anotarte">
+					      <button type="submit" class="btn btn-secondary disabled" style="pointer-events: none;" id="<%=MS.getIdMateria()%>" disabled><i class="far fa-times-circle" style="padding-right: 10px;"></i>Inscribirse</button>
+					      </span>
+					      <%}%>
+				      </td>
+				    </tr>
+			  	<%}%>
 			  <%}%>
 			  </tbody>
 			</table>    
@@ -136,7 +137,7 @@
 
 		<div class="row justify-content-center">
 			<div class="col-3">
-		    	<a class="btn btn-primary btn-lg btn-block" href="InscripcionMateria?action=volver">Volver al Menu</a>
+		    	<a class="btn btn-primary btn-lg btn-block" href="MainPage?action=volver">Volver al Menu</a>
 		    </div>
 	    </div>
     

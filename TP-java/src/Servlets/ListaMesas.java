@@ -15,14 +15,14 @@ import Entidades.Persona.EstadosPersona;
 /**
  * Servlet implementation class IncribirseMateria
  */
-@WebServlet("/InscripcionMateria")
-public class InscripcionMateria extends HttpServlet {
+@WebServlet("/ListaMesas")
+public class ListaMesas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InscripcionMateria() {
+    public ListaMesas() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,7 +46,7 @@ public class InscripcionMateria extends HttpServlet {
 			int idMateria = Integer.parseInt(req.getParameter("id"));
 			Materia M = DM.getOne(idMateria);
 			req.getSession().setAttribute("Materia",M);
-			req.getRequestDispatcher("WEB-INF/InscripcionComision.jsp").forward(req, resp);
+			req.getRequestDispatcher("WEB-INF/InscripcionMesa.jsp").forward(req, resp);
 		}
 
 
