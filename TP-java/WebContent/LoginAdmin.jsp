@@ -35,7 +35,7 @@
 	</head>
 	
 	<body >
-		<form class = "form-signin" id="myForm" name="myForm" action="Login" method="post">
+		<form class = "form-signin" id="myForm" name="myForm" action="LoginAdmin" method="post">
 			<div class="text-center mb-4">
 				<img class="mb-4" src="pngs/loginADM.png" height="150" width="150">
 				<h1 class="h3 mb-3 font-weight-normal">Administrador UTN</h1>
@@ -43,7 +43,7 @@
 			</div>
 			
 			<div class="form-label-group">
-				<input name="user"  type = "text" class="form-control" placeholder = "Legajo" required pattern="[0-9 ]{4,10}" required
+				<input name="userAdmin"  type = "text" class="form-control" placeholder = "Legajo" required pattern="[0-9 ]{4,10}" required
 				        	title = "El Tamaño minimo es de 4 y el maximo de 10 digitos" autofocus/>
 				<label for="user">Legajo</label>
 			</div>

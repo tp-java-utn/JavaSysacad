@@ -33,7 +33,7 @@
 	
 	<script> 
 	$(function(){
-	  $("#header").load("Header.jsp");
+	  $("#header").load("HeaderAdmin.jsp");
 	  $("#footer").load("Footer.jsp"); 
 	});
 	</script>
@@ -90,8 +90,12 @@
 
 <body>
 
+	
+	<div id="header"></div>
 	<form name="myForm" action="MainPage" method="get">
+	
 		<div class="sidebar-container">
+		
 			<div class="sidebar-logo" >
 			    UTN Administrador
 			</div>
@@ -107,6 +111,11 @@
 			        <i class="fas fa-user-tie"></i> Docentes
 			      </a>
 			    </li>
+			    <li>
+			      <a href="MainPageAdm?action=Docentes">
+			        <i class="fas fa-trash"></i> Eliminados
+			      </a>
+			    </li>
 			    <li class="header">Entidades</li>
 			    <li>
 			      <a href="MainPageAdm?action=Materias">
@@ -115,7 +124,7 @@
 			    </li>
 			    <li>
 			      <a href="MainPageAdm?action=Comisiones">
-			        <i class="fa fa-users" aria-hidden="true"></i> Comisiones
+			        <i class="fa fa-users"></i> Comisiones
 			      </a>
 			    </li>
 			    <li>
@@ -128,6 +137,7 @@
 	</form>
 	
 	<form id="myForm" name="myForm" action="MainPageAdmAlumno" method="get">	
+	
 		<div class="content-container">
 		  	<div class="container-fluid">
 		
