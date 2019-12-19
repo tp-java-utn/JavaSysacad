@@ -52,10 +52,6 @@
 	</script>
 	
 
-    <% 
-    	Alumno A= (Alumno)session.getAttribute("usuario");
-    %>
-
 </head>
 	
 

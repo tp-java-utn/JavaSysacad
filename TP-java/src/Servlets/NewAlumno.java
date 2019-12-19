@@ -91,20 +91,7 @@ public class NewAlumno extends HttpServlet {
 		direccion = F.upAllWords(direccion);
 		departamento = F.upFirstWord(departamento);
 		
-		//Nuevo alumno
-		if(piso != 0 && departamento != "")
-		{
-			//direccion simple
-			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,carrera,tipoDocumento,documento,direccion,numero);	
-		}
-		else
-		{
-			//direccion edificio
-			Alumno A = new Alumno(nombre,apellido,email,contraseña,telefono,carrera,tipoDocumento,documento,direccion,numero,piso,departamento);
-		}
-		
-		
-		
+	
 		//validar datos
 		Validator V = new Validator();
 		if(contraseña.equals(contraseña02)) //Contraseñas iguales?

@@ -177,7 +177,7 @@ public class Alumno extends Persona {
 				//Registrar inscripcion
 				long now = System.currentTimeMillis();
 		    	Date today = new Date(now);
-		    	DI.addInscripciones(this.legajo, idMateria, idComision, today,tipoInscripciones.Materia);
+		    	DI.addInscripciones(this.legajo, idMateria, idComision,today,tipoInscripciones.Materia);
 		    	
 		    	//Actualizar estado Academico
 		    	DataEstadoAcademico DEA = new DataEstadoAcademico();
@@ -186,6 +186,22 @@ public class Alumno extends Persona {
 		}
 		
 	}
+	
+	public void inscripcionMesa(int idMesa,int idMateria) {
+		
+		DataInscripcion DI = new DataInscripcion();
+		boolean existe = DI.AlumnoExistMesa(this.legajo,idMateria,idMesa);
+		System.out.println("Existe: "+existe);
+			
+		if(!existe)
+		{
+			//Registrar inscripcion
+			long now = System.currentTimeMillis();
+	    	Date today = new Date(now);
+	    	//DI.addInscripciones(this.legajo, idMateria, 0, idMesa, today,tipoInscripciones.Mesa);
+		}	
+	}
+	
 	
 	public int catMateriasPorEstado(estadosMateria estado)
 	{

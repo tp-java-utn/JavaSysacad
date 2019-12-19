@@ -46,6 +46,7 @@ public class InscripcionComision extends HttpServlet {
 			Materia M = DM.getOne(idMateria);
 			int idComision = Integer.parseInt(req.getParameter("idComision"));
 			Comision C = DC.getOne(idComision, idMateria);
+			
 			req.getSession().setAttribute("Materia",M);
 			req.getSession().setAttribute("Comision",C);
 			

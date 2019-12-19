@@ -206,15 +206,22 @@ public class Materia {
 			}
 		}
 		
-		if(acumAlumnoRendir == acumRendir)
+		EstadoAcademico EstadoAcademicoEstaMateria = DEA.getOne(legajo, this.idMateria);
+		if(EstadoAcademicoEstaMateria.getEstado().equalsIgnoreCase("Regular"))
 		{
-			return true;
+			if(acumAlumnoRendir == acumRendir)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
 			return false;
 		}
-		
 		
 	}
 }

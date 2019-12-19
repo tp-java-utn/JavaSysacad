@@ -45,13 +45,11 @@
 	
 	<% 
 		Alumno A= (Alumno)session.getAttribute("usuario");
-		Comision C= (Comision)session.getAttribute("Comision");
+		Mesa Mesa= (Mesa)session.getAttribute("Mesa");
 		Materia M = (Materia)session.getAttribute("Materia");
-		
-		DataDocente DD = new DataDocente();
-		Docente D = DD.getOne(C.getIdDocente());
+
 		DataInscripcion DI =  new DataInscripcion();
-		Inscripcion I = DI.getOne(A.getLegajo(),M.getIdMateria(),C.getIdComision());
+		//Inscripcion I = DI.getOne(A.getLegajo(),M.getIdMateria(),C.getIdComision());
 		
     %>
 </head>
@@ -69,18 +67,20 @@
 					<img class="mb-4" src="pngs/login.png" height="150" width="150">
 					<h1 class="h3 mb-3 font-weight-normal text-primary">FELICITACIONES</h1>
 					
+
 					<ul class="list-unstyled mt-3 mb-4">
-		              <li><%=A.getNombre()%> te has logrado inscribir en la comision</li>
-		              <li><strong><%=C.getIdComision()%> - <%=M.getNombre()%></strong></li>
+		              <li><%=A.getNombre()%> te has logrado inscribir en la Mesa</li>
+		              <li><strong><%=Mesa.getIdMesa()%> - <%=M.getNombre()%></strong></li>
 		            </ul>
 		            
-		            <ul class="list-unstyled mt-3 mb-4 text-left">
-		              <li><strong>Turno: </strong>  <%=C.getTurno()%></li>
-		              <li><strong>Docente: </strong> <%=D.getNombre()%> <%=D.getApellido()%></li>
+					<ul class="list-unstyled mt-3 mb-4 text-left">
+		              <li><strong>Fecha:</strong> <%=Mesa.getFecha()%></li>
+		              <li><strong>Hora:</strong> <%=Mesa.getHorario() %>:00 hs</li>
+		              <li><strong>Salon:</strong> <%=Mesa.getSalon() %></li>
 		            </ul>
-		            
-					<p class="text-left"><strong>Numero Inscripcion: </strong> <%=I.getIdInscripcion()%></p>
-					<a class="btn btn-primary btn-lg btn-block" href="InscripcionMateria?action=volver">Volver</a>
+
+					<p class="text-left"><strong>Numero Inscripcion: </strong> </p>
+					<a class="btn btn-primary btn-lg btn-block" href="InscripcionMesa?action=volver">Volver</a>
 				</div>
 			</div>
 		</div>

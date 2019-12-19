@@ -215,4 +215,34 @@ public class DataComision {
 		
 		return resp;
 	}
+	
+	public ArrayList<Integer> getAllDocentePorMateria(int idMateria)
+	{
+		ArrayList<Integer> DocentesIds = new ArrayList<Integer>();
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select DISTINCT idDocente from Comisiones where idMateria=?");
+			stmt.setInt(1, idMateria);
+			rs   = stmt.executeQuery();
+			if(rs != null)
+			{
+				while(rs.next())
+				{
+					DocentesIds.add(rs.getInt("idDocente"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return DocentesIds;
+	}
 }

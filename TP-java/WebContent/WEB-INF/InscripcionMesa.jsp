@@ -75,6 +75,9 @@
 		DataMesa DMesas = new DataMesa();
 		ArrayList<Mesa> Mesas = DMesas.getAll();
 
+		DataComision DC = new DataComision();
+		DataDocente DD = new DataDocente();
+		ArrayList<Integer> DocentesIds = DC.getAllDocentePorMateria(M.getIdMateria());
     %>
 
 </head>
@@ -103,11 +106,23 @@
 								
 								<div class="d-flex justify-content-between align-items-center w-100">
 								    	<strong class="text-gray-dark">Mesa <%=Me.getIdMesa()%> - Final</strong>
-								    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionComision?action=seleccion&idMateria=<%=M.getIdMateria()%>&legajo=<%=A.getLegajo()%>"> <i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
+								    	<a type="button" class="btn btn-primary" name="BtnInscribirse" id="<%=MS.getIdMateria()%>" style="margin-top: 10px;" href="InscripcionMesa?action=seleccion&idMateria=<%=M.getIdMateria()%>&idMesa=<%=Me.getIdMesa()%>&legajo=<%=A.getLegajo()%>"> <i class="far fa-check-circle" style="padding-right: 10px;"></i>Inscribirse</a>
 								</div>
 								
-								<span class="d-block">Fecha: <%=Me.getFecha()%></span>
-								<span class="d-block">Horario: <%=Me.getHorario()%>:00 hs</span>
+								<span class="d-block"><strong>Fecha:</strong> <%=Me.getFecha()%></span>
+								<span class="d-block"><strong>Horario:</strong> <%=Me.getHorario()%>:00 hs</span>
+								
+								<span class="d-block"><strong>Docentes:</strong>
+									<%for (Integer id:DocentesIds) {%>
+									<div class="form-check form-check-inline">
+									  <input class="form-check-input" type="radio" name="<%=Me.getIdMesa()%>" id="exampleRadios1" value="option1">
+									  <label class="form-check-label" for="exampleRadios1">
+									    <%=DD.getOne(id).getApellido()%>, <%=DD.getOne(id).getNombre()%>
+									  </label>
+									</div>
+						            <%}%>
+					            </span>
+					            
 							</div>
 						</div>					   			   
 				    <%}%>

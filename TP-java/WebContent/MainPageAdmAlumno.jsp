@@ -182,7 +182,6 @@
 					    	<tr style="text-align:center;">
 							    <th scope="col">Apellido y Nombre</th>
 							    <th scope="col">Legajo</th>
-							    <th scope="col">Documento</th>
 							    <th scope="col">Email</th>
 							    <th scope="col">Telefono</th>
 							    <th scope="col">Direccion</th>
@@ -197,7 +196,6 @@
 				  			<tr>
 							    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
 							    <td align="center"><%=Al.getLegajo()%></td>
-							    <td align="center"><%=Al.getDocumento().getNumero()%></td>
 							    <td><%=Al.getEmail()%></td>
 							    <td align="center"><%=Al.getTelefono()%></td>
 							    

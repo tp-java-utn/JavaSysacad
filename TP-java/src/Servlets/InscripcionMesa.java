@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Data.DataAlumno;
-import Data.DataMateria;
-import Entidades.Materia;
-import Entidades.Persona.EstadosPersona;
+import Data.*;
+import Entidades.*;
 
 /**
  * Servlet implementation class IncribirseMateria
@@ -39,15 +37,32 @@ public class InscripcionMesa extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("volver"))
 		{
-			req.getRequestDispatcher("WEB-INF/ListaMesas.jsp").forward(req, resp);
+			req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
 		}
 		else if(action.equalsIgnoreCase("seleccion"))
 		{
+			
+		
 			DataMateria DM = new DataMateria();
-			int idMateria = Integer.parseInt(req.getParameter("id"));
+			DataMesa Dmesa = new DataMesa();
+			
+			//traer claves principales
+			int idMateria = Integer.parseInt(req.getParameter("idMateria"));
+			int idMesa = Integer.parseInt(req.getParameter("idMesa"));
+			
+			//traer registros de la base de datos
 			Materia M = DM.getOne(idMateria);
+			Mesa Mesa = Dmesa.getOne(idMesa);
+			
+			//inscribir mesa
+			DataAlumno DA = new DataAlumno();
+			Alumno A = DA.getOne(req.getParameter("legajo"));
+			A.inscripcionMesa(idMesa, idMateria);
+			
+			//guardar entidades
 			req.getSession().setAttribute("Materia",M);
-			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+			req.getSession().setAttribute("Mesa",Mesa);
+			req.getRequestDispatcher("WEB-INF/PostInscripcionMesa.jsp").forward(req, resp);
 		}
 
 
