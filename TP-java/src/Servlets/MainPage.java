@@ -65,14 +65,15 @@ public class MainPage extends HttpServlet {
 		}
 		
 		String action = req.getParameter("action");
-		
-		if(action.equalsIgnoreCase("volver"))
+		if(action != null) 
 		{
-			req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+			if(action.equalsIgnoreCase("volver"))
+			{
+				req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);
+			}
+	
+			}
 		}
-
-		}
-
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
