@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
+import Data.DataDocente;
 import Entidades.Persona.EstadosPersona;
 
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdmAlumno")
-public class MainPageAdmAlumno extends HttpServlet {
+@WebServlet("/MainPageAdmDocentes")
+public class MainPageAdmDocentes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdmAlumno() {
+    public MainPageAdmDocentes() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,24 +36,17 @@ public class MainPageAdmAlumno extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("Eliminar"))
 		{
-			DataAlumno DA = new DataAlumno();
-			String legajo = request.getParameter("id");
-			DA.delete(legajo);
+			DataDocente DD = new DataDocente();
+			String idDocente = request.getParameter("id");
+			DD.delete(Integer.valueOf(idDocente));	
 			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmEliminados.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Activar"))
-		{
-			DataAlumno DA = new DataAlumno();
-			String legajo = request.getParameter("id");
-			DA.setEstate(legajo,EstadosPersona.Activo);
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
 		}
 		else if(action.equalsIgnoreCase("Recuperar"))
 		{
-			DataAlumno DA = new DataAlumno();
-			String legajo = request.getParameter("id");
-			DA.setEstate(legajo,EstadosPersona.Pendiente);
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
+			DataDocente DD = new DataDocente();
+			String idDocente = request.getParameter("id");
+			DD.setEstate(Integer.valueOf(idDocente),EstadosPersona.Activo);	
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
 		}
 		else if(action.equalsIgnoreCase("Editar"))
 		{

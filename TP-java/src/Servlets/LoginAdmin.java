@@ -77,9 +77,8 @@ public class LoginAdmin extends HttpServlet {
 					req.getSession().setAttribute("usuario", A);
 					req.getSession().setMaxInactiveInterval(10*60);
 					resp.setHeader("Refresh", 10*60 + "; ErrorPage.jsp");
-					System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
 					System.out.println(A.toString());
-		        	req.getRequestDispatcher("MainPageAdmAlumno.jsp").forward(req, resp);
+		        	req.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(req, resp);
 				}
 				else
 				{

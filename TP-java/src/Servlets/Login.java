@@ -75,8 +75,7 @@ public class Login extends HttpServlet {
 				if(EstadosPersona.valueOf(A.getEstadoPersona()).equals(EstadosPersona.Activo))
 				{
 					req.getSession().setAttribute("usuario", A);
-					req.getSession().setMaxInactiveInterval(10*60);
-					resp.setHeader("Refresh", 10*60 + "; ErrorPage.jsp");
+					req.getSession().setMaxInactiveInterval(15*60);
 					System.out.println("[Login]Legajo: "+user +"/Contraseña: "+ pass);
 					System.out.println(A.toString());
 		        	req.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(req, resp);

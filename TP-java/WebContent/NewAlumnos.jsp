@@ -99,8 +99,8 @@
           		<div class="row">
 			        <div class="col-md-4 mb-3">
 		          		<div class="mb-4">
-				        <label for="carrera">Tipo de Documento</label>
-				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100" required required>
+				        <label for="tipoDocumento">Tipo de Documento</label>
+				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100"  required>
 				        <option value="">Elige...</option>
 				        <option>Documento Nacional de Identidad</option>
 				        <option>Pasaporte</option>

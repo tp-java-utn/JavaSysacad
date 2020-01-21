@@ -328,4 +328,31 @@ public class DataAlumno {
 		}
 		
 	}
+	
+	public void updateAlumno(String legajo,String nombre, String apellido,String telefono,String email,Carreras carrera,TipoDocumento tipoDocumento,String documento) {
+		try {
+			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("update Alumnos set nombre = ?, apellido = ?,telefono =? ,tipoDocumento = ?,documento = ?,email = ?,carrera= ? where Alumnos.legajo = ?");
+			stmt.setString(1, nombre);
+			stmt.setString(2, apellido);
+			stmt.setString(3, telefono);
+			stmt.setString(4, tipoDocumento.toString());
+			stmt.setString(5, documento);
+			stmt.setString(6, email);
+			stmt.setString(7, carrera.toString());
+			stmt.setString(8, legajo);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

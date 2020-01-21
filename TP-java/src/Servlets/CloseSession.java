@@ -7,19 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Data.DataAlumno;
-
 /**
- * Servlet implementation class MainPageAdm
+ * Servlet implementation class CloseSession
  */
-@WebServlet("/MainPageAdm")
-public class MainPageAdm extends HttpServlet {
+@WebServlet("/CloseSession")
+public class CloseSession extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdm() {
+    public CloseSession() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,29 +26,8 @@ public class MainPageAdm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String action = request.getParameter("action");
-		
-		if(action.equalsIgnoreCase("Alumnos"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Docentes"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Eliminados"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmEliminados.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Materias"))
-		{}
-		else if(action.equalsIgnoreCase("Comisiones"))
-		{}
-		else if(action.equalsIgnoreCase("Mesas"))
-		{}
-		
-		
+		request.getSession().invalidate();
+		System.out.println("Session Closed");
 	}
 
 	/**

@@ -33,51 +33,12 @@
 	
 	<script> 
 	$(function(){
-	  $("#header").load("Header.jsp");
+	  $("#header").load("HeaderAdmin.jsp");
 	  $("#footer").load("Footer.jsp"); 
 	});
 	</script>
 	
-	<script>
-    function choose(BtnName){
     	
-    	var btn = document.getElementById(BtnName);
-    	var title = document.getElementById("title");
-    	btn.className = "nav-link active";
-    	
-    	switch (BtnName){
-    		case "BtnMaterias":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Materias";
-    		break;
-    		
-    		case "BtnAlumnos":
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Alumnos";
-    		break;
-    		
-    		case "BtnDocentes":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Docentes";
-        	break;
-        		
-    		case "BtnComisiones":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			title.innerHTML = "Comisiones";
-        	break;
-    	}
-    	
-    	
-    }
-    </script>
 
     <% 	    
    		Alumno A = (Alumno)session.getAttribute("Alumno");
@@ -89,6 +50,7 @@
 
 <body>
 
+	<div id="header"></div>
 	<form name="myForm" action="MainPage" method="get">
 		<div class="sidebar-container">
 			<div class="sidebar-logo" >
@@ -126,42 +88,11 @@
 		</div>
 	</form>
 	
-	<form id="myForm" name="myForm" action="MainPageAdmAlumno" method="get">	
+	<form id="myForm" name="myForm" action="MainPageAdmEditAlumno" method="get">	
 		<div class="content-container">
 		  	<div class="container-fluid">
 		
-			    <!-- Main component for a primary marketing message or call to action -->
-			    <div class="jumbotron" style="padding: 0">
-			    	<table border="0" cellpadding="20">
-			    		<tr>
-			    			<td>
-			    				<h1><Strong>Alumnos</Strong></h1>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td>
-			    				<p>Los <strong>Alumnos</strong>  pueden cursar las siguientes carreras:</p>
-							      <ul>
-									  <li class="text-info">Sistemas</li>
-									  <li class="text-success">Quimica</li>
-									  <li class="text-secondary">Mecanica</li>
-									  <li class="text-danger">Civil</li>
-									  <li class="text-primary">Electrica</li>
-								  </ul> 
-			    			</td>
-			    			<td>
-			    				<p>Los posibles estados que puede tener un <strong>Alumnos</strong> son:</p>
-						      	  <ul>
-									  <li class="text-primary">Activo </li>
-									  <li class="text-muted">Pendiente</li>
-									  <li class="text-danger">Eliminado</li>
-									  <li style="visibility: hidden"></li>
-									  <li style="visibility: hidden"></li>
-								  </ul>
-			    			</td>
-			    		</tr>
-			    	</table>	      
-			    </div>  
+
 			    
 			    <div class="col-md-12 order-md-1">
   			
@@ -192,13 +123,13 @@
           		<div class="row">
 			        <div class="col-md-4 mb-3">
 		          		<div class="mb-4">
-				        <label for="carrera">Tipo de Documento</label>
-				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100" required required>
+				        <label for="tipoDocumento">Tipo de Documento</label>
+				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100" required>
 				        <option value="">Elige...</option>
-				        <option>Documento Nacional de Identidad</option>
-				        <option>Pasaporte</option>
-				        <option>Libreta de Enrolamiento</option>
-				        <option>Libreta Civica</option>
+				        <option value="DNI">Documento Nacional de Identidad</option>
+				        <option value="Pasaporte">Pasaporte</option>
+				        <option value="LibretaDeEnrolamiento">Libreta de Enrolamiento</option>
+				        <option value="LibretaCivica">Libreta Civica</option>
 				       	</select>
 					        <div class="invalid-feedback">
 					              Por favor seleccione un tipo de Documento.
@@ -207,7 +138,7 @@
 			        </div>
 			        
 		        	<div class="col-md-6 mb-3">
-			      		<label for="legajo">Nuemro de Documento</label>
+			      		<label for="documento">Nuemro de Documento</label>
 				        <input  name="documento" type="text" class="form-control" id="documento" value="<%=A.getDocumento().getNumero()%>" required pattern="[0-9 ]{4,20}" required
 				        	title = "El Tamaño minimo es de 4 y el maximo de 20 digitos">
 					        <div class="invalid-feedback">
@@ -238,15 +169,15 @@
 			        </div>
 		        </div>
 		        
-		        <div class="mb-4">
+		        <div class="mb-4" id="opCarrera">
 		        <label for="carrera">Carrera</label>
-		        <select name="Carrera" id="Carrera" class="custom-select d-block w-100" id="carrera" required required>
-		        <option value="">Elige...</option>
-		        <option>Ingenieria Mecanica</option>
-		        <option>Ingenieria Electrica</option>
-		        <option>Ingenieria en Sistemas de Informacio</option>
-		        <option>Ingenieria Civil</option>
-		        <option>Ingenieria Qumica</option>
+		        <select name="Carrera" id="Carrera" class="custom-select d-block w-100" required>
+			        <option value="">Elige...</option>
+			        <option value="Mecanica">Ingenieria Mecanica</option>
+			        <option value="Electrica">Ingenieria Electrica</option>
+			        <option value="Sistemas">Ingenieria en Sistemas de Informacio</option>
+			        <option value="Civil">Ingenieria Civil</option>
+			        <option value="Quimica">Ingenieria Qumica</option>
 		       	</select>
 			        <div class="invalid-feedback">
 			              Por favor seleccione una carrera.
@@ -285,14 +216,25 @@
 				        </div>
 			        </div>
 			        
-			        <div class="col-md-3 mb-3"> 
-		      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
-			        <input name="departamento" type="text" class="form-control" id="departamento" maxlength="3" value="<%=A.getDireccion().getDept()%>"
-			        	title = "El Tamaño minimo es de 1 y el maximo de 5">
-				        <div class="invalid-feedback">
-				            Por favor ingrese un departamento valido.
+			        <%if(A.getDireccion().getDept() == null){ %>
+			        	<div class="col-md-3 mb-3"> 
+			      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
+				        <input name="departamento" type="text" class="form-control" id="departamento" maxlength="3" placeholder="0"
+				        	title = "El Tamaño minimo es de 1 y el maximo de 5">
+					        <div class="invalid-feedback">
+					            Por favor ingrese un departamento valido.
+					        </div>
 				        </div>
-			        </div>
+			        <%}else{%>
+			        	<div class="col-md-3 mb-3"> 
+			      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
+				        <input name="departamento" type="text" class="form-control" id="departamento" maxlength="3" value="<%=A.getDireccion().getDept()%>"
+				        	title = "El Tamaño minimo es de 1 y el maximo de 5">
+					        <div class="invalid-feedback">
+					            Por favor ingrese un departamento valido.
+					        </div>
+				        </div>
+			        <%}%>			     
 		        </div>
 		        
 		        
@@ -301,9 +243,25 @@
   		
 		  	</div>
 		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col-3">
+		    	<button class="btn btn-warning btn-lg btn-block" type="submit" ><i class="fas fa-save"></i> Guardar</button> 
+		    </div>
+    	</div>
+    	
 	</form>
 	
 	<hr class="mb-4">
 	<div id="footer"></div>
+	
+	
+	
 </body>
+
+<script>
+$('select option[value="<%=A.getCarrera()%>"]').attr("selected",true);
+$('select option[value="<%=A.getDocumento().getTipo()%>"]').attr("selected",true);
+</script>
+
 </html>

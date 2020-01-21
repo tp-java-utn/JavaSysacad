@@ -13,6 +13,9 @@
     <title>Comision - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/login.png">
 
+	<!-- Session -->
+	<script src="JavaScripts/SessionTimeOut.js"></script>
+	
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">
 	

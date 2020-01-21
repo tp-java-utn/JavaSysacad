@@ -15,7 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Administrador - UTN</title>
 	<link rel="shortcut icon" type="image/png" href="pngs/loginADM.png">
-
+	
+	<!-- Session -->
+	<script src="JavaScripts/SessionTimeOutADM.js"></script>
+	
     <!-- Bootstrap core CSS -->
 	<link href="Styles/bootstrap.min.css" rel="stylesheet">  
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -38,46 +41,6 @@
 	});
 	</script>
 	
-	<script>
-    function choose(BtnName){
-    	
-    	var btn = document.getElementById(BtnName);
-    	var title = document.getElementById("title");
-    	btn.className = "nav-link active";
-    	
-    	switch (BtnName){
-    		case "BtnMaterias":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Materias";
-    		break;
-    		
-    		case "BtnAlumnos":
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Alumnos";
-    		break;
-    		
-    		case "BtnDocentes":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			document.getElementById("BtnComisiones").classList.remove("active");
-    			title.innerHTML = "Docentes";
-        	break;
-        		
-    		case "BtnComisiones":
-    			document.getElementById("BtnAlumnos").classList.remove("active");
-    			document.getElementById("BtnDocentes").classList.remove("active");
-    			document.getElementById("BtnMaterias").classList.remove("active");
-    			title.innerHTML = "Comisiones";
-        	break;
-    	}
-    	
-    	
-    }
-    </script>
 
     <% 	    
     	DataAlumno DA = new DataAlumno();
@@ -112,7 +75,7 @@
 			      </a>
 			    </li>
 			    <li>
-			      <a href="MainPageAdm?action=Docentes">
+			      <a href="MainPageAdm?action=Eliminados">
 			        <i class="fas fa-trash"></i> Eliminados
 			      </a>
 			    </li>
@@ -193,6 +156,7 @@
 			  		
 				  		<tbody>
 				  		<% for (Alumno Al:Alumnos) {%>
+				  			<%if(!Al.getEstadoPersona().equals("Eliminado")) {%>
 				  			<tr>
 							    <th scope="row"><%=Al.getApellido()%> <%=Al.getNombre()%></th>
 							    <td align="center"><%=Al.getLegajo()%></td>
@@ -205,7 +169,7 @@
 							    <td align="center"><%=Al.getDireccion().getCalle()%> <%=Al.getDireccion().getNumero()%>, <%=Al.getDireccion().getPiso()%> <%=Al.getDireccion().getDept()%></td>
 							    <% }%>
 							    
-							    <td >
+							    <td align="center">
 							    	<% if(Al.getCarrera().equals(Carreras.Sistemas)) {%>
 							    		<svg width="10" height="12"><circle cx="5" cy="5" r="5"  fill="#5bc0de" /></svg>
 							    	<% }else if(Al.getCarrera().equals(Carreras.Quimica)){%>
@@ -249,6 +213,7 @@
 									<% }%>
 							    </td>
 						    </tr>
+						    <% }%>
 				  		<% }%>
 				  	
 				  		</tbody>
