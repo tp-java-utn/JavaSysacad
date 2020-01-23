@@ -5,6 +5,11 @@
 	<%@page import="Entidades.Alumno"%>
 	<% 
     	Alumno A= (Alumno)session.getAttribute("usuario");
+	
+		if(A ==null)
+		{
+			System.out.println("Session Invalida");
+		}
     %>
     
     
@@ -14,7 +19,7 @@
     }
     </script>
     <link href="Styles/navbar-top-fixed.css" rel="stylesheet">
-	    <form class = "form-signin" action="Header" method="post">	
+	    <form class = "form-signin" action="Header" method="get">	
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:  #072146 ;">
 			
 			<a class="navbar-brand" href="Header?action=Main" >
@@ -22,7 +27,7 @@
 				UTN sysacad
 			</a>
 			
-			<% if(A.getLegajo()!=null){%>
+			<% if(A !=null){%>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -48,7 +53,7 @@
 					<div class="input-group">
 					<ul class="navbar-nav ml-auto small">
 						<li class="nav-item active">
-					      <a href="Login.jsp" class="nav-link" href="Header?action=Close">Cerrar Sesion</a>
+					      <a  class="nav-link" href="Header?action=Close">Cerrar Sesion</a>
 					    </li>
 					</ul>
 				</div>
@@ -62,7 +67,7 @@
 				<div class="input-group">
 					<ul class="navbar-nav ml-auto small">
 						<li class="nav-item active">
-					      <a href="Login.jsp" class="nav-link" type = "submit">Iniciar sesion</a>
+					      <a href="Login.jsp" class="nav-link" type = "submit"><Strong>Iniciar sesion</Strong></a>
 					    </li>
 					</ul>
 				</div>

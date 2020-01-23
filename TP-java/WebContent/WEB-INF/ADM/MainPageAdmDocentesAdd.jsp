@@ -41,11 +41,7 @@
 	});
 	</script>
 	
-    	
-
-    <% 	    
-   		Alumno A = (Alumno)session.getAttribute("Alumno");
-    %>
+    
 
 </head>
 	
@@ -98,21 +94,21 @@
 		</div>
 	</form>
 	
-	<form id="myForm" name="myForm" action="MainPageAdmEditAlumno" method="get">	
+	<form id="myForm" name="myForm" action="MainPageAdmAddDocente" method="get">	
 		<div class="content-container">
 		  	<div class="container-fluid">
 		
 				
 			    
 			    <div class="col-md-12 order-md-1">
-  				<h1><Strong>Edicion de <%=A.getNombre() %></Strong></h1>
+  				<h1><Strong>Nuevo Docente</Strong></h1>
   			
 	  			
   				<div class="row">
   				
 		          	<div class="col-md-6 mb-3">
 		          	<label for="nombre">Nombre</label>
-			        <input name= "nombre" type="text" class="form-control" id="nombre" value="<%=A.getNombre()%>" required pattern="[A-Za-z ]{4,20}" required
+			        <input name= "nombre" type="text" class="form-control" id="nombre"  required pattern="[A-Za-z ]{4,20}" required
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				        	Tu nombre es necesario.
@@ -121,49 +117,18 @@
 				    
 				    <div class="col-md-6 mb-3">
 		      		<label for="apellido">Apellido</label>
-		      	  	<input name="apellido" type="text" class="form-control" id="apellido" value="<%=A.getApellido()%>" required pattern="[A-Za-z ]{4,20}" required
+		      	  	<input name="apellido" type="text" class="form-control" id="apellido"  required pattern="[A-Za-z ]{4,20}" required
 		      	  		title = "El Tamaño minimo es de 4 y el maximo de 20">	      	 
 			          	<div class="invalid-feedback">
 			            	Tu apellido es necesario.
 			          	</div>
 	          		</div>
 	          			
-          		</div>
-          		
-          		<div class="row">
-			        <div class="col-md-4 mb-3">
-		          		<div class="mb-4">
-				        <label for="tipoDocumento">Tipo de Documento</label>
-				        <select name="tipoDocumento" id="tipoDocumento" class="custom-select d-block w-100" required>
-				        <option value="">Elige...</option>
-				        <option value="DNI">Documento Nacional de Identidad</option>
-				        <option value="Pasaporte">Pasaporte</option>
-				        <option value="LibretaDeEnrolamiento">Libreta de Enrolamiento</option>
-				        <option value="LibretaCivica">Libreta Civica</option>
-				       	</select>
-					        <div class="invalid-feedback">
-					              Por favor seleccione un tipo de Documento.
-					        </div>
-				        </div>
-			        </div>
-			        
-		        	<div class="col-md-6 mb-3">
-			      		<label for="documento">Nuemro de Documento</label>
-				        <input  name="documento" type="text" class="form-control" id="documento" value="<%=A.getDocumento().getNumero()%>" required pattern="[0-9 ]{4,20}" required
-				        	title = "El Tamaño minimo es de 4 y el maximo de 20 digitos">
-					        <div class="invalid-feedback">
-					        	Por favor ingrese un Numero de Documento valido.
-					        </div>
-			        </div>
-		        </div>
-		        
-          		
-		        
-
+          		</div>         				      
 		        
 	      		<div class="mb-3">
 	      		<label for="email">Email</label>
-		        <input name="email" type="email" class="form-control" id="email" value="<%=A.getEmail()%>" maxlength="30" required
+		        <input name="email" type="email" class="form-control" id="email"  maxlength="30" required
 		        	title = "El Tamaño minimo es de 10 y el maximo de 30">
 			        <div class="invalid-feedback">
 			        	Por favor ingrese un email valido.
@@ -172,54 +137,28 @@
 
        			<div class="mb-3">
 	      		<label for="telefono">Telefono</label>
-		        <input name="telefono" type="tel" class="form-control" id="telefono" value="<%=A.getTelefono()%>" required pattern="[0-9 ]{7,20}" required
+		        <input name="telefono" type="tel" class="form-control" id="telefono"  required pattern="[0-9 ]{7,20}" required
 		        	title = "El Tamaño minimo es de 7 y el maximo de 20 digitos">
 			        <div class="invalid-feedback">
 			            Por favor ingrese un telefono valido.
 			        </div>
 		        </div>
 		        
-		        <div class="mb-4" id="opCarrera">
-		        <label for="carrera">Carrera</label>
-		        <select name="Carrera" id="Carrera" class="custom-select d-block w-100" required>
-			        <option value="">Elige...</option>
-			        <option value="Mecanica">Ingenieria Mecanica</option>
-			        <option value="Electrica">Ingenieria Electrica</option>
-			        <option value="Sistemas">Ingenieria en Sistemas de Informacio</option>
-			        <option value="Civil">Ingenieria Civil</option>
-			        <option value="Quimica">Ingenieria Qumica</option>
-		       	</select>
-			        <div class="invalid-feedback">
-			              Por favor seleccione una carrera.
-			        </div>
-		        </div>
-		        
 		        <hr class="mb-4">
 		        
 		        <div class="row">
-		        	<%if(A.getDireccion().getCalle() != null){ %>
 			        <div class="col-md-6 mb-3">
 		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" value="<%=A.getDireccion().getCalle()%>" required pattern="[A-Za-z ]{4,20}" required
+			        <input name="direccion" type="text" class="form-control" id="direccion" required pattern="[A-Za-z ]{4,20}" required
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				            Por favor ingrese una direccion valido.
 				        </div>
 			        </div>
-			        <%}else{%>
-			        <div class="col-md-6 mb-3">
-		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" value="0" required pattern="[A-Za-z ]{4,20}" required
-			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
-				        <div class="invalid-feedback">
-				            Por favor ingrese una direccion valido.
-				        </div>
-			        </div>
-			        <%}%>
 			        
 			        <div class="col-md-3 mb-3">
 		      		<label for="numero">Numero</label>
-			        <input name="numero" type="number" class="form-control" id="numero" min="0" value="<%=A.getDireccion().getNumero()%>" maxlength="5" required
+			        <input name="numero" type="number" class="form-control" min="0"  id="numero" maxlength="5" required
 			        	title = "El Tamaño minimo es de 1 y el maximo de 5 digitos">
 				        <div class="invalid-feedback">
 				            Por favor ingrese un numero valido.
@@ -230,35 +169,41 @@
 		        <div class="row">
 		        	<div class="col-md-3 mb-3"> 
 		      		<label for="piso">Piso <span class="text-muted">(Opcional)</span></label>
-			        <input name="piso" type="number" class="form-control" id="piso" min="0" maxlength="5" value="<%=A.getDireccion().getPiso()%>"
+			        <input name="piso" type="number" class="form-control" min="0" value="0" id="piso" maxlength="5" 
 			        	title = "El Tamaño minimo es de 1 y el maximo de 5 digitos">
 				        <div class="invalid-feedback">
 				            Por favor ingrese un piso valido.
 				        </div>
 			        </div>
 			        
-			        <%if(A.getDireccion().getDept() == null){ %>
-			        	<div class="col-md-3 mb-3"> 
-			      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
-				        <input name="departamento" type="text" class="form-control" id="departamento" maxlength="3" placeholder="0"
-				        	title = "El Tamaño minimo es de 1 y el maximo de 5">
-					        <div class="invalid-feedback">
-					            Por favor ingrese un departamento valido.
-					        </div>
+		        	<div class="col-md-3 mb-3"> 
+		      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
+			        <input name="departamento" type="text" class="form-control" id="departamento" value="0" maxlength="3" 
+			        	title = "El Tamaño minimo es de 1 y el maximo de 5">
+				        <div class="invalid-feedback">
+				            Por favor ingrese un departamento valido.
 				        </div>
-			        <%}else{%>
-			        	<div class="col-md-3 mb-3"> 
-			      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
-				        <input name="departamento" type="text" class="form-control" id="departamento" maxlength="3" value="<%=A.getDireccion().getDept()%>"
-				        	title = "El Tamaño minimo es de 1 y el maximo de 5">
-					        <div class="invalid-feedback">
-					            Por favor ingrese un departamento valido.
-					        </div>
-				        </div>
-			        <%}%>			     
+			        </div>
+			        		     
 		        </div>
 		        
+		        <hr class="mb-4">
 		        
+		        <div class="row">
+  				
+		          	<div class="col-md-6 mb-3">
+		          	<label for="contrasena1">contraseña</label>
+			        <input name= "contrasena1" type="password" class="form-control" id="contrasena1" maxlength="20"  required
+			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
+				    </div>
+				    
+				    <div class="col-md-6 mb-3">
+		      		<label for="contrasena2">Repetir Contraseña</label>
+		      	  	<input name="contrasena2" type="password" class="form-control" id="contrasena2"  maxlength="20"  required
+		      	  		title = "El Tamaño minimo es de 4 y el maximo de 20">	      	 
+	          		</div>
+	          			
+          		</div>
 		        
 	 		</div>
   		
@@ -280,9 +225,6 @@
 	
 </body>
 
-<script>
-$('select option[value="<%=A.getCarrera()%>"]').attr("selected",true);
-$('select option[value="<%=A.getDocumento().getTipo()%>"]').attr("selected",true);
-</script>
+
 
 </html>

@@ -1,6 +1,9 @@
 package Data;
 
 import Entidades.*;
+import Entidades.Alumno.Carreras;
+import Entidades.Documento.TipoDocumento;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -124,6 +127,48 @@ public class DataDireccion {
 		
 	}
 	
+	public int addDireccion(String calle,int numero,int piso, String dept) 
+	{
+		//Crear nueva Direccion
+		int id = 0;
+		Direccion D = new Direccion();
+		D.setCalle(calle);
+		D.setNumero(numero);
+		D.setPiso(piso);
+		D.setDept(dept);
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Direcciones(calle,numero,piso,dept) values(?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, D.getCalle());
+			stmt.setInt(2, D.getNumero());
+			stmt.setInt(3, D.getPiso());
+			stmt.setString(4, D.getDept());
+			stmt.executeUpdate();
+			
+			//id Direccion
+			ResultSet keyResultSet=stmt.getGeneratedKeys();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				id=keyResultSet.getInt(1);
+				D.setidDireccion(id);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return id;
+		
+	}
+	
 	public void delete(int idDireccion)
 	{
 		
@@ -145,5 +190,51 @@ public class DataDireccion {
 			}
 		}
 		
+	}
+	
+	public void updateDireccion(int idDireccion,String calle,int numero) {
+		try {
+			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("update Direcciones set calle = ?, numero = ? where idDireccion = ?");
+			stmt.setString(1, calle);
+			stmt.setInt(2, numero);
+			stmt.setInt(3, idDireccion);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void updateDireccion(int idDireccion,String calle,int piso,String dept,int numero) {
+		try {
+			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("update Direcciones set calle = ?, numero = ?,piso = ?,dept = ? where idDireccion = ?");
+			stmt.setString(1, calle);
+			stmt.setInt(2, numero);
+			stmt.setInt(3, piso);
+			stmt.setString(4, dept);
+			stmt.setInt(5, idDireccion);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

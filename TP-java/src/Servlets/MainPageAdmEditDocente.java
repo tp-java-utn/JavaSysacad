@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
 import Data.DataDireccion;
+import Data.DataDocente;
 import Entidades.Alumno;
 import Entidades.Alumno.Carreras;
+import Entidades.Docente;
 import Entidades.Documento.TipoDocumento;
 import Entidades.Persona.EstadosPersona;
 import Logic.EnumHelper;
@@ -21,14 +23,14 @@ import Logic.Validator;
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdmEditAlumno")
-public class MainPageAdmEditAlumno extends HttpServlet {
+@WebServlet("/MainPageAdmEditDocente")
+public class MainPageAdmEditDocente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdmEditAlumno() {
+    public MainPageAdmEditDocente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,27 +42,24 @@ public class MainPageAdmEditAlumno extends HttpServlet {
 		// TODO Auto-generated method stub
 		ErrorManager E = new ErrorManager();
 		
-		DataAlumno DA = new DataAlumno();
-		Alumno A = (Alumno)request.getSession(false).getAttribute("Alumno");
-		String legajo = A.getLegajo();
-		int idDireccion = A.getDireccion().getidDireccion();
+		DataDocente DD = new DataDocente();
+		
+		Docente D = (Docente)request.getSession(false).getAttribute("Docente");
+		int idDocente = D.getIdDocente();
+		int idDireccion = D.getDireccion().getidDireccion();
 		
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String telefono = request.getParameter("telefono");
 		String email = request.getParameter("email");
-		String documento = request.getParameter("documento");
 		
 		String calle = request.getParameter("direccion");
 		int numero = Integer.valueOf(request.getParameter("numero"));
 		int piso = Integer.valueOf(request.getParameter("piso"));
 		String dept = request.getParameter("departamento");;
+
 		
-		Carreras carrera = Carreras.valueOf(request.getParameter("Carrera"));
-		TipoDocumento tipoDocumento = TipoDocumento.valueOf(request.getParameter("tipoDocumento"));
-		
-		
-		if(nombre != null && apellido != null && email != null && tipoDocumento != null && documento != null && telefono != null && carrera != null && calle != null && numero != 0)
+		if(nombre != null && apellido != null && email != null  && telefono != null && calle != null && numero != 0)
 		{
 			//formato
 			Formatter F = new Formatter();
@@ -78,27 +77,41 @@ public class MainPageAdmEditAlumno extends HttpServlet {
 					V.stringOk(apellido, 4, 20) && 
 					V.emailOk(email, 10, 30) && 
 					V.numberOk(Integer.parseInt(telefono), 7, 20) &&
-					V.stringOk(documento, 4, 20) &&
 					V.numberOk(numero, 1, 5) &&
-					V.stringOk(calle, 4, 20)
+					V.stringOk(calle, 4, 20) 
+
 			   )
-			{
-				DataDireccion DD = new DataDireccion();
-				if(piso != 0 && dept != null)
+			{		
+				DataDireccion DDir = new DataDireccion();
+				if(idDireccion != 0)
 				{
-					DD.updateDireccion(idDireccion, calle, piso, dept, numero);
+					if(piso != 0 && dept != null)
+					{
+						DDir.updateDireccion(idDireccion, calle, piso, dept, numero);
+					}
+					else
+					{
+						DDir.updateDireccion(idDireccion, calle, numero);
+					}
 				}
 				else
 				{
-					DD.updateDireccion(idDireccion, calle, numero);
+					if(piso != 0 && dept != null)
+					{
+						idDireccion = DDir.addDireccion(calle, numero, piso, dept);
+					}
+					else
+					{
+						idDireccion = DDir.addDireccion(calle, numero);
+					}				
 				}
 				
-				DA.updateAlumno(legajo, nombre, apellido, telefono, email, carrera, tipoDocumento, documento);
-				request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
+				DD.updateDocente(idDocente, nombre, apellido, email, telefono,idDireccion);
+				request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
 			}
 			else
 			{
-				E.setTitlle("Edicion invalida");
+				E.setTitlle("Carga invalida");
 				E.setDescp("Los campos han sido llenados con datos incompatibles.");
 				request.getSession().setAttribute("Error", E);
 				request.getRequestDispatcher("/ErrorPageNotReturn.jsp").forward(request, response);
@@ -107,7 +120,7 @@ public class MainPageAdmEditAlumno extends HttpServlet {
 		}
 		else
 		{
-			E.setTitlle("Edicion invalida");
+			E.setTitlle("Carga invalida");
 			E.setDescp("Faltan cargar campos.");
 			request.getSession().setAttribute("Error", E);
 			request.getRequestDispatcher("/ErrorPageNotReturn.jsp").forward(request, response);

@@ -1,5 +1,5 @@
 var CurrenteTime = new Date().getTime(); 
-var SessionTime = 1*60*1000; //Tiempo de la Session
+var SessionTime = 15*60*1000; //Tiempo de la Session
 var checkTime = 60*1000; //Tiempo entre chekeos
 
 setTimeout(fnCheckTimeout, checkTime); 

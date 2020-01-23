@@ -245,4 +245,29 @@ public class DataComision {
 		
 		return DocentesIds;
 	}
+	
+	public void updateComision(int idComision, int idMateria,int idDocente,int cantAlumnosMax,turnos turno) {
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("UPDATE Comisiones SET  idDocente = ?,cantAlumnosMax = ?,turno = ? where idMateria = ? and idComision = ?");
+			stmt.setInt(1, idDocente);
+			stmt.setInt(2, cantAlumnosMax);
+			stmt.setString(3, turno.toString());
+			stmt.setInt(4, idMateria);
+			stmt.setInt(5, idComision);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

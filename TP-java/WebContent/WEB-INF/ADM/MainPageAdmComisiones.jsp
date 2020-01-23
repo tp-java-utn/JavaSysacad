@@ -43,11 +43,11 @@
 	
 
     <% 	    
-    	DataAlumno DA = new DataAlumno();
-		ArrayList<Alumno> Alumnos = DA.getAll();
+    	DataComision DC = new DataComision();
+   		ArrayList<Comision> Comisiones = DC.getAll();
 		
 		DataDocente DD = new DataDocente();
-		ArrayList<Docente> Docentes = DD.getAll();
+		DataMateria DM = new DataMateria();
     %>
 
 </head>
@@ -102,7 +102,7 @@
 		</div>
 	</form>
 	
-	<form id="myForm" name="myForm" action="MainPageAdmAlumno" method="get">	
+	<form id="myForm" name="myForm" action="MainPageAdmComisiones" method="get">	
 	
 		<div class="content-container">
 		  	<div class="container-fluid">			  
@@ -110,10 +110,10 @@
 				<div class="jumbotron" style="padding-bottom: 15px;padding-top: 15px;">
 					<div class="row">
 						<div class="col">
-							<h1><Strong>Docentes</Strong></h1>
+							<h1><Strong>Comisiones</Strong></h1>
 						</div>
 						<div class="col">
-							<a href="MainPageAdmDocentes?action=Add" type="button" class="btn btn-success" style="float:right;margin-top: 11px;"><i class="fas fa-user-plus"></i> Nuevo Docente</a>
+							<a href="MainPageAdmComisiones?action=Add" type="button" class="btn btn-success" style="float:right;margin-top: 11px;"><i class="fas fa-plus-circle"></i> Nueva Comision</a>
 						</div>
 					</div>
     				
@@ -124,57 +124,41 @@
 					<table class="table table-hover table-sm table-striped" >
 				  		<thead class="thead-dark">
 					    	<tr style="text-align:center;">
-							    <th scope="col">Apellido y Nombre</th>
-							    <th scope="col">Email</th>
-							    <th scope="col">Telefono</th>
-							    <th scope="col">Direccion</th>
-							    <th scope="col">Estado</th>
+							    <th scope="col">ID</th>
+							    <th scope="col">Materia</th>
+							    <th scope="col">Docente</th>
+							    <th scope="col" >Turno</th>						    
+							    <th scope="col">Cant Alumnos</th>
 							    <th scope="col" style="padding-left: 10%;">Acciones</th>
 					    	</tr>
 				  		</thead>
 				  		<tbody>
-				  		<%if(Docentes != null) {%>
-						  	<% for (Docente D:Docentes) {%>
-						  		<%if(!D.getEstadoPersona().equals("Eliminado")) {%>
+				  		<%if(Comisiones != null) {%>
+						  	<% for (Comision C:Comisiones) {%>
 						  		
 						  		<tr>
-								    <th scope="row"><%=D.getApellido()%> <%=D.getNombre()%></th>
-								    <td><%=D.getEmail()%></td>
-								    <td align="center"><%=D.getTelefono()%></td>
-								    
-								    <% if(D.getDireccion().getNumero() !=0) {%>
-									    <% if(D.getDireccion().getDept()== null) {%>
-									    <td align="center"><%=D.getDireccion().getCalle()%> <%=D.getDireccion().getNumero()%></td>
-									    <% }else{%>
-									    <td align="center"><%=D.getDireccion().getCalle()%> <%=D.getDireccion().getNumero()%>, <%=D.getDireccion().getPiso()%> <%=D.getDireccion().getDept()%></td>
-									    <% }%>
-								    <% }else{%>
-								    	<td align="center">-</td>
-								    <% }%>
-								    
-							    	<% if(EstadosPersona.valueOf(D.getEstadoPersona()).equals(EstadosPersona.Activo)){%>
-								    <td class="text-primary" align="center"><span class="label label-default"><%=D.getEstadoPersona()%></span></td>
-								    <% }else if(EstadosPersona.valueOf(D.getEstadoPersona()).equals(EstadosPersona.Pendiente)){%>
-								    <td class="text-muted" align="center"><span class="label label-default"><%=D.getEstadoPersona()%></span></td>
-								    <% }else{%>
-								    <td class="text-danger" align="center"><span class="label label-default"><%=D.getEstadoPersona()%></span></td>
-								    <% }%>
+								    <th scope="row"><%=C.getIdComision() %></th>
+								    <td><%=DM.getOne(C.getIdMateria()).getNombre()%></td>
+								    <td align="center"><%=DD.getOne(C.getIdDocente()).getNombre()%> <%=DD.getOne(C.getIdDocente()).getApellido()%></td>
+									<th align="center" style="text-align: center;"><%=C.getTurno() %></th>
+									
+									<%if(C.getCantAlumnos() == C.getCantAlumnosMax()){ %>
+									<th class="text-danger" align="center" style="text-align: center;"><%=C.getCantAlumnos() %>/<%=C.getCantAlumnosMax() %> FULL</th>
+									<%}else if(C.getCantAlumnos() >= C.getCantAlumnosMax()/2){ %>
+									<th class="text-warning" align="center" style="text-align: center;"><%=C.getCantAlumnos() %>/<%=C.getCantAlumnosMax() %></th>
+									<%}else{ %>
+									<th align="center" style="text-align: center;"><%=C.getCantAlumnos() %>/<%=C.getCantAlumnosMax() %></th>
+									<%} %>
+							    	
 							    	
 								    <td align="center" style="padding-left: 10%;">					
-								    	<% if(!EstadosPersona.valueOf(D.getEstadoPersona()).equals(EstadosPersona.Eliminado)){%>
-								    	<a href="MainPageAdmDocentes?action=Editar&id=<%=D.getIdDocente()%>" type="button" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
-								    	<a href="MainPageAdmDocentes?action=Eliminar&id=<%=D.getIdDocente()%>" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</a>									    	
-								    	<% }%>		
+								    	<a href="MainPageAdmComisiones?action=Editar&idComision=<%=C.getIdComision()%>&idMateria=<%=C.getIdMateria()%>" type="button" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+								    	<a href="MainPageAdmComisiones?action=Eliminar&idComision=<%=C.getIdComision()%>&idMateria=<%=C.getIdMateria()%>" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Eliminar</a>									    		
 								    </td>			
 								    
 						  		</tr>
 						  	   <% }%>
 					  		<% }%>
-				  		<% }else{%>
-				  			<tr>
-				  				<td align="center">No hay docentes eliminados</td>
-				  			</tr>
-				  		<% }%>
 				  		</tbody>
 			  		</table>
 		  		</div>

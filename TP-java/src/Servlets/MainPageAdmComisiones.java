@@ -8,21 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
+import Data.DataComision;
 import Data.DataDocente;
+import Entidades.Comision;
 import Entidades.Docente;
 import Entidades.Persona.EstadosPersona;
 
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdmDocentes")
-public class MainPageAdmDocentes extends HttpServlet {
+@WebServlet("/MainPageAdmComisiones")
+public class MainPageAdmComisiones extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdmDocentes() {
+    public MainPageAdmComisiones() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +34,15 @@ public class MainPageAdmDocentes extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String acceso = "";
 		String action = request.getParameter("action");
 		
 		if(action.equalsIgnoreCase("Eliminar"))
 		{
-			DataDocente DD = new DataDocente();
-			String idDocente = request.getParameter("id");
-			DD.delete(Integer.valueOf(idDocente));	
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmEliminados.jsp").forward(request, response);
+			DataComision DC = new DataComision();
+			int idComision = Integer.valueOf(request.getParameter("idComision"));
+			int idMateria = Integer.valueOf(request.getParameter("idMateria"));
+			DC.delete(idComision,idMateria);	
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisiones.jsp").forward(request, response);
 		}
 		else if(action.equalsIgnoreCase("Recuperar"))
 		{
@@ -51,15 +53,16 @@ public class MainPageAdmDocentes extends HttpServlet {
 		}
 		else if(action.equalsIgnoreCase("Editar"))
 		{
-			DataDocente DD = new DataDocente();
-			int idDocente = Integer.valueOf(request.getParameter("id"));
-			Docente D = DD.getOne(idDocente);
-			request.getSession().setAttribute("Docente",D);
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentesEdit.jsp").forward(request, response);
+			DataComision DC = new DataComision();
+			int idComision = Integer.valueOf(request.getParameter("idComision"));
+			int idMateria = Integer.valueOf(request.getParameter("idMateria"));
+			Comision C = DC.getOne(idComision, idMateria);
+			request.getSession().setAttribute("Comision",C);
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisionesEdit.jsp").forward(request, response);
 		}
 		else if(action.equalsIgnoreCase("Add"))
 		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentesAdd.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisionesAdd.jsp").forward(request, response);
 		}
 	}
 

@@ -192,8 +192,8 @@
 								    <td><%=D.getEmail()%></td>
 								    <td align="center"><%=D.getTelefono()%></td>
 								    
-								    <% if(D.getDireccion() != null) {%>
-									    <% if(D.getDireccion().getPiso()==0) {%>
+								    <% if(D.getDireccion().getNumero() !=0) {%>
+									    <% if(D.getDireccion().getDept()== null) {%>
 									    <td align="center"><%=D.getDireccion().getCalle()%> <%=D.getDireccion().getNumero()%></td>
 									    <% }else{%>
 									    <td align="center"><%=D.getDireccion().getCalle()%> <%=D.getDireccion().getNumero()%>, <%=D.getDireccion().getPiso()%> <%=D.getDireccion().getDept()%></td>

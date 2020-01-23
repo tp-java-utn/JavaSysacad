@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import Entidades.Direccion;
 import Entidades.Docente;
 import Entidades.Materia;
 import Entidades.Persona.EstadosPersona;
@@ -33,6 +34,13 @@ public class DataDocente {
 				D.setEmail(rs.getString("email"));
 				D.setContraseña(rs.getString("contraseña"));
 				D.setEstadoPersona(EstadosPersona.valueOf(rs.getString("estado")));
+				
+				//Direcion
+				Direccion Dir;
+				DataDireccion DD = new DataDireccion();;
+				Dir = DD.getOne(rs.getInt("idDireccion"));
+				if(Dir!=null)
+					{D.setDireccion(Dir);}
 				}
 			}
 		
@@ -72,6 +80,13 @@ public class DataDocente {
 					D.setContraseña(rs.getString("contraseña"));
 					D.setEstadoPersona(EstadosPersona.valueOf(rs.getString("estado")));
 					
+					//Direcion
+					Direccion Dir;
+					DataDireccion DD = new DataDireccion();;
+					Dir = DD.getOne(rs.getInt("idDireccion"));
+					if(Dir!=null)
+						{D.setDireccion(Dir);}
+					
 					//Agregar a la lista
 					Docentes.add(D);
 					
@@ -92,7 +107,7 @@ public class DataDocente {
 		return Docentes;
 	}
 	
-	public Docente addDocente(String nombre,String apellido,String email, String telefono, String contraseña) 
+	public Docente addDocente(String nombre,String apellido,String email, String telefono,int idDireccion, String contraseña) 
 	{
 		//Crear nueva Docente
 		Docente D = new Docente();
@@ -103,13 +118,14 @@ public class DataDocente {
 		D.setContraseña(contraseña);
 		
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Docentes(nombre,apellido,email,telefono,contraseña,estado) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Docentes(nombre,apellido,email,telefono,idDireccion,contraseña,estado) values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, D.getNombre());
 			stmt.setString(2, D.getApellido());
 			stmt.setString(3, D.getEmail());
 			stmt.setString(4, D.getTelefono());
-			stmt.setString(5, D.getContraseña());	
-			stmt.setString(6, EstadosPersona.Activo.toString());
+			stmt.setInt(5, idDireccion);
+			stmt.setString(6, D.getContraseña());	
+			stmt.setString(7, EstadosPersona.Activo.toString());
 			stmt.executeUpdate();
 		
 		} catch (SQLException e) {
@@ -172,6 +188,31 @@ public class DataDocente {
 			}
 		}
 		
+	}
+	
+	public void updateDocente(int idDocente,String nombre,String apellido,String email, String telefono, int idDireccion) {
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("UPDATE Docentes SET nombre = ?,apellido = ?, email = ?,telefono = ?,idDireccion = ? where idDocente = ?");
+			stmt.setString(1, nombre);
+			stmt.setString(2, apellido);
+			stmt.setString(3, email);
+			stmt.setString(4, telefono);
+			stmt.setInt(5, idDireccion);
+			stmt.setInt(6, idDocente);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

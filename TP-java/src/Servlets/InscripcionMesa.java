@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Data.*;
 import Entidades.*;
+import Logic.MailController;
 
 /**
  * Servlet implementation class IncribirseMateria
@@ -58,6 +59,15 @@ public class InscripcionMesa extends HttpServlet {
 			DataAlumno DA = new DataAlumno();
 			Alumno A = DA.getOne(req.getParameter("legajo"));
 			A.inscripcionMesa(idMesa, idMateria);
+			
+			//mandar mail
+			MailController MC = new MailController();
+			MC.enviarConGMail(A.getEmail(), "Comprobante inscripcion examen "+M.getNombre(),
+							  A.getNombre()+" Te has logrado inscribir en la Mesa "+Mesa.getIdMesa() +"-"+ M.getNombre()+
+							  "\n Fecha: "+Mesa.getFecha()+
+							  "\n Hora: "+Mesa.getHorario()+":00 hs"+
+							  "\n Salon: "+Mesa.getSalon()+
+							  "\n \n No responder.");
 			
 			//guardar entidades
 			req.getSession().setAttribute("Materia",M);

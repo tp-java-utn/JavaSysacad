@@ -46,7 +46,9 @@ public class MainPageAdm extends HttpServlet {
 		else if(action.equalsIgnoreCase("Materias"))
 		{}
 		else if(action.equalsIgnoreCase("Comisiones"))
-		{}
+		{
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisiones.jsp").forward(request, response);
+		}
 		else if(action.equalsIgnoreCase("Mesas"))
 		{}
 		
