@@ -2,8 +2,8 @@
 	<head>
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <title>Login Administrador - UTN</title>
-	    <link rel="shortcut icon" type="image/png" href="pngs/loginADM.png">
+	    <title>Login Docente - UTN</title>
+	    <link rel="shortcut icon" type="image/png" href="pngs/loginDocente.png">
 	    
 	    
 		<Link href="Styles/bootstrap.min.css" rel="stylesheet" />
@@ -37,9 +37,9 @@
 	<body >
 		<form class = "form-signin" id="myForm" name="myForm" action="LoginAdmin" method="post">
 			<div class="text-center mb-4">
-				<img class="mb-4" src="pngs/loginADM.png" height="150" width="150">
-				<h1 class="h3 mb-3 font-weight-normal">Administrador UTN</h1>
-				<p> Sistema de Administracion de la Universidad Tecnológica Nacional - Facultad Regional Rosario</p>
+				<img class="mb-4" src="pngs/loginDocente.png" height="150" width="150">
+				<h1 class="h3 mb-3 font-weight-normal">Docentes UTN</h1>
+				<p> Sistema de autogestión  de Docentes de la Universidad Tecnológica Nacional - Facultad Regional Rosario</p>
 			</div>
 			
 			<div class="form-label-group">
@@ -56,9 +56,10 @@
 				<label for="password">Contraseña</label>
 			</div>
 
+			
 
 		    
-			<input type = "submit" value = "Login" class="btn btn-lg btn-warning btn-block">
+			<input type = "submit" value = "Login" class="btn btn-lg btn-info btn-block">
 		</form>
 	</body>
 </html>

@@ -50,7 +50,7 @@
 			
 			<div class="form-label-group">
 				<input name="user"  type = "text" class="form-control" placeholder = "Legajo" required pattern="[0-9 ]{4,10}" required
-				        	title = "El Tamaño minimo es de 4 y el maximo de 10 digitos" autofocus/>
+				        	title = "El Tamaño minimo es de 4 y el maximo de 10 digitos" autofocus autocomplete="on"/>
 				<label for="user">Legajo</label>
 			</div>
 
@@ -63,11 +63,7 @@
 			</div>
 
 			
-			<div class="checkbox mb-3">
-			    <label>
-			      <input type="checkbox" value="remember-me"> Recordar legajo
-			    </label>
-		    </div>
+
 		    
 			<input type = "submit" value = "Login" class="btn btn-lg btn-primary btn-block">
 			<div class="text-center mb-4">
