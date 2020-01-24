@@ -27,7 +27,7 @@ public class DataMateria {
 				M.setdescripcion(rs.getString("descripcion"));
 				M.setIdMateria(rs.getInt("idMateria"));
 				M.setcursado(rs.getString("cursado"));
-				M.setAño(rs.getString("año"));
+				M.setAño(rs.getString("nivel"));
 				M.setCorrelativasAprobadas(rs.getString("correlativasAprobadas"));
 				M.setCorrelativasRegulares(rs.getString("correlativasRegulares"));
 				M.setCorrelativasRendir(rs.getString("correlativasRendir"));
@@ -66,7 +66,7 @@ public class DataMateria {
 					M.setdescripcion(rs.getString("descripcion"));
 					M.setIdMateria(rs.getInt("idMateria"));
 					M.setcursado(rs.getString("cursado"));
-					M.setAño(rs.getString("año"));
+					M.setAño(rs.getString("nivel"));
 					M.setCorrelativasAprobadas(rs.getString("correlativasAprobadas"));
 					M.setCorrelativasRegulares(rs.getString("correlativasRegulares"));
 					M.setCorrelativasRendir(rs.getString("correlativasRendir"));
@@ -91,7 +91,7 @@ public class DataMateria {
 		return Materias;
 	}
 	
-	public Materia addMateria(String nombre,String descripcion, String cursado, String año) 
+	public Materia addMateria(String nombre,String descripcion, String cursado, String año, String correlativasRegulares, String correlativasRendir, String correlativasAprobadas) 
 	{
 		//Crear nueva Direccion
 		int id = 0;
@@ -99,9 +99,13 @@ public class DataMateria {
 		M.setNombre(nombre);
 		M.setdescripcion(descripcion);
 		M.setcursado(cursado);
+		M.setAño(año);
+		M.setCorrelativasAprobadas(correlativasAprobadas);
+		M.setCorrelativasRegulares(correlativasRegulares);
+		M.setCorrelativasRendir(correlativasRendir);
 		
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Materias(nombre,descripcion,cursado,año,correlativasAprobadas,correlativasRegulares,correlativasRendir) values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Materias(nombre,descripcion,cursado,nivel,correlativasAprobadas,correlativasRegulares,correlativasRendir) values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, M.getNombre());
 			stmt.setString(2, M.getdescripcion());
 			stmt.setString(3, M.getcursado());
@@ -109,6 +113,52 @@ public class DataMateria {
 			stmt.setString(5, M.getCorrelativasAprobadas());
 			stmt.setString(6, M.getCorrelativasRegulares());
 			stmt.setString(7, M.getCorrelativasRendir());
+			stmt.executeUpdate();
+			
+			//id Direccion
+			ResultSet keyResultSet=stmt.getGeneratedKeys();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				id=keyResultSet.getInt(1);
+				M.setIdMateria(id);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return M;
+		
+	}
+	
+	public Materia addMateria(String nombre, String cursado, String año, String correlativasRegulares, String correlativasRendir, String correlativasAprobadas) 
+	{
+		//Crear nueva Direccion
+		int id = 0;
+		Materia M = new Materia();
+		M.setNombre(nombre);
+		M.setcursado(cursado);
+		M.setAño(año);
+		M.setCorrelativasAprobadas(correlativasAprobadas);
+		M.setCorrelativasRegulares(correlativasRegulares);
+		M.setCorrelativasRendir(correlativasRendir);
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into Materias(nombre,cursado,nivel,correlativasAprobadas,correlativasRegulares,correlativasRendir) values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, M.getNombre());
+			stmt.setString(2, M.getcursado());
+			stmt.setString(3, M.getAño());
+			stmt.setString(4, M.getCorrelativasAprobadas());
+			stmt.setString(5, M.getCorrelativasRegulares());
+			stmt.setString(6, M.getCorrelativasRendir());
 			stmt.executeUpdate();
 			
 			//id Direccion
@@ -248,5 +298,33 @@ public class DataMateria {
 		return CorrelativasAprobadas;
 	}
 	
+	public void updateMateria(int idMateria,String nombre, String cursado, String año, String correlativasRegulares, String correlativasRendir, String correlativasAprobadas)
+	{
+		
+		try {
+			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("UPDATE Materias set nombre = ?,cursado = ?, nivel = ?,correlativasRegulares = ?,correlativasRendir = ?,correlativasAprobadas =?  where idMateria = ?");
+			stmt.setString(1, nombre);
+			stmt.setString(2, cursado);
+			stmt.setString(3, año);
+			stmt.setString(4, correlativasRegulares);
+			stmt.setString(5, correlativasRendir);
+			stmt.setString(6, correlativasAprobadas);
+			stmt.setInt(7, idMateria);
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
 }

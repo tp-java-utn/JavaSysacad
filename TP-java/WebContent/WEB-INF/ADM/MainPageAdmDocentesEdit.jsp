@@ -153,7 +153,7 @@
 		        	<%if(D.getDireccion().getCalle() != null){ %>
 			        <div class="col-md-6 mb-3">
 		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" value="<%=D.getDireccion().getCalle()%>"  required pattern="[A-Za-z ]{4,20}" required
+			        <input name="direccion" type="text" class="form-control" id="direccion" value="<%=D.getDireccion().getCalle()%>"   pattern="[A-Za-z ]{4,20}" 
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				            Por favor ingrese una direccion valido.
@@ -162,7 +162,7 @@
 			        <%}else{ %>
 			        <div class="col-md-6 mb-3">
 		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" value="0"  required pattern="[A-Za-z ]{4,20}" required
+			        <input name="direccion" type="text" class="form-control" id="direccion"  pattern="[A-Za-z ]{4,20}" 
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				            Por favor ingrese una direccion valido.
@@ -202,7 +202,7 @@
 			        <%}else{ %>
 			        <div class="col-md-3 mb-3"> 
 		      		<label for="departamento">Depto <span class="text-muted">(Opcional)</span></label>
-			        <input name="departamento" type="text" class="form-control" id="departamento" value="0"  maxlength="3" 
+			        <input name="departamento" type="text" class="form-control" id="departamento"   maxlength="3" 
 			        	title = "El Tamaño minimo es de 1 y el maximo de 5">
 				        <div class="invalid-feedback">
 				            Por favor ingrese un departamento valido.

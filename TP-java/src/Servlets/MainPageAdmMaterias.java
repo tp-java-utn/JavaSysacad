@@ -8,18 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
+import Data.DataDocente;
+import Data.DataMateria;
+import Entidades.Docente;
+import Entidades.Materia;
+import Entidades.Persona.EstadosPersona;
 
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdm")
-public class MainPageAdm extends HttpServlet {
+@WebServlet("/MainPageAdmMaterias")
+public class MainPageAdmMaterias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdm() {
+    public MainPageAdmMaterias() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,32 +34,29 @@ public class MainPageAdm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		String action = request.getParameter("action");
 		
-		if(action.equalsIgnoreCase("Alumnos"))
+		if(action.equalsIgnoreCase("Eliminar"))
 		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Docentes"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Eliminados"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmEliminados.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Materias"))
-		{
+			DataMateria DM = new DataMateria();
+			int idMateria = Integer.valueOf(request.getParameter("idMateria"));
+			DM.delete(idMateria);
 			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMaterias.jsp").forward(request, response);
 		}
-		else if(action.equalsIgnoreCase("Comisiones"))
+		else if(action.equalsIgnoreCase("Editar"))
 		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisiones.jsp").forward(request, response);
+			DataMateria DM = new DataMateria();
+			int idMateria = Integer.valueOf(request.getParameter("idMateria"));
+			Materia M = DM.getOne(idMateria);
+			request.getSession().setAttribute("Materia",M);
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMateriasEdit.jsp").forward(request, response);
 		}
-		else if(action.equalsIgnoreCase("Mesas"))
-		{}
-		
-		
+		else if(action.equalsIgnoreCase("Add"))
+		{
+			
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMateriasAdd.jsp").forward(request, response);
+		}
 	}
 
 	/**

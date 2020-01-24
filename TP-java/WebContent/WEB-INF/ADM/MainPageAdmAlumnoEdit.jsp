@@ -209,7 +209,7 @@
 			        <%}else{%>
 			        <div class="col-md-6 mb-3">
 		      		<label for="direccion">Direccion</label>
-			        <input name="direccion" type="text" class="form-control" id="direccion" value="0" required pattern="[A-Za-z ]{4,20}" required
+			        <input name="direccion" type="text" class="form-control" id="direccion"  required pattern="[A-Za-z ]{4,20}" required
 			        	title = "El Tamaño minimo es de 4 y el maximo de 20">
 				        <div class="invalid-feedback">
 				            Por favor ingrese una direccion valido.

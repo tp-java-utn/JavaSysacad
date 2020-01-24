@@ -8,12 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
+import Data.DataComision;
 import Data.DataDireccion;
 import Data.DataDocente;
+import Data.DataMateria;
 import Entidades.Alumno;
-import Entidades.Alumno.Carreras;
 import Entidades.Docente;
+import Entidades.Alumno.Carreras;
+import Entidades.Comision.turnos;
 import Entidades.Documento.TipoDocumento;
+import Entidades.Materia;
 import Entidades.Persona.EstadosPersona;
 import Logic.EnumHelper;
 import Logic.ErrorManager;
@@ -23,14 +27,14 @@ import Logic.Validator;
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdmEditDocente")
-public class MainPageAdmEditDocente extends HttpServlet {
+@WebServlet("/MainPageAdmEditMateria")
+public class MainPageAdmEditMateria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdmEditDocente() {
+    public MainPageAdmEditMateria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,71 +46,71 @@ public class MainPageAdmEditDocente extends HttpServlet {
 		// TODO Auto-generated method stub
 		ErrorManager E = new ErrorManager();
 		
-		DataDocente DD = new DataDocente();
+		DataMateria DM = new DataMateria();
 		
-		Docente D = (Docente)request.getSession(false).getAttribute("Docente");
-		int idDocente = D.getIdDocente();
-		int idDireccion = D.getDireccion().getidDireccion();
+		Materia M = (Materia)request.getSession(false).getAttribute("Materia");
+		int idMateria = M.getIdMateria();
 		
-		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
-		String telefono = request.getParameter("telefono");
-		String email = request.getParameter("email");
+		String nombre= request.getParameter("Nombre");
+		String cursado= request.getParameter("Cursado");
+		String año= request.getParameter("nivel");
+		String descripcion= request.getParameter("Descripcion");
+		String correlativasRegulares= request.getParameter("CorrelativasRegulares");
+		String correlativasAprobadas= request.getParameter("CorrelativasAprobadas");
+		String correlativasRendir= request.getParameter("CorrelativasRendir");
 		
-		String calle = request.getParameter("direccion");
-		int numero = Integer.valueOf(request.getParameter("numero"));
-		int piso = Integer.valueOf(request.getParameter("piso"));
-		String dept = request.getParameter("departamento");;
-
-		
-		if(nombre != null && apellido != null && email != null  && telefono != null)
-		{
-			//formato
-			Formatter F = new Formatter();
-			nombre = F.upFirstWord(nombre);
-			apellido = F.upFirstWord(apellido);
-			email = F.downAllWords(email);
-			dept = F.upAllWords(dept);
-			calle = F.upAllWords(calle);
+		switch (año){
+			case "1":
+				año = "1° año";
+			break;
 			
-			//validar datos
+			case "2":
+				año = "2° año";
+			break;
+			
+			case "3":
+				año = "3° año";
+			break;
+			
+			case "4":
+				año = "4° año";
+			break;
+			
+			case "5":
+				año = "5° año";
+			break;
+
+		}
+		
+		if(cursado.equals("cuatrimestre1"))
+			{cursado = "1° cuatrimestre";}
+		else if(cursado.equals("cuatrimestre1"))
+			{cursado = "2° cuatrimestre";}
+
+		if(correlativasRegulares == "")
+			{correlativasRegulares = null;}
+		if(correlativasAprobadas == "")
+			{correlativasAprobadas = null;}
+		if(correlativasRendir == "")
+			{correlativasRendir = null;}
+		
+		if(descripcion == "")
+		{descripcion = null;}
+		
+		if(nombre != null && cursado != null && año != null)
+		{
 			Validator V = new Validator();
+			//validar datos
 			if (
 					//Validar minimo, maximo y formato
-					V.stringOk(nombre, 4, 20) && 
-					V.stringOk(apellido, 4, 20) && 
-					V.emailOk(email, 10, 30) && 
-					V.numberOk(Integer.parseInt(telefono), 7, 20)
-
-
+					V.stringOk(nombre, 4, 40)				
 			   )
-			{		
-				DataDireccion DDir = new DataDireccion();
-				if(idDireccion != 0)
-				{
-					if(piso != 0 && dept != null)
-					{
-						DDir.updateDireccion(idDireccion, calle, piso, dept, numero);
-					}
-					else
-					{
-						DDir.updateDireccion(idDireccion, calle, numero);
-					}
-				}
-				else
-				{
-					if(piso != 0 && dept != null)
-					{
-						idDireccion = DDir.addDireccion(calle, numero, piso, dept);
-					}
-					else
-					{
-						idDireccion = DDir.addDireccion(calle, numero);
-					}				
-				}
-				
-				DD.updateDocente(idDocente, nombre, apellido, email, telefono,idDireccion);
-				request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
+			{				
+				Formatter F = new Formatter();
+				nombre = F.upAllWords(nombre);
+				DM.updateMateria(idMateria, nombre, cursado, año, correlativasRegulares, correlativasRendir, correlativasAprobadas);
+
+				request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMaterias.jsp").forward(request, response);
 			}
 			else
 			{
@@ -114,6 +118,7 @@ public class MainPageAdmEditDocente extends HttpServlet {
 				E.setDescp("Los campos han sido llenados con datos incompatibles.");
 				request.getSession().setAttribute("Error", E);
 				request.getRequestDispatcher("/ErrorPageNotReturn.jsp").forward(request, response);
+				System.out.println(V.stringOk(nombre, 4, 20));
 			}
 			
 		}

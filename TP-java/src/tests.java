@@ -218,8 +218,8 @@ public class tests {
 //		System.out.println();
 //		System.out.println("Rendir");
 //		System.out.println(M.AlumnoPuedeRendir(A.getLegajo()));
-		 MailController MC = new MailController();
-		 MC.enviarConGMail("federicofruiz@hotmail.com", "Test", "test cuerpo");
+		DataMateria DM = new DataMateria();
+		DM.addMateria("nombre", "cursado", "año", null, null, null);
 	}
 
 
