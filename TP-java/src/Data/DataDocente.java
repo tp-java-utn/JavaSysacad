@@ -215,4 +215,23 @@ public class DataDocente {
 		}
 	}
 	
+	public boolean docenteIsInMateria(int idDocente,int idMateria) {
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Comisiones C inner join Docentes D on C.idDocente = ?");
+			stmt.setInt(1, idDocente);
+			stmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

@@ -181,4 +181,40 @@ public class DataMesa {
 		return resp;
 	}
 	
+	public Mesa updateMesa(int idMesa,int idMateria,int horario,int salon,Date fecha) 
+	{
+		//Crear nuevo examen
+		Mesa M = new Mesa();
+		M.setIdMateria(idMateria);
+		M.setHorario(horario);
+		M.setSalon(salon);
+		M.setFecha(fecha);
+		M.setIdMesa(idMesa);
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("Update Mesas set idMateria = ?,horario = ?, salon = ?, fecha = ? where idMesa = ?");
+			stmt.setInt(1, M.getIdMateria());
+			stmt.setInt(2, M.getHorario());
+			stmt.setInt(3, M.getSalon());
+			stmt.setDate(4, M.getFecha());
+			stmt.setInt(5, M.getIdMesa());
+
+			stmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return M;
+		
+	}
+	
 }

@@ -10,11 +10,13 @@ public class Usuario {
 	
 	static DataAlumno DA;
 	static DataAdministrador DAdmin;
+	static DataDocente DD;
 	
 	public Usuario() 
 	{
 		DA = new DataAlumno();
 		DAdmin = new DataAdministrador();
+		DD = new DataDocente();
 	}
 	
 	public Alumno Validate(String user,String pass)
@@ -46,5 +48,21 @@ public class Usuario {
 			}
 		}		
 		return AdministradorValidate;
+	}
+	
+
+	public Docente ValidateDocente(String user,String pass)
+	{
+		Docente DocenteValidado = new Docente();
+		ArrayList<Docente> Docentes = DD.getAll();
+		
+		for (Docente D:Docentes) 
+		{
+			if(user.equals(String.valueOf(D.getIdDocente())) && pass.equals(D.getContraseña()))
+			{
+				DocenteValidado = D;
+			}
+		}		
+		return DocenteValidado;
 	}
 }

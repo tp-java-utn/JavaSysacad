@@ -8,18 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Data.DataAlumno;
+import Data.DataDocente;
+import Data.DataMesa;
+import Entidades.Docente;
+import Entidades.Materia;
+import Entidades.Mesa;
+import Entidades.Persona.EstadosPersona;
 
 /**
  * Servlet implementation class MainPageAdm
  */
-@WebServlet("/MainPageAdm")
-public class MainPageAdm extends HttpServlet {
+@WebServlet("/MainPageAdmMesas")
+public class MainPageAdmMesas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageAdm() {
+    public MainPageAdmMesas() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,34 +35,28 @@ public class MainPageAdm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		String action = request.getParameter("action");
 		
-		if(action.equalsIgnoreCase("Alumnos"))
+		if(action.equalsIgnoreCase("Eliminar"))
 		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmAlumno.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Docentes"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmDocentes.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Eliminados"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmEliminados.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Materias"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMaterias.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Comisiones"))
-		{
-			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmComisiones.jsp").forward(request, response);
-		}
-		else if(action.equalsIgnoreCase("Mesas"))
-		{
+			DataMesa DM = new DataMesa();
+			int idMesa = Integer.valueOf(request.getParameter("idMesa"));
+			DM.delete(idMesa);
 			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMesas.jsp").forward(request, response);
 		}
-		
-		
+		else if(action.equalsIgnoreCase("Editar"))
+		{
+			DataMesa DM = new DataMesa();
+			int idMesa = Integer.valueOf(request.getParameter("idMesa"));
+			Mesa M = DM.getOne(idMesa);
+			request.getSession().setAttribute("Mesa",M);
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMesasEdit.jsp").forward(request, response);
+		}
+		else if(action.equalsIgnoreCase("Add"))
+		{
+			request.getRequestDispatcher("WEB-INF/ADM/MainPageAdmMesasAdd.jsp").forward(request, response);
+		}
 	}
 
 	/**
