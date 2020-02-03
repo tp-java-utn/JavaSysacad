@@ -18,7 +18,7 @@
     <form class = "form-signin" action="HeaderDocente" method="get" style="margin-bottom: 0px;">	
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" >
 		
-		<a class="navbar-brand" href="HeaderADM?action=Main" >
+		<a class="navbar-brand" href="#" >
 			<img class="d-inline-block align-top" src="pngs/loginDocente.png" height="30" width="30" alt="">
 			UTN sysacad
 		</a>
@@ -51,7 +51,7 @@
 			<div class="input-group">
 				<ul class="navbar-nav ml-auto small">
 					<li class="nav-item active">
-				      <a href="LoginDocentes.jsp" class="nav-link" type = "submit"><Strong>Iniciar sesion</Strong></a>
+				      <a href="LoginDocente.jsp" class="nav-link" type = "submit"><Strong>Iniciar sesion</Strong></a>
 				    </li>
 				</ul>
 			</div>

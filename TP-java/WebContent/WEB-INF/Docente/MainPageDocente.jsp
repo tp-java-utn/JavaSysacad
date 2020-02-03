@@ -53,6 +53,7 @@
 
 	<!-- Entidades -->
     <% 
+    	DataDocente DD = new DataDocente();
     	Docente D= (Docente)session.getAttribute("Docente");
     
     	DataMateria DM = new DataMateria();	
@@ -60,6 +61,8 @@
     	
     	DataComision DC = new DataComision();
     	ArrayList<Comision> Comisiones = DC.getAll();
+    	
+    	boolean docenteTieneMaterias = false;
     %>
 
 </head>
@@ -68,34 +71,58 @@
 
 <body>
 	<div id="header"></div>
-
-	<div role="main" class="container">
-		<%for(Materia M:Materias){ %>
-			<%if(M.getI) %>
-				<div class="my-3 p-3 bg-white rounded shadow-sm">						    				
-				    <div class="media text-muted pt-3">        					
-				    	
-					    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">				  	
-							
-							<div class="d-flex  align-items-center w-100" >
-							    <h2 class="text-center"><strong class="text-gray-dark"> <%=M.getNombre() %> </strong></h2>	    	 						    
-							</div>
-							
-						  <%for(Comision C:Comisiones){ %>
-						  	<%if(C.getIdDocente() == D.getIdDocente() && C.getIdMateria() == M.getIdMateria()){ %>
-				          		<span class="d-block"><strong>Comision:</strong> <%=C.getIdComision() %></span>
-				          	<%} %>
-				          <%} %>
-		
+	
+	<form name="myForm" action="MainPageDocente" method="get">
+		<div role="main" class="container">
+			<%for(Materia M:Materias){ %>
+				<%if(DD.isDocenteInsideMateria(D.getIdDocente(), M.getIdMateria())){ %>
+				<%docenteTieneMaterias = true; %>
+					<div class="my-3 p-3 bg-white rounded shadow-sm">						    				
+					    <div class="media text-muted pt-3">        					
+					    	
+						    <div class="media-body pb-3 mb-0 small lh-125  border-gray">				  	
+								
+								<div class="d-flex  align-items-center w-100" >
+								    <h2 class="text-center"><strong class="text-gray-dark"> <%=M.getNombre() %> </strong></h2>	    	 						    
+								</div>
+								
+							  <%for(Comision C:Comisiones){ %>
+							  	<%if(C.getIdDocente() == D.getIdDocente() && C.getIdMateria() == M.getIdMateria()){ %>
+							  	<div class="row" style="padding: 1%;padding-left: 17px;">
+							  		<div class="col">
+							  			<span class="d-block" style="margin-top: 7px;"><strong>Comision:</strong> <%=C.getIdComision() %> <%=C.getTurno() %> (<%=C.getCantAlumnos() %>/<%=C.getCantAlumnosMax() %>)</span>						  			
+							  		</div>
+							  		<div class="col">
+							  			<a href="MainPageDocente?action=info&idComision=<%=C.getIdComision() %>&idMateria=<%=C.getIdMateria() %>" type="button" class="btn btn-info" style="float: right"><i class="fas fa-info-circle"></i> Alumnos</a>
+							  		</div>						  		
+							  	</div>	 
+							  	
+							  	<hr style="margin:0px">         		
+					          	<%} %>
+					          <%} %>
 			
-			
+				
+				
+						    </div>
+				
 					    </div>
-			
-				    </div>
-				</div>
-	    <%} %>
+					</div>
+				<%} %>
+		    <%} %>
 		
-	</div>	
-
+			<%if(!docenteTieneMaterias){ %>
+				<div class="my-3 p-3 bg-white rounded shadow-sm">						    				
+				    <div class="media text-muted pt-3">        							    	
+					    <div class="media-body pb-3 mb-0 small lh-125  border-gray">
+					    	<span class="d-block" style="margin-left: 45%;">No hay Materias Disponibles</span>
+					    </div>
+					</div>
+				</div>
+			<%} %>
+			
+		</div>	
+	</form>
+	
+	<div id="footer"></div>
 </body>
 </html>

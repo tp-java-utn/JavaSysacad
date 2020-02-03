@@ -215,12 +215,21 @@ public class DataDocente {
 		}
 	}
 	
-	public boolean docenteIsInMateria(int idDocente,int idMateria) {
+	public boolean isDocenteInsideMateria(int idDocente,int idMateria) {
+		boolean resp = false;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Comisiones C inner join Docentes D on C.idDocente = ?");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from Materias M inner join Comisiones C on C.idMateria = M.idMateria where idDocente = ? and M.idMateria = ? order by M.idMateria");
 			stmt.setInt(1, idDocente);
-			stmt.executeUpdate();
-					
+			stmt.setInt(2, idMateria);
+			rs   = stmt.executeQuery();
+			
+			if(!rs.isBeforeFirst()) {
+				resp =false;
+			}
+			else
+			{
+				resp =true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -232,6 +241,6 @@ public class DataDocente {
 				e.printStackTrace();
 			}
 		}
-
+		return resp;
 	}
 }
